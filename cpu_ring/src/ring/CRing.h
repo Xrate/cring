@@ -6,8 +6,8 @@
 class CRing
 {
 public:
-	static CRing const* getInstance(RingConf config);
-	static CRing const* getInstance();
+	static CRing * getInstance(RingConf config);
+	static CRing * getInstance();
 	void setConf(const RingConf& config);
 private:
 	explicit CRing(const RingConf& config);

@@ -1,13 +1,15 @@
 ﻿#include "CRing.h"
 
-CRing const* CRing::getInstance(RingConf config)
+CRing* CRing::instance = nullptr;
+
+CRing * CRing::getInstance(RingConf config)
 {
 	if (!instance)
 		instance = new CRing(config);
 	return instance;
 }
 
-CRing const* CRing::getInstance()
+CRing * CRing::getInstance()
 {
 	if (instance)
 		return instance;
@@ -21,7 +23,8 @@ void CRing::setConf(const RingConf& config)
 	auto deviceMap = config.getDevicesMap();
 	for (string name : config.getStructure())
 	{
-		devices.push_back(CDevice::createDevice(deviceMap[name]));
+		auto deviceParams = deviceMap.at(name);
+		devices.push_back(CDevice::createDevice(deviceParams));
 	}
 	numDevices = devices.size();
 }

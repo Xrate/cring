@@ -11,7 +11,7 @@ RingConf::RingConf(FileNames fileNames)
 	readStructure(fileNames.structureFile);
 }
 
-const map<string, DeviceParameters*>& RingConf::getDevicesList() const
+const map<string, DeviceParameters*>& RingConf::getDevicesMap() const
 {
 	if (!devices.empty())
 		return devices;
@@ -31,8 +31,12 @@ const vector<string>& RingConf::getStructure() const
 
 void RingConf::readParams(string fileName, DeviceType type)
 {
-	size_t numFields = type == DRIFT ? 4 : 5;
 	ifstream file(fileName);
+	if (!file)
+	{
+		cout << "File " << fileName << " cannot be found" << endl;
+		exit(EXIT_FAILURE);
+	}
 	string line;
 	while (getline(file, line))
 	{
@@ -41,15 +45,38 @@ void RingConf::readParams(string fileName, DeviceType type)
 		istringstream iss(line);
 		vector<string> words{ istream_iterator<string>{iss},
 							  istream_iterator<string>{} };
-		if (words.size() == numFields)
+		switch (type)
 		{
-			string name(words.at(0));
-			double length = atof(words.at(1).c_str());
-			double force = atof(words.at(2).c_str());
-			double appX = atof(words.at(3).c_str());
-			double appY = atof(words.at(4).c_str());
-			auto device = new DeviceParameters(name, type, length, force, appX, appY);
-			devices.insert(pair<string, DeviceParameters*>(name, device));
+		case DIPOLE:
+		case QUADRUPOLE:
+		case SEXTUPOLE: 
+			if (words.size() == 5)
+			{
+				string name(words.at(0));
+				double length = atof(words.at(1).c_str());
+				double force = atof(words.at(2).c_str());
+				double appX = atof(words.at(3).c_str());
+				double appY = atof(words.at(4).c_str());
+				auto device = new DeviceParameters(name, type, length, force, appX, appY);
+				devices.insert(pair<string, DeviceParameters*>(name, device));
+			}
+			break;
+		case DRIFT: 
+			if (words.size() == 4)
+			{
+				string name(words.at(0));
+				double length = atof(words.at(1).c_str());
+				double force = 0.;
+				double appX = atof(words.at(2).c_str());
+				double appY = atof(words.at(3).c_str());
+				auto device = new DeviceParameters(name, type, length, force, appX, appY);
+				devices.insert(pair<string, DeviceParameters*>(name, device));
+			}
+			break;
+		default:
+			cout << "RingConf: enum FileNames error." << endl;
+			exit(EXIT_FAILURE);
+			break;
 		}
 	}
 }
@@ -58,6 +85,6 @@ void RingConf::readStructure(string fileName)
 {
 	ifstream file(fileName);
 	string line;
-	while (getline(file, line) && !line.at(0) == '#')
+	while (getline(file, line) && !(line.at(0) == '#'))
 		structure.push_back(line);
 }

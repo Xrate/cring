@@ -7,21 +7,21 @@
 
 CDevice::CDevice(const string& name_)
 {
-	if (!name_.empty())
+	if (name_.empty())
 	{
-		name = name_;
-		for (size_t i = 0; i < 3; ++i)
-		for (size_t j = 0; j < 3; ++j)
-		{
-			mX_P[i][j] = 0;
-			mY_P[i][j] = 0;
-			mX_T[i][j] = 0;
-			mY_T[i][j] = 0;
-		}
+		cout << "You are trying to create empty CDevice object." << endl
+			<< "Please check your input files." << endl;
+		exit(EXIT_FAILURE);
 	}
-	cout << "You are trying to create empty CDevice object." << endl
-		 << "Please check your input files." << endl;
-	exit(EXIT_FAILURE);
+	name = name_;
+	for (size_t i = 0; i < 3; ++i)
+	for (size_t j = 0; j < 3; ++j)
+	{
+		mX_P[i][j] = 0;
+		mY_P[i][j] = 0;
+		mX_T[i][j] = 0;
+		mY_T[i][j] = 0;
+	}
 }
 
 void CDevice::generateTwissM()
@@ -43,7 +43,7 @@ void CDevice::generateTwissM()
 
 CDevice* CDevice::createDevice(DeviceParameters* params)
 {
-	switch (params->type)
+	switch (params->type())
 	{
 	case DIPOLE: return new CDipole(params);
 	case DRIFT: return new CDrift(params);
