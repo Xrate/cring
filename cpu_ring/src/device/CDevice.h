@@ -1,12 +1,14 @@
 ﻿#ifndef CDEVICE_H
 #define CDEVICE_H
 #include <string>
+#include "DeviceParameters.h"
 
 using namespace std;
 
 class CDevice
 {
 public:
+	static CDevice* createDevice(DeviceParameters* params);
 	explicit CDevice(const string& name_);
 	virtual ~CDevice(){}
 protected:

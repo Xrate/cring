@@ -1,4 +1,8 @@
 ﻿#include "CDevice.h"
+#include "devices/cdipole.h"
+#include "devices/cdrift.h"
+#include "devices/cquadrupole.h"
+#include "devices/csextupole.h"
 #include <iostream>
 
 CDevice::CDevice(const string& name_)
@@ -35,4 +39,18 @@ void CDevice::generateTwissM()
 	mY_T[0][0] = +1 * C *C;   mY_T[0][1] = -2 * C *S;    mY_T[0][2] = +1 * S *S;
 	mY_T[1][0] = -1 * C *C_;  mY_T[1][1] = C*S_ + C_*S;  mY_T[1][2] = -1 * S *S_;
 	mY_T[2][0] = +1 * C_*C_;  mY_T[2][1] = -2 * C_*S_;   mY_T[2][2] = +1 * S_*S_;
+}
+
+CDevice* CDevice::createDevice(DeviceParameters* params)
+{
+	switch (params->type)
+	{
+	case DIPOLE: return new CDipole(params);
+	case DRIFT: return new CDrift(params);
+	case QUADRUPOLE: return new CQuadrupole(params);
+	case SEXTUPOLE: return new CSextupole(params);
+	}
+	cout << "DeviceFactory: enum FileNames error." << endl;
+	exit(EXIT_FAILURE);
+	return new CDrift(params);
 }
