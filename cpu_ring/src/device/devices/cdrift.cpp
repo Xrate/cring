@@ -1,12 +1,12 @@
 #include "cdrift.h"
 
-CDrift::CDrift(const DeviceParameters& params)
-: CDevice(params.name())
+CDrift::CDrift(const DeviceParameters* params)
+: CDevice(params->name())
 {
-	length = params.length();
-	appertureX = params.appertureX();
-	appertureY = params.appertureY();
-	nSteps = params.nSteps();
+	length = params->length();
+	appertureX = params->appertureX();
+	appertureY = params->appertureY();
+	nSteps = params->nSteps();
 	step = length / nSteps;
 
 	CDrift::initMatrices();
