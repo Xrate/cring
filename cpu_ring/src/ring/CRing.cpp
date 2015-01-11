@@ -18,7 +18,12 @@ CRing const* CRing::getInstance()
 
 void CRing::setConf(const RingConf& config)
 {
-
+	auto deviceMap = config.getDevicesMap();
+	for (string name : config.getStructure())
+	{
+		devices.push_back(CDevice::createDevice(deviceMap[name]));
+	}
+	numDevices = devices.size();
 }
 
 CRing::CRing(const RingConf& config)

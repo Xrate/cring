@@ -35,7 +35,7 @@ class RingConf
 {
 public:
 	explicit RingConf(FileNames fileNames);
-	const map<string, DeviceParameters*>& getDevicesList() const;
+	const map<string, DeviceParameters*>& getDevicesMap() const;
 	const vector<string>& getStructure() const;
 private:
 	void readParams(string fileName, DeviceType type);
