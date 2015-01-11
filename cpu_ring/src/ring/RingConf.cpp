@@ -11,7 +11,7 @@ RingConf::RingConf(FileNames fileNames)
 	readStructure(fileNames.structureFile);
 }
 
-const map<string, DeviceParameters>& RingConf::getDevicesList() const
+const map<string, DeviceParameters*>& RingConf::getDevicesList() const
 {
 	if (!devices.empty())
 		return devices;
@@ -36,6 +36,8 @@ void RingConf::readParams(string fileName, DeviceType type)
 	string line;
 	while (getline(file, line))
 	{
+		if (line.at(0) == '#')
+			continue;
 		istringstream iss(line);
 		vector<string> words{ istream_iterator<string>{iss},
 							  istream_iterator<string>{} };
@@ -46,8 +48,8 @@ void RingConf::readParams(string fileName, DeviceType type)
 			double force = atof(words.at(2).c_str());
 			double appX = atof(words.at(3).c_str());
 			double appY = atof(words.at(4).c_str());
-			auto device = DeviceParameters(name, type, length, force, appX, appY);
-			devices.insert(pair<string, DeviceParameters>(name, device));
+			auto device = new DeviceParameters(name, type, length, force, appX, appY);
+			devices.insert(pair<string, DeviceParameters*>(name, device));
 		}
 	}
 }
@@ -56,10 +58,6 @@ void RingConf::readStructure(string fileName)
 {
 	ifstream file(fileName);
 	string line;
-	while (getline(file, line))
-	{
-		istringstream iss(line);
-		vector<string> structure{ istream_iterator<string>{iss},
-			istream_iterator<string>{} };
-	}
+	while (getline(file, line) && !line.at(0) == '#')
+		structure.push_back(line);
 }

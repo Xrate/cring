@@ -1,7 +1,7 @@
 #include "csextupole.h"
 
-CSextupole::CSextupole(const string& name, const DeviceParameters& params)
-    : CDevice(name)
+CSextupole::CSextupole(const DeviceParameters& params)
+: CDevice(params.name())
 {
 	length = params.length();
 	appertureX = params.appertureX();

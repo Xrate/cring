@@ -1,7 +1,7 @@
 #include "cquadrupole.h"
 
-CQuadrupole::CQuadrupole(const string& name, const DeviceParameters& params)
-: CDevice(name)
+CQuadrupole::CQuadrupole(const DeviceParameters& params)
+: CDevice(params.name())
 {
 	length = params.length();
 	force = params.force();

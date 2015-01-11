@@ -7,7 +7,7 @@
 class CDrift : public CDevice
 {
 public:
-    CDrift(const string& name, const DeviceParameters& params);
+	explicit CDrift(const DeviceParameters& params);
     virtual void initMatrices() override;
 };
 

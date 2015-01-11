@@ -35,12 +35,12 @@ class RingConf
 {
 public:
 	explicit RingConf(FileNames fileNames);
-	const map<string, DeviceParameters>& getDevicesList() const;
+	const map<string, DeviceParameters*>& getDevicesList() const;
 	const vector<string>& getStructure() const;
 private:
 	void readParams(string fileName, DeviceType type);
 	void readStructure(string fileName);
-	map<string, DeviceParameters> devices;
+	map<string, DeviceParameters*> devices;
 	vector<string> structure;
 };
 #endif // RINGCONF_H

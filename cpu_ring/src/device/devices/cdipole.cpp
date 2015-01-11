@@ -1,8 +1,8 @@
 #include "cdipole.h"
 #include <cmath>
 
-CDipole::CDipole(const string& name, const DeviceParameters& params)
-    : CDevice(name)
+CDipole::CDipole(const DeviceParameters& params)
+    : CDevice(params.name())
 {
 	length = params.length();
 	angle  = params.force();

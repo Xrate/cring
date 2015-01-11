@@ -1,7 +1,7 @@
 #include "cdrift.h"
 
-CDrift::CDrift(const string& name, const DeviceParameters& params)
-    : CDevice(name)
+CDrift::CDrift(const DeviceParameters& params)
+: CDevice(params.name())
 {
 	length = params.length();
 	appertureX = params.appertureX();
