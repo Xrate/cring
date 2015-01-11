@@ -1,9 +1,10 @@
 ﻿#ifndef RINGCONF_H
 #define RINGCONF_H
+#include "../device/DeviceParameters.h"
 #include <string>
 #include <vector>
 #include <map>
-#include "../device/DeviceParameters.h"
+#include <iostream>
 
 using namespace std;
 
@@ -23,8 +24,9 @@ struct FileNames
 		case DRIFT: return driftFile;
 		case QUADRUPOLE: return quadrupoleFile;
 		case SEXTUPOLE: return sextupoleFile;
-		default: exit(EXIT_FAILURE);
 		}
+		cout << "RingConf: enum FileNames error." << endl;
+		exit(EXIT_FAILURE);
 		return string();
 	}
 };
@@ -33,6 +35,8 @@ class RingConf
 {
 public:
 	explicit RingConf(FileNames fileNames);
+	const map<string, DeviceParameters>& getDevicesList() const;
+	const vector<string>& getStructure() const;
 private:
 	void readParams(string fileName, DeviceType type);
 	void readStructure(string fileName);

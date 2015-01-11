@@ -11,6 +11,24 @@ RingConf::RingConf(FileNames fileNames)
 	readStructure(fileNames.structureFile);
 }
 
+const map<string, DeviceParameters>& RingConf::getDevicesList() const
+{
+	if (!devices.empty())
+		return devices;
+	cout << "RingConf: Try use devices var without init" << endl;
+	exit(EXIT_FAILURE);
+	return devices;
+}
+
+const vector<string>& RingConf::getStructure() const
+{
+	if (!structure.empty())
+		return structure;
+	cout << "RingConf: Try use structure var without init" << endl;
+	exit(EXIT_FAILURE);
+	return structure;
+}
+
 void RingConf::readParams(string fileName, DeviceType type)
 {
 	size_t numFields = type == DRIFT ? 4 : 5;
@@ -21,7 +39,7 @@ void RingConf::readParams(string fileName, DeviceType type)
 		istringstream iss(line);
 		vector<string> words{ istream_iterator<string>{iss},
 							  istream_iterator<string>{} };
-		if (words.size() == 5)
+		if (words.size() == numFields)
 		{
 			string name(words.at(0));
 			double length = atof(words.at(1).c_str());

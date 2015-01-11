@@ -75,7 +75,13 @@
   <ItemGroup>
     <ClCompile Include="src\beam\BeamParameters.cpp" />
     <ClCompile Include="src\beam\CBeam.cpp" />
+    <ClCompile Include="src\device\CDevice.cpp" />
     <ClCompile Include="src\device\DeviceParameters.cpp" />
+    <ClCompile Include="src\device\DevicesFactory.cpp" />
+    <ClCompile Include="src\device\devices\cdipole.cpp" />
+    <ClCompile Include="src\device\devices\cdrift.cpp" />
+    <ClCompile Include="src\device\devices\cquadrupole.cpp" />
+    <ClCompile Include="src\device\devices\csextupole.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\beam\TwissParameters.cpp" />
     <ClCompile Include="src\ring\CRing.cpp" />
@@ -85,7 +91,13 @@
     <ClInclude Include="src\beam\BeamParameters.h" />
     <ClInclude Include="src\beam\CBeam.h" />
     <ClInclude Include="src\beam\TwissParameters.h" />
+    <ClInclude Include="src\device\CDevice.h" />
     <ClInclude Include="src\device\DeviceParameters.h" />
+    <ClInclude Include="src\device\DevicesFactory.h" />
+    <ClInclude Include="src\device\devices\cdipole.h" />
+    <ClInclude Include="src\device\devices\cdrift.h" />
+    <ClInclude Include="src\device\devices\cquadrupole.h" />
+    <ClInclude Include="src\device\devices\csextupole.h" />
     <ClInclude Include="src\ring\CRing.h" />
     <ClInclude Include="src\ring\RingConf.h" />
   </ItemGroup>

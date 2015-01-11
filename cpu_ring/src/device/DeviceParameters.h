@@ -23,6 +23,8 @@ public:
 	double force() const;
 	double appertureX() const;
 	double appertureY() const;
+	size_t nSteps() const;
+
 private:
 	std::string name_;
 	DeviceType type_;
@@ -30,6 +32,7 @@ private:
 	double force_;
 	double appertureX_;
 	double appertureY_;
+	size_t nSteps_;
 };
 
 #endif // DEVICEPARAMETERS_H

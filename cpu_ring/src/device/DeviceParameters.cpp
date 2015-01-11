@@ -37,3 +37,8 @@ double DeviceParameters::appertureY() const
 {
 	return appertureY_;
 }
+
+size_t DeviceParameters::nSteps() const
+{
+	return nSteps_;
+}
