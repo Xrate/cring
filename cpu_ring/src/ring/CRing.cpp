@@ -29,6 +29,19 @@ void CRing::setConf(const RingConf& config)
 	numDevices = devices.size();
 }
 
+const vector<CDevice*>& CRing::getDevices() const
+{
+	return devices;
+}
+
+void CRing::affectBeam(CBeam* beam)
+{
+	for (CDevice* device : devices)
+	{
+		device->affectBeam(beam);
+	}
+}
+
 CRing::CRing(const RingConf& config)
 {
 	setConf(config);

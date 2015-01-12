@@ -1,6 +1,6 @@
 ﻿#ifndef DEVICEPARAMETERS_H
 #define DEVICEPARAMETERS_H
-#include <string>
+#include "../global.h"
 
 enum DeviceType
 {

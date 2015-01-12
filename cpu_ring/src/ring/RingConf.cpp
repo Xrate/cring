@@ -59,8 +59,8 @@ void RingConf::readParams(string fileName, DeviceType type)
 				double appY = atof(words.at(4).c_str());
 				auto device = new DeviceParameters(name, type, length, force, appX, appY);
 				devices.insert(pair<string, DeviceParameters*>(name, device));
+				break;
 			}
-			break;
 		case DRIFT: 
 			if (words.size() == 4)
 			{
@@ -71,10 +71,10 @@ void RingConf::readParams(string fileName, DeviceType type)
 				double appY = atof(words.at(3).c_str());
 				auto device = new DeviceParameters(name, type, length, force, appX, appY);
 				devices.insert(pair<string, DeviceParameters*>(name, device));
+				break;
 			}
-			break;
 		default:
-			cout << "RingConf: enum FileNames error." << endl;
+			cout << "RingConf: switch error." << endl;
 			exit(EXIT_FAILURE);
 			break;
 		}

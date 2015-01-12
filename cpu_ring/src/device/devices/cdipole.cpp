@@ -1,5 +1,4 @@
 #include "cdipole.h"
-#include <cmath>
 
 CDipole::CDipole(const DeviceParameters* params)
     : CDevice(params->name())

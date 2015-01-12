@@ -1,7 +1,6 @@
-#include "iostream"
+#include "global.h"
 #include "ring/CRing.h"
 #include "ring/RingConf.h"
-using namespace std;
 
 int main(int argc, char *argv[])
 {

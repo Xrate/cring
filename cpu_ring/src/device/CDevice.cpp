@@ -3,7 +3,6 @@
 #include "devices/cdrift.h"
 #include "devices/cquadrupole.h"
 #include "devices/csextupole.h"
-#include <iostream>
 
 CDevice::CDevice(const string& name_)
 {
@@ -21,6 +20,33 @@ CDevice::CDevice(const string& name_)
 		mY_P[i][j] = 0;
 		mX_T[i][j] = 0;
 		mY_T[i][j] = 0;
+	}
+}
+
+void CDevice::affectBeam(CBeam* beam)
+{
+	for (size_t iS = 0; iS < nSteps; ++iS)
+	{
+		#pragma omp parallel for
+		for (size_t iP = 0; iP < beam->numParticles; ++iP)
+		{
+			{
+				auto particle = beam->particles_.at(iP);
+				if (!particle.isAlive)
+					continue;
+				beam->particles_[iP].X =
+					mX_P[0][0] * particle.X +
+					mX_P[1][0] * particle.aX +
+					mX_P[2][0] * particle.dp;
+				beam->particles_[iP].Y =
+					mY_P[0][0] * particle.Y +
+					mY_P[1][0] * particle.aY +
+					mY_P[2][0] * particle.dp;
+				bool isXY = pow2(beam->particles_[iP].X / appertureX)
+					+ pow2(beam->particles_[iP].Y / appertureY) <= 1.;
+			}
+		}
+
 	}
 }
 

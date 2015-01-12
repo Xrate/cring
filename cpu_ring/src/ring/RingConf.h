@@ -1,12 +1,8 @@
 ﻿#ifndef RINGCONF_H
 #define RINGCONF_H
+#include "../global.h"
 #include "../device/DeviceParameters.h"
-#include <string>
-#include <vector>
 #include <map>
-#include <iostream>
-
-using namespace std;
 
 struct FileNames
 {

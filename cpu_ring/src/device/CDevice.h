@@ -1,9 +1,8 @@
 ﻿#ifndef CDEVICE_H
 #define CDEVICE_H
-#include <string>
+#include "../global.h"
 #include "DeviceParameters.h"
-
-using namespace std;
+#include "../beam/CBeam.h"
 
 class CDevice
 {
@@ -11,6 +10,7 @@ public:
 	static CDevice* createDevice(DeviceParameters* params);
 	explicit CDevice(const string& name_);
 	virtual ~CDevice(){}
+	void affectBeam(CBeam* beam);
 protected:
 	void generateTwissM();
 	virtual void initMatrices() = 0;
