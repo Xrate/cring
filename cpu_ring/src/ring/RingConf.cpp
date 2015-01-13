@@ -85,6 +85,7 @@ void RingConf::readStructure(string fileName)
 {
 	ifstream file(fileName);
 	string line;
-	while (getline(file, line) && !(line.at(0) == '#'))
+	while (getline(file, line))
+	if (!(line.at(0) == '#'))
 		structure.push_back(line);
 }

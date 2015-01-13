@@ -36,17 +36,30 @@ void CDevice::affectBeam(CBeam* beam)
 					continue;
 				beam->particles_[iP].X =
 					mX_P[0][0] * particle.X +
-					mX_P[1][0] * particle.aX +
-					mX_P[2][0] * particle.dp;
+					mX_P[0][1] * particle.aX +
+					mX_P[0][2] * particle.dp;
+				beam->particles_[iP].aX =
+					mX_P[1][0] * particle.X +
+					mX_P[1][1] * particle.aX +
+					mX_P[1][2] * particle.dp;
 				beam->particles_[iP].Y =
 					mY_P[0][0] * particle.Y +
-					mY_P[1][0] * particle.aY +
-					mY_P[2][0] * particle.dp;
-				bool isXY = pow2(beam->particles_[iP].X / appertureX)
-					+ pow2(beam->particles_[iP].Y / appertureY) <= 1.;
+					mY_P[0][1] * particle.aY +
+					mY_P[0][2] * particle.dp;
+				beam->particles_[iP].aY =
+					mY_P[1][0] * particle.X +
+					mY_P[1][1] * particle.aX +
+					mY_P[1][2] * particle.dp;
+				beam->particles_[iP].isAlive = 
+						  pow2(beam->particles_[iP].X / appertureX)
+						+ pow2(beam->particles_[iP].Y / appertureY) <= 1.;
 			}
 		}
-
+		auto params = beam->parameters_;
+		beam->parameters_.twissX.bet =
+			mX_T[0][0] * params.twissX.bet +
+			mX_T[0][1] * params.twissX.alf +
+			mX_T[0][2] * params.twissX.gam;
 	}
 }
 

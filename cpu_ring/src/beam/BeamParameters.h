@@ -4,25 +4,17 @@
 
 enum DistType { UNIFORM, GAUSSIAN };
 
-class BeamParameters
-{
-public:
-	BeamParameters(TwissParameters twiss_x, TwissParameters twiss_y, 
-				   size_t num_particles, DistType dist_type, 
-				   double momentum, double momentum_spread);
+struct BeamParameters {
+	BeamParameters(TwissParameters twiss_x,
+	TwissParameters twiss_y,
+	size_t num_particles, DistType dist_type,
+	double momentum, double momentum_spread);
 
-	const TwissParameters& twissX() const;
-	const TwissParameters& twissY() const;
-	size_t numParticles() const;
-	DistType distType() const;
-	double momentum() const;
-	double momentumSpread() const;
-private:
-	TwissParameters twissX_;
-	TwissParameters twissY_;
-	size_t numParticles_;
-	DistType distType_;
-	double momentum_;
-	double momentumSpread_;
+	TwissParameters twissX;
+	TwissParameters twissY;
+	size_t numParticles;
+	DistType distType;
+	double momentum;
+	double momentumSpread;
 };
 #endif // BEAMPARAMETERS_H
