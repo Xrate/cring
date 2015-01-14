@@ -15,18 +15,14 @@ const map<string, DeviceParameters*>& RingConf::getDevicesMap() const
 {
 	if (!devices.empty())
 		return devices;
-	cout << "RingConf: Try use devices var without init" << endl;
-	exit(EXIT_FAILURE);
-	return devices;
+	throw exception("Try to get empty devices map");
 }
 
 const vector<string>& RingConf::getStructure() const
 {
 	if (!structure.empty())
 		return structure;
-	cout << "RingConf: Try use structure var without init" << endl;
-	exit(EXIT_FAILURE);
-	return structure;
+	throw exception("RingConf: Try use structure var without init");
 }
 
 void RingConf::readParams(string fileName, DeviceType type)
@@ -34,8 +30,7 @@ void RingConf::readParams(string fileName, DeviceType type)
 	ifstream file(fileName);
 	if (!file)
 	{
-		cout << "File " << fileName << " cannot be found" << endl;
-		exit(EXIT_FAILURE);
+		throw exception(("File " + fileName + " cannot be found").c_str());
 	}
 	string line;
 	while (getline(file, line))
@@ -74,9 +69,7 @@ void RingConf::readParams(string fileName, DeviceType type)
 				break;
 			}
 		default:
-			cout << "RingConf: switch error." << endl;
-			exit(EXIT_FAILURE);
-			break;
+			throw exception("RingConf FileNames error");
 		}
 	}
 }

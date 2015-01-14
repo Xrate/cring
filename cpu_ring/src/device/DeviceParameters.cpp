@@ -1,44 +1,9 @@
 ﻿#include "DeviceParameters.h"
 
-DeviceParameters::DeviceParameters(std::string name, DeviceType type, 
-								  double length, double force, 
+DeviceParameters::DeviceParameters(string name_, DeviceType type_, 
+								  double length_, double force_, 
 								  double apperture_x, double apperture_y): 
-name_(name), type_(type), length_(length), force_(force), 
-appertureX_(apperture_x), appertureY_(apperture_y)
+name(name_), type(type_), length(length_), force(force_), 
+appertureX(apperture_x), appertureY(apperture_y)
 {
-}
-
-std::string DeviceParameters::name() const
-{
-	return name_;
-}
-
-DeviceType DeviceParameters::type() const
-{
-	return type_;
-}
-
-double DeviceParameters::length() const
-{
-	return length_;
-}
-
-double DeviceParameters::force() const
-{
-	return force_;
-}
-
-double DeviceParameters::appertureX() const
-{
-	return appertureX_;
-}
-
-double DeviceParameters::appertureY() const
-{
-	return appertureY_;
-}
-
-size_t DeviceParameters::nSteps() const
-{
-	return nSteps_;
 }

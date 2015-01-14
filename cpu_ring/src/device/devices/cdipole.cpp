@@ -1,13 +1,13 @@
 #include "cdipole.h"
 
 CDipole::CDipole(const DeviceParameters* params)
-    : CDevice(params->name())
+    : CDevice(params->name)
 {
-	length = params->length();
-	angle  = params->force();
-    appertureX = params->appertureX();
-	appertureY = params->appertureY();
-	nSteps = params->nSteps();
+	length = params->length;
+	angle  = params->force;
+    appertureX = params->appertureX;
+	appertureY = params->appertureY;
+	nSteps = params->nSteps;
     step = length / nSteps;
 
 	CDipole::initMatrices();

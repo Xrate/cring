@@ -21,9 +21,7 @@ struct FileNames
 		case QUADRUPOLE: return quadrupoleFile;
 		case SEXTUPOLE: return sextupoleFile;
 		}
-		cout << "RingConf: enum FileNames error." << endl;
-		exit(EXIT_FAILURE);
-		return string();
+		throw exception("RingConf: enum FileNames error.");
 	}
 };
 

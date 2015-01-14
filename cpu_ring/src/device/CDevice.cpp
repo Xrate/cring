@@ -7,11 +7,7 @@
 CDevice::CDevice(const string& name_)
 {
 	if (name_.empty())
-	{
-		cout << "You are trying to create empty CDevice object." << endl
-			<< "Please check your input files." << endl;
-		exit(EXIT_FAILURE);
-	}
+		throw exception("Trying to create empty CDevice object.");
 	name = name_;
 	for (size_t i = 0; i < 3; ++i)
 	for (size_t j = 0; j < 3; ++j)
@@ -82,14 +78,12 @@ void CDevice::generateTwissM()
 
 CDevice* CDevice::createDevice(DeviceParameters* params)
 {
-	switch (params->type())
+	switch (params->type)
 	{
 	case DIPOLE: return new CDipole(params);
 	case DRIFT: return new CDrift(params);
 	case QUADRUPOLE: return new CQuadrupole(params);
 	case SEXTUPOLE: return new CSextupole(params);
 	}
-	cout << "DeviceFactory: enum FileNames error." << endl;
-	exit(EXIT_FAILURE);
-	return new CDrift(params);
+	throw exception("DeviceFactory: enum FileNames error.");
 }

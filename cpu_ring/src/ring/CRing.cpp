@@ -13,9 +13,7 @@ CRing * CRing::getInstance()
 {
 	if (instance)
 		return instance;
-	cout << "CRing: Try to access null CRing" << endl;
-	exit(EXIT_FAILURE);
-	return instance;
+	throw exception("CRing: Try to access null CRing");
 }
 
 void CRing::setConf(const RingConf& config)
