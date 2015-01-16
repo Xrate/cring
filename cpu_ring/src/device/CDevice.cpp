@@ -12,10 +12,10 @@ CDevice::CDevice(const string& name_)
 	for (size_t i = 0; i < 3; ++i)
 	for (size_t j = 0; j < 3; ++j)
 	{
-		mX_P[i][j] = 0;
-		mY_P[i][j] = 0;
-		mX_T[i][j] = 0;
-		mY_T[i][j] = 0;
+		mX_P[i][j] = 0.;
+		mY_P[i][j] = 0.;
+		mX_T[i][j] = 0.;
+		mY_T[i][j] = 0.;
 	}
 }
 
@@ -24,7 +24,7 @@ void CDevice::affectBeam(CBeam* beam)
 	for (size_t iS = 0; iS < nSteps; ++iS)
 	{
 		#pragma omp parallel for
-		for (size_t iP = 0; iP < beam->numParticles; ++iP)
+		for (int iP = 0; iP < beam->numParticles; ++iP)
 		{
 			auto p = beam->particles_.at(iP);
 			if (!p.isAlive)
@@ -36,7 +36,7 @@ void CDevice::affectBeam(CBeam* beam)
 			beam->particles_[iP].Y = 
 				mY_P[0][0] * p.Y + mY_P[0][1] * p.aY + mY_P[0][2] * p.dp;
 			beam->particles_[iP].aY =
-				mY_P[1][0] * p.X + mY_P[1][1] * p.aX + mY_P[1][2] * p.dp;
+				mY_P[1][0] * p.Y + mY_P[1][1] * p.aY + mY_P[1][2] * p.dp;
 			beam->particles_[iP].isAlive = 
 					pow2(beam->particles_[iP].X / appertureX)
 				  + pow2(beam->particles_[iP].Y / appertureY) <= 1.;

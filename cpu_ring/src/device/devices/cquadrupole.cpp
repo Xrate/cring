@@ -1,4 +1,5 @@
 #include "cquadrupole.h"
+#include <cmath>
 
 CQuadrupole::CQuadrupole(const DeviceParameters* params)
 : CDevice(params->name)
@@ -27,7 +28,7 @@ void CQuadrupole::initMatrices()
 	mY_P[1][0] = sinh(fi)*sq_k; mY_P[1][1] = cosh(fi);      mY_P[1][2] = 0.;
 	mY_P[2][0] = 0.;            mY_P[2][1] = 0.;            mY_P[2][2] = 1.;
 
-	if (force > 0)
+	if (force < 0)
 		swap(mX_P, mY_P);
 
     generateTwissM();

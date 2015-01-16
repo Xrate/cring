@@ -9,7 +9,7 @@ particles_(parameters.numParticles)
 
 void CBeam::createUniformParticles()
 {
-#pragma omp parallel for
+//#pragma omp parallel for
 	for (unsigned iParticle = 0; iParticle < parameters_.numParticles; ++iParticle)
 	{
 		double X = 0, Y = 0, aX = 0, aY = 0, dP = 0;

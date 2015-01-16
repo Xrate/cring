@@ -45,7 +45,7 @@
     <ClCompile Include="src\ring\CRing.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\ring\RingConf.cpp">
+    <ClCompile Include="src\ring\RingConfig.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -77,10 +77,10 @@
     <ClInclude Include="src\ring\CRing.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\ring\RingConf.h">
+    <ClInclude Include="src\global.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\global.h">
+    <ClInclude Include="src\ring\RingConfig.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

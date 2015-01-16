@@ -32,11 +32,14 @@ const vector<CDevice*>& CRing::getDevices() const
 	return devices;
 }
 
-void CRing::affectBeam(CBeam* beam)
+void CRing::affectBeam(CBeam* beam, size_t nTurns)
 {
-	for (CDevice* device : devices)
+	for (int iT = 0; iT < nTurns; ++iT)
 	{
-		device->affectBeam(beam);
+		for (CDevice* device : devices)
+		{
+			device->affectBeam(beam);
+		}
 	}
 }
 

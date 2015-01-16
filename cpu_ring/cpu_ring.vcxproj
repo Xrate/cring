@@ -66,6 +66,7 @@
       <SDLCheck>true</SDLCheck>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <OpenMPSupport>true</OpenMPSupport>
+      <WholeProgramOptimization>true</WholeProgramOptimization>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -84,7 +85,7 @@
     <ClCompile Include="src\device\devices\csextupole.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\ring\CRing.cpp" />
-    <ClCompile Include="src\ring\RingConf.cpp" />
+    <ClCompile Include="src\ring\RingConfig.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\beam\BeamParameters.h" />
@@ -97,7 +98,7 @@
     <ClInclude Include="src\device\devices\csextupole.h" />
     <ClInclude Include="src\global.h" />
     <ClInclude Include="src\ring\CRing.h" />
-    <ClInclude Include="src\ring\RingConf.h" />
+    <ClInclude Include="src\ring\RingConfig.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

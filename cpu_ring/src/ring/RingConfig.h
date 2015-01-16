@@ -1,5 +1,5 @@
-﻿#ifndef RINGCONF_H
-#define RINGCONF_H
+﻿#ifndef RINGCONFIG_H
+#define RINGCONFIG_H
 #include "../global.h"
 #include "../device/DeviceParameters.h"
 #include <map>
@@ -38,4 +38,4 @@ private:
 	map<string, DeviceParameters*> devices;
 	vector<string> structure;
 };
-#endif // RINGCONF_H
+#endif // RINGCONFIG_H

@@ -1,4 +1,4 @@
-﻿#include "RingConf.h"
+﻿#include "RingConfig.h"
 #include <fstream>
 #include <sstream>
 
