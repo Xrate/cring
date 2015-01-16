@@ -6,7 +6,7 @@ CSextupole::CSextupole(const DeviceParameters* params)
 	length = params->length;
 	appertureX = params->appertureX;
 	appertureY = params->appertureY;
-	nSteps = params->nSteps;
+	nSteps = size_t(params->type);
 	step = length / nSteps;
 
 	CSextupole::initMatrices();

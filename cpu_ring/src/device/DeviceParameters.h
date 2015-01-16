@@ -2,12 +2,12 @@
 #define DEVICEPARAMETERS_H
 #include "../global.h"
 
-enum DeviceType
+enum DeviceType // Number is nSteps for device (cannot be the same!)
 {
-	DIPOLE,
-	DRIFT,
-	QUADRUPOLE,
-	SEXTUPOLE
+	DIPOLE = 15,
+	DRIFT = 2,
+	QUADRUPOLE = 7,
+	SEXTUPOLE = 3
 };
 
 struct DeviceParameters
@@ -21,7 +21,6 @@ struct DeviceParameters
 	double force;
 	double appertureX;
 	double appertureY;
-	size_t nSteps;
 };
 
 #endif // DEVICEPARAMETERS_H

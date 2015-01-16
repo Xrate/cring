@@ -33,7 +33,7 @@ public:
 	const vector<string>& getStructure() const;
 private:
 	explicit RingConfig(FileNames fileNames);
-	void readParams(string fileName, DeviceType type);
+	void readParams(FileNames fileNames, DeviceType type);
 	void readStructure(string fileName);
 	map<string, DeviceParameters*> devices;
 	vector<string> structure;

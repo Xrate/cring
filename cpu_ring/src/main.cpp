@@ -12,6 +12,7 @@ int main(int argc, char *argv[])
 	names.structureFile = string("data/structure.in");
 	string ellipseFile = string("data/ellipse.in");
 	auto ring = CRing::getInstance(RingConfig::getRingConfig(names));
-	auto beam = CBeam(BeamParameters::readBeamParameters(ellipseFile));
+	auto beam = new CBeam(BeamParameters::readBeamParameters(ellipseFile));
+	ring->affectBeam(beam);
 	return 0;
 }

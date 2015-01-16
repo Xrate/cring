@@ -6,7 +6,7 @@ CDrift::CDrift(const DeviceParameters* params)
 	length = params->length;
 	appertureX = params->appertureX;
 	appertureY = params->appertureY;
-	nSteps = params->nSteps;
+	nSteps = size_t(params->type);
 	step = length / nSteps;
 
 	CDrift::initMatrices();

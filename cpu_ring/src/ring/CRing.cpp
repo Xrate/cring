@@ -2,7 +2,7 @@
 
 CRing* CRing::instance = nullptr;
 
-CRing * CRing::getInstance(RingConfig config)
+CRing* CRing::getInstance(RingConfig config)
 {
 	if (!instance)
 		instance = new CRing(config);

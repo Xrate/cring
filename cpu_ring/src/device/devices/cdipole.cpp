@@ -7,7 +7,7 @@ CDipole::CDipole(const DeviceParameters* params)
 	angle  = params->force;
     appertureX = params->appertureX;
 	appertureY = params->appertureY;
-	nSteps = params->nSteps;
+	nSteps = size_t(params->type);
     step = length / nSteps;
 
 	CDipole::initMatrices();

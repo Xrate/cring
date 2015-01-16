@@ -4,10 +4,10 @@
 
 RingConfig::RingConfig(FileNames fileNames)
 {
-	readParams(fileNames.fileName(DIPOLE), DIPOLE);
-	readParams(fileNames.fileName(DRIFT), DRIFT);
-	readParams(fileNames.fileName(QUADRUPOLE), QUADRUPOLE);
-	readParams(fileNames.fileName(SEXTUPOLE), SEXTUPOLE);
+	readParams(fileNames, DIPOLE);
+	readParams(fileNames, DRIFT);
+	readParams(fileNames, QUADRUPOLE);
+	readParams(fileNames, SEXTUPOLE);
 	readStructure(fileNames.structureFile);
 }
 
@@ -30,9 +30,10 @@ const vector<string>& RingConfig::getStructure() const
 	throw exception("RingConf: Try use structure var without init");
 }
 
-void RingConfig::readParams(string fileName, DeviceType type)
+void RingConfig::readParams(FileNames fileNames, DeviceType type)
 {
-	ifstream file(fileName);
+	string fileName = fileNames.fileName(type);
+		ifstream file(fileName);
 	if (!file)
 	{
 		throw exception(("File " + fileName + " cannot be found").c_str());
