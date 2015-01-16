@@ -10,7 +10,8 @@ int main(int argc, char *argv[])
 	names.quadrupoleFile = string("data/quadrupoles.in");
 	names.sextupoleFile = string("data/sextupoles.in");
 	names.structureFile = string("data/structure.in");
-	RingConf config{ names };
-	auto ring = CRing::getInstance(config);
+	string ellipseFile = string("data/ellipse.in");
+	auto ring = CRing::getInstance(RingConfig::getRingConfig(names));
+	auto beam = CBeam(BeamParameters::readBeamParameters(ellipseFile));
 	return 0;
 }

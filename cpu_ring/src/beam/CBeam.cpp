@@ -1,6 +1,6 @@
 ﻿#include "CBeam.h"
 
-CBeam::CBeam(const BeamParameters& parameters) :
+CBeam::CBeam(BeamParameters parameters) :
 parameters_(parameters),
 particles_(parameters.numParticles)
 {
@@ -50,8 +50,8 @@ void CBeam::createUniformParticles()
 		particles_[iParticle].aY = aY;
 		particles_[iParticle].dp = dP;
 		particles_[iParticle].ID = iParticle;
+		particles_[iParticle].isAlive = true;
 	}
-
 	numParticles = parameters_.numParticles;
 }
 

@@ -2,7 +2,7 @@
 
 CRing* CRing::instance = nullptr;
 
-CRing * CRing::getInstance(RingConf config)
+CRing * CRing::getInstance(RingConfig config)
 {
 	if (!instance)
 		instance = new CRing(config);
@@ -16,7 +16,7 @@ CRing * CRing::getInstance()
 	throw exception("CRing: Try to access null CRing");
 }
 
-void CRing::setConf(const RingConf& config)
+void CRing::setConf(const RingConfig& config)
 {
 	auto deviceMap = config.getDevicesMap();
 	for (string name : config.getStructure())
@@ -40,7 +40,7 @@ void CRing::affectBeam(CBeam* beam)
 	}
 }
 
-CRing::CRing(const RingConf& config)
+CRing::CRing(const RingConfig& config)
 {
 	setConf(config);
 }

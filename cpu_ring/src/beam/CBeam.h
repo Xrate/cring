@@ -19,7 +19,7 @@ class CBeam
 {
 	friend class CDevice;
 public:
-	explicit CBeam(const BeamParameters& parameters);
+	explicit CBeam(BeamParameters parameters);
 	void generateParticles(DistType dist_type);
 private:
 	void createUniformParticles();

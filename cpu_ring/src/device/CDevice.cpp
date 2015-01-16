@@ -26,36 +26,36 @@ void CDevice::affectBeam(CBeam* beam)
 		#pragma omp parallel for
 		for (size_t iP = 0; iP < beam->numParticles; ++iP)
 		{
-			{
-				auto particle = beam->particles_.at(iP);
-				if (!particle.isAlive)
-					continue;
-				beam->particles_[iP].X =
-					mX_P[0][0] * particle.X +
-					mX_P[0][1] * particle.aX +
-					mX_P[0][2] * particle.dp;
-				beam->particles_[iP].aX =
-					mX_P[1][0] * particle.X +
-					mX_P[1][1] * particle.aX +
-					mX_P[1][2] * particle.dp;
-				beam->particles_[iP].Y =
-					mY_P[0][0] * particle.Y +
-					mY_P[0][1] * particle.aY +
-					mY_P[0][2] * particle.dp;
-				beam->particles_[iP].aY =
-					mY_P[1][0] * particle.X +
-					mY_P[1][1] * particle.aX +
-					mY_P[1][2] * particle.dp;
-				beam->particles_[iP].isAlive = 
-						  pow2(beam->particles_[iP].X / appertureX)
-						+ pow2(beam->particles_[iP].Y / appertureY) <= 1.;
-			}
+			auto p = beam->particles_.at(iP);
+			if (!p.isAlive)
+				continue;
+			beam->particles_[iP].X =
+				mX_P[0][0] * p.X + mX_P[0][1] * p.aX + mX_P[0][2] * p.dp;
+			beam->particles_[iP].aX =
+				mX_P[1][0] * p.X + mX_P[1][1] * p.aX + mX_P[1][2] * p.dp;
+			beam->particles_[iP].Y = 
+				mY_P[0][0] * p.Y + mY_P[0][1] * p.aY + mY_P[0][2] * p.dp;
+			beam->particles_[iP].aY =
+				mY_P[1][0] * p.X + mY_P[1][1] * p.aX + mY_P[1][2] * p.dp;
+			beam->particles_[iP].isAlive = 
+					pow2(beam->particles_[iP].X / appertureX)
+				  + pow2(beam->particles_[iP].Y / appertureY) <= 1.;
 		}
-		auto params = beam->parameters_;
+		auto tX = beam->parameters_.twissX;
 		beam->parameters_.twissX.bet =
-			mX_T[0][0] * params.twissX.bet +
-			mX_T[0][1] * params.twissX.alf +
-			mX_T[0][2] * params.twissX.gam;
+			mX_T[0][0] * tX.bet + mX_T[0][1] * tX.alf + mX_T[0][2] * tX.gam;
+		beam->parameters_.twissX.alf =
+			mX_T[1][0] * tX.bet + mX_T[1][1] * tX.alf + mX_T[1][2] * tX.gam;
+		beam->parameters_.twissX.gam =
+			mX_T[2][0] * tX.bet + mX_T[2][1] * tX.alf + mX_T[2][2] * tX.gam;
+
+		auto tY = beam->parameters_.twissY;
+		beam->parameters_.twissY.bet =
+			mY_T[0][0] * tY.bet + mY_T[0][1] * tY.alf + mY_T[0][2] * tY.gam;
+		beam->parameters_.twissY.alf =
+			mY_T[1][0] * tY.bet + mY_T[1][1] * tY.alf + mY_T[1][2] * tY.gam;
+		beam->parameters_.twissY.gam =
+			mY_T[2][0] * tY.bet + mY_T[2][1] * tY.alf + mY_T[2][2] * tY.gam;
 	}
 }
 

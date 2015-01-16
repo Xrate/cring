@@ -12,7 +12,7 @@ enum DeviceType
 
 struct DeviceParameters
 {
-	DeviceParameters(std::string name, DeviceType type, 
+	DeviceParameters(string name, DeviceType type, 
 					 double length, double force, 
 					 double apperture_x, double apperture_y);
 	string name;

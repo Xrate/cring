@@ -2,7 +2,7 @@
 #include <fstream>
 #include <sstream>
 
-RingConf::RingConf(FileNames fileNames)
+RingConfig::RingConfig(FileNames fileNames)
 {
 	readParams(fileNames.fileName(DIPOLE), DIPOLE);
 	readParams(fileNames.fileName(DRIFT), DRIFT);
@@ -11,21 +11,26 @@ RingConf::RingConf(FileNames fileNames)
 	readStructure(fileNames.structureFile);
 }
 
-const map<string, DeviceParameters*>& RingConf::getDevicesMap() const
+RingConfig RingConfig::getRingConfig(FileNames fileNames)
+{
+	return RingConfig(fileNames);
+}
+
+const map<string, DeviceParameters*>& RingConfig::getDevicesMap() const
 {
 	if (!devices.empty())
 		return devices;
 	throw exception("Try to get empty devices map");
 }
 
-const vector<string>& RingConf::getStructure() const
+const vector<string>& RingConfig::getStructure() const
 {
 	if (!structure.empty())
 		return structure;
 	throw exception("RingConf: Try use structure var without init");
 }
 
-void RingConf::readParams(string fileName, DeviceType type)
+void RingConfig::readParams(string fileName, DeviceType type)
 {
 	ifstream file(fileName);
 	if (!file)
@@ -74,11 +79,11 @@ void RingConf::readParams(string fileName, DeviceType type)
 	}
 }
 
-void RingConf::readStructure(string fileName)
+void RingConfig::readStructure(string fileName)
 {
 	ifstream file(fileName);
 	string line;
 	while (getline(file, line))
-	if (!(line.at(0) == '#'))
+	if (!(line.empty() || line.at(0) == '#'))
 		structure.push_back(line);
 }

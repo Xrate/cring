@@ -25,13 +25,14 @@ struct FileNames
 	}
 };
 
-class RingConf
+class RingConfig
 {
 public:
-	explicit RingConf(FileNames fileNames);
+	static RingConfig getRingConfig(FileNames fileNames);
 	const map<string, DeviceParameters*>& getDevicesMap() const;
 	const vector<string>& getStructure() const;
 private:
+	explicit RingConfig(FileNames fileNames);
 	void readParams(string fileName, DeviceType type);
 	void readStructure(string fileName);
 	map<string, DeviceParameters*> devices;

@@ -83,14 +83,12 @@
     <ClCompile Include="src\device\devices\cquadrupole.cpp" />
     <ClCompile Include="src\device\devices\csextupole.cpp" />
     <ClCompile Include="src\main.cpp" />
-    <ClCompile Include="src\beam\TwissParameters.cpp" />
     <ClCompile Include="src\ring\CRing.cpp" />
     <ClCompile Include="src\ring\RingConf.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\beam\BeamParameters.h" />
     <ClInclude Include="src\beam\CBeam.h" />
-    <ClInclude Include="src\beam\TwissParameters.h" />
     <ClInclude Include="src\device\CDevice.h" />
     <ClInclude Include="src\device\DeviceParameters.h" />
     <ClInclude Include="src\device\devices\cdipole.h" />
