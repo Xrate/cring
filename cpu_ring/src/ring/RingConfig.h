@@ -28,9 +28,10 @@ struct FileNames
 class RingConfig
 {
 public:
-	static RingConfig getRingConfig(FileNames fileNames);
+	static RingConfig* readRingConfig(FileNames fileNames);
 	const map<string, DeviceParameters*>& getDevicesMap() const;
 	const vector<string>& getStructure() const;
+	~RingConfig();
 private:
 	explicit RingConfig(FileNames fileNames);
 	void readParams(FileNames fileNames, DeviceType type);

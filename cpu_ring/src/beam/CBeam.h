@@ -21,6 +21,7 @@ class CBeam
 public:
 	explicit CBeam(BeamParameters parameters);
 	void generateParticles(DistType dist_type);
+	~CBeam();
 private:
 	void createUniformParticles();
 	void createGaussianParticles();

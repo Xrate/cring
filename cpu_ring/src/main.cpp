@@ -2,6 +2,7 @@
 #include "ring/CRing.h"
 #include "ring/RingConfig.h"
 #include <ctime>
+#include <vld.h>
 
 int main(int argc, char *argv[])
 {
@@ -12,16 +13,19 @@ int main(int argc, char *argv[])
 	names.sextupoleFile = string("data/sextupoles.in");
 	names.structureFile = string("data/structure.in");
 	string ellipseFile = string("data/ellipse.in");
-	auto ring = CRing::getInstance(RingConfig::getRingConfig(names));
+	auto ring = CRing::getInstance(RingConfig::readRingConfig(names));
 	auto beam = new CBeam(BeamParameters::readBeamParameters(ellipseFile));
 
-	const size_t nTurns = size_t(argv[1]);
+	const size_t nTurns = 100;
 	clock_t begin = clock();
 	ring->affectBeam(beam, nTurns);
 	clock_t end = clock();
 	double elapsed_secs = double(end - begin) / CLOCKS_PER_SEC;
 
 	cout << elapsed_secs << endl;
-	cin >> end;
+	
+	CRing::destroyInstance();
+	delete beam;
+
 	return 0;
 }

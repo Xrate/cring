@@ -68,3 +68,8 @@ void CBeam::generateParticles(DistType dist_type)
 	default: createUniformParticles(); break;
 	}
 }
+
+CBeam::~CBeam()
+{
+	particles_.clear();
+}

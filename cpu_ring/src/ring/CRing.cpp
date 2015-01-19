@@ -2,7 +2,7 @@
 
 CRing* CRing::instance = nullptr;
 
-CRing* CRing::getInstance(RingConfig config)
+CRing* CRing::getInstance(RingConfig* config)
 {
 	if (!instance)
 		instance = new CRing(config);
@@ -16,15 +16,21 @@ CRing * CRing::getInstance()
 	throw exception("CRing: Try to access null CRing");
 }
 
-void CRing::setConf(const RingConfig& config)
+void CRing::destroyInstance()
 {
-	auto deviceMap = config.getDevicesMap();
-	for (string name : config.getStructure())
+	delete instance;
+}
+
+void CRing::setConf(RingConfig* config)
+{
+	auto deviceMap = config->getDevicesMap();
+	for (string name : config->getStructure())
 	{
 		auto deviceParams = deviceMap.at(name);
 		devices.push_back(CDevice::createDevice(deviceParams));
 	}
 	numDevices = devices.size();
+	delete config;
 }
 
 const vector<CDevice*>& CRing::getDevices() const
@@ -43,7 +49,20 @@ void CRing::affectBeam(CBeam* beam, size_t nTurns)
 	}
 }
 
-CRing::CRing(const RingConfig& config)
+CRing::CRing(RingConfig* config)
 {
 	setConf(config);
+}
+
+CRing::~CRing()
+{
+	for (auto device : devices)
+	{
+		if (device != nullptr)
+		{
+			delete device;
+			device = nullptr;
+		}
+	}	
+	devices.clear();
 }

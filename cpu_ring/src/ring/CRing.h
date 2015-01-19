@@ -7,14 +7,16 @@
 class CRing
 {
 public:
-	static CRing * getInstance(RingConfig config);
+	static CRing * getInstance(RingConfig* config);
 	static CRing * getInstance();
-	void setConf(const RingConfig& config);
+	static void destroyInstance();
+	void setConf(RingConfig* config);
 	const vector<CDevice*>& getDevices() const;
 	void affectBeam(CBeam* beam, size_t nTurns);
+	
 private:
-	explicit CRing(const RingConfig& config);
-
+	explicit CRing(RingConfig* config);
+	~CRing();
 	static CRing* instance;
 	size_t numDevices;
 	vector<CDevice*> devices;

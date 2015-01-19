@@ -11,9 +11,9 @@ RingConfig::RingConfig(FileNames fileNames)
 	readStructure(fileNames.structureFile);
 }
 
-RingConfig RingConfig::getRingConfig(FileNames fileNames)
+RingConfig* RingConfig::readRingConfig(FileNames fileNames)
 {
-	return RingConfig(fileNames);
+	return new RingConfig(fileNames);
 }
 
 const map<string, DeviceParameters*>& RingConfig::getDevicesMap() const
@@ -87,4 +87,14 @@ void RingConfig::readStructure(string fileName)
 	while (getline(file, line))
 	if (!(line.empty() || line.at(0) == '#'))
 		structure.push_back(line);
+}
+
+RingConfig::~RingConfig()
+{
+	for (auto it = devices.begin(); it != devices.end(); ++it) {
+		if (it->second != nullptr) {
+			delete it->second;
+			it->second = nullptr;
+		}
+	}
 }
