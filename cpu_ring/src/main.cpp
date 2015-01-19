@@ -2,6 +2,7 @@
 #include "ring/CRing.h"
 #include "ring/RingConfig.h"
 #include <ctime>
+#include "common/logger/Logger.h"
 #include <vld.h>
 
 int main(int argc, char *argv[])
@@ -23,7 +24,7 @@ int main(int argc, char *argv[])
 	double elapsed_secs = double(end - begin) / CLOCKS_PER_SEC;
 
 	cout << elapsed_secs << endl;
-	
+
 	CRing::destroyInstance();
 	delete beam;
 

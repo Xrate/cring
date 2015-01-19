@@ -48,6 +48,9 @@
     <ClCompile Include="src\ring\RingConfig.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\common\logger\Logger.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\beam\BeamParameters.h">
@@ -81,6 +84,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\ring\RingConfig.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\common\logger\Logger.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
