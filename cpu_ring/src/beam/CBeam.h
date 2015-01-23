@@ -5,7 +5,6 @@
 
 struct Particle
 {
-	size_t ID;
 	bool isAlive;
 	double X;
 	double aX;
@@ -18,6 +17,7 @@ typedef vector<Particle> ParticleVec;
 class CBeam
 {
 	friend class CDevice;
+	friend class Logger;
 public:
 	explicit CBeam(BeamParameters parameters);
 	void generateParticles(DistType dist_type);
@@ -28,7 +28,8 @@ private:
 	// Fields
 	BeamParameters parameters_;
 	ParticleVec particles_;
-	size_t numParticles;
+	const size_t numParticles_;
+	double path_;
 };
 
 #endif // CBEAM_H

@@ -2,7 +2,9 @@
 
 CBeam::CBeam(BeamParameters parameters) :
 parameters_(parameters),
-particles_(parameters.numParticles)
+particles_(parameters.numParticles),
+numParticles_(parameters.numParticles),
+path_(0.)
 {
 	generateParticles(parameters_.distType);
 }
@@ -49,10 +51,8 @@ void CBeam::createUniformParticles()
 		particles_[iParticle].Y = Y;
 		particles_[iParticle].aY = aY;
 		particles_[iParticle].dp = dP;
-		particles_[iParticle].ID = iParticle;
 		particles_[iParticle].isAlive = true;
 	}
-	numParticles = parameters_.numParticles;
 }
 
 void CBeam::createGaussianParticles()

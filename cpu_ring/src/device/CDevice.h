@@ -10,7 +10,7 @@ public:
 	static CDevice* createDevice(DeviceParameters* params);
 	explicit CDevice(const string& name_);
 	virtual ~CDevice(){}
-	void affectBeam(CBeam* beam);
+	void affectBeam(CBeam* beam) const;
 protected:
 	void generateTwissM();
 	virtual void initMatrices() = 0;

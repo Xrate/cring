@@ -14,12 +14,16 @@ int main(int argc, char *argv[])
 	names.sextupoleFile = string("data/sextupoles.in");
 	names.structureFile = string("data/structure.in");
 	string ellipseFile = string("data/ellipse.in");
-	auto ring = CRing::getInstance(RingConfig::readRingConfig(names));
-	auto beam = new CBeam(BeamParameters::readBeamParameters(ellipseFile));
+	const CRing* ring = CRing::getInstance(RingConfig::readRingConfig(names));
+	CBeam * const beam = new CBeam(BeamParameters::readBeamParameters(ellipseFile));
 
-	const size_t nTurns = 100;
+	Logger::setUpLogger(beam);
+
+	const size_t nTurns = 1;
 	clock_t begin = clock();
+
 	ring->affectBeam(beam, nTurns);
+
 	clock_t end = clock();
 	double elapsed_secs = double(end - begin) / CLOCKS_PER_SEC;
 
@@ -27,6 +31,7 @@ int main(int argc, char *argv[])
 
 	CRing::destroyInstance();
 	delete beam;
+	Logger::closeLogger();
 
 	return 0;
 }

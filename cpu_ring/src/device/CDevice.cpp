@@ -3,6 +3,7 @@
 #include "devices/cdrift.h"
 #include "devices/cquadrupole.h"
 #include "devices/csextupole.h"
+#include "../common/logger/Logger.h"
 
 CDevice::CDevice(const string& name_)
 {
@@ -19,12 +20,12 @@ CDevice::CDevice(const string& name_)
 	}
 }
 
-void CDevice::affectBeam(CBeam* beam)
+void CDevice::affectBeam(CBeam* beam) const
 {
 	for (size_t iS = 0; iS < nSteps; ++iS)
 	{
 		#pragma omp parallel for
-		for (int iP = 0; iP < beam->numParticles; ++iP)
+		for (int iP = 0; iP < beam->numParticles_; ++iP)
 		{
 			auto p = beam->particles_.at(iP);
 			if (!p.isAlive)
@@ -56,6 +57,9 @@ void CDevice::affectBeam(CBeam* beam)
 			mY_T[1][0] * tY.bet + mY_T[1][1] * tY.alf + mY_T[1][2] * tY.gam;
 		beam->parameters_.twissY.gam =
 			mY_T[2][0] * tY.bet + mY_T[2][1] * tY.alf + mY_T[2][2] * tY.gam;
+		beam->path_ += step;
+		Logger::printParticles(appertureX, appertureY);
+		Logger::printEllipses(appertureX, appertureY);
 	}
 }
 

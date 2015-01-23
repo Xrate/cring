@@ -12,7 +12,7 @@ public:
 	static void destroyInstance();
 	void setConf(RingConfig* config);
 	const vector<CDevice*>& getDevices() const;
-	void affectBeam(CBeam* beam, size_t nTurns);
+	void affectBeam(CBeam* beam, size_t nTurns) const;
 	
 private:
 	explicit CRing(RingConfig* config);
