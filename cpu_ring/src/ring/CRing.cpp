@@ -1,4 +1,5 @@
 ﻿#include "CRing.h"
+#include <ctime>
 
 CRing* CRing::instance = nullptr;
 
@@ -40,13 +41,19 @@ const vector<CDevice*>& CRing::getDevices() const
 
 void CRing::affectBeam(CBeam* beam, size_t nTurns) const
 {
+	clock_t begin = clock();
+
 	for (int iT = 0; iT < nTurns; ++iT)
+	for (CDevice* device : devices)
 	{
-		for (CDevice* device : devices)
-		{
-			device->affectBeam(beam);
-		}
+		device->affectBeam(beam);
 	}
+
+	clock_t end = clock();
+	double elapsed_secs = double(end - begin) / CLOCKS_PER_SEC;
+
+	cout << "Time: " << elapsed_secs << "s. Turns: " << nTurns << endl;
+
 }
 
 CRing::CRing(RingConfig* config)
