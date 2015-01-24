@@ -7,7 +7,7 @@
 class CDipole : public CDevice
 {
 public:
-	explicit CDipole(const DeviceParameters* params);
+	explicit CDipole(shared_ptr<const DeviceParameters> params);
     virtual void initMatrices() override;
 
 private:

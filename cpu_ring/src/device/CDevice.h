@@ -7,10 +7,10 @@
 class CDevice
 {
 public:
-	static CDevice* createDevice(DeviceParameters* params);
+	static shared_ptr<CDevice> createDevice(shared_ptr<const DeviceParameters> params);
 	explicit CDevice(const string& name_);
 	virtual ~CDevice(){}
-	void affectBeam(CBeam* beam) const;
+	void affectBeam(const shared_ptr<CBeam> beam) const;
 protected:
 	void generateTwissM();
 	virtual void initMatrices() = 0;
@@ -26,4 +26,5 @@ protected:
 	double appertureY;
 	size_t nSteps;
 };
+
 #endif // CDEVICE_H

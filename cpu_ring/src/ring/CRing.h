@@ -4,22 +4,21 @@
 #include "RingConfig.h"
 #include "../device/CDevice.h"
 
+class CRing;
+typedef shared_ptr<const CRing> CRingPtr;
+
 class CRing
 {
 public:
-	static CRing * getInstance(RingConfig* config);
-	static CRing * getInstance();
-	static void destroyInstance();
-	void setConf(RingConfig* config);
-	const vector<CDevice*>& getDevices() const;
-	void affectBeam(CBeam* beam, size_t nTurns) const;
-	
+	static shared_ptr<const CRing> createInstance(shared_ptr<const RingConfig> config);
+	static shared_ptr<const CRing> getInstance();
+	const vector<shared_ptr<const CDevice>>& getDevices() const;
+	void affectBeam(shared_ptr<CBeam> beam) const;
 private:
-	explicit CRing(RingConfig* config);
-	~CRing();
-	static CRing* instance;
+	explicit CRing(shared_ptr<const RingConfig> config);
+	static shared_ptr<const CRing> instance;
 	size_t numDevices;
-	vector<CDevice*> devices;
+	vector<shared_ptr<const CDevice>> devices;
 };
 
 #endif // CRING_H

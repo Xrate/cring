@@ -1,6 +1,6 @@
 #include "cdipole.h"
 
-CDipole::CDipole(const DeviceParameters* params)
+CDipole::CDipole(const shared_ptr<const DeviceParameters> params)
     : CDevice(params->name)
 {
 	length = params->length;

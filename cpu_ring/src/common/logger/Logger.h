@@ -9,7 +9,7 @@ public:
 	void static printParticles(double, double);
 	void static printEllipses(double, double);
 
-	void static setUpLogger(CBeam const* beam);
+	void static setUpLogger(const shared_ptr<const CBeam> beam_);
 	void static closeLogger();
 private:
 	static ofstream *pXFile;
@@ -18,7 +18,7 @@ private:
 	static ofstream *eYFile;
 	static string dirName;
 	static void GenerateDir();
-	static CBeam const* beam;
+	static shared_ptr<const CBeam> beam;
 	static struct BeamPointers
 	{
 		Particle const* particles;

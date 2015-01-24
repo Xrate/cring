@@ -20,15 +20,17 @@ class CBeam
 	friend class Logger;
 public:
 	explicit CBeam(BeamParameters parameters);
-	void generateParticles(DistType dist_type);
-	~CBeam();
+	size_t size() const;
+	size_t turns() const;
 private:
+	void generateParticles(DistType dist_type);
 	void createUniformParticles();
 	void createGaussianParticles();
 	// Fields
 	BeamParameters parameters_;
 	ParticleVec particles_;
 	const size_t numParticles_;
+	const size_t numTurns_;
 	double path_;
 };
 

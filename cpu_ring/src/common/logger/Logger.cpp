@@ -3,7 +3,7 @@
 #include <windows.h>
 
 string Logger::dirName = "Log_";
-CBeam const* Logger::beam = nullptr;
+shared_ptr<const CBeam> Logger::beam;
 Logger::BeamPointers Logger::beamPointers;
 ofstream* Logger::pXFile = nullptr;
 ofstream* Logger::pYFile = nullptr;
@@ -57,7 +57,7 @@ void Logger::printEllipses(double aX, double aY)
 	*eYFile << endl;
 }
 
-void Logger::setUpLogger(CBeam const* beam_)
+void Logger::setUpLogger(const shared_ptr<const CBeam> beam_)
 {
 	GenerateDir();
 	if (beam_ == nullptr)

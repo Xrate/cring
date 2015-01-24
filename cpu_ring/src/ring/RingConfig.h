@@ -28,15 +28,14 @@ struct FileNames
 class RingConfig
 {
 public:
-	static RingConfig* readRingConfig(FileNames fileNames);
-	const map<string, DeviceParameters*>& getDevicesMap() const;
+	static shared_ptr<const RingConfig> readRingConfig(FileNames fileNames);
+	const map<string, shared_ptr<DeviceParameters>>& getDevicesMap() const;
 	const vector<string>& getStructure() const;
-	~RingConfig();
 private:
 	explicit RingConfig(FileNames fileNames);
 	void readParams(FileNames fileNames, DeviceType type);
 	void readStructure(string fileName);
-	map<string, DeviceParameters*> devices;
+	map<string, shared_ptr<DeviceParameters>> devices;
 	vector<string> structure;
 };
 #endif // RINGCONFIG_H

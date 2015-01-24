@@ -1,0 +1,11 @@
+# Beam parameters (only 10 entries)
+0      # Alpha X (1)
+0      # Alpha Y (1)
+12.9350814  # Beta X (m)
+9.091061433 # Beta Y (m)
+24     # Emittance X (pi*1e-6 m*rad)
+24     # Emittance Y (pi*1e-6 m*rad)
+3      # Momentum (GeV)
+0.003  # Momentum Spread (1)
+1024   # Number of Particles
+16     # Turns count

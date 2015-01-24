@@ -1,6 +1,6 @@
 #include "cdrift.h"
 
-CDrift::CDrift(const DeviceParameters* params)
+CDrift::CDrift(const shared_ptr<const DeviceParameters> params)
 : CDevice(params->name)
 {
 	length = params->length;

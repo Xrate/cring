@@ -1,6 +1,6 @@
 #include "csextupole.h"
 
-CSextupole::CSextupole(const DeviceParameters* params)
+CSextupole::CSextupole(const shared_ptr<const DeviceParameters> params)
 : CDevice(params->name)
 {
 	length = params->length;

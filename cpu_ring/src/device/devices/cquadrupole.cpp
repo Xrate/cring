@@ -1,7 +1,7 @@
 #include "cquadrupole.h"
 #include <cmath>
 
-CQuadrupole::CQuadrupole(const DeviceParameters* params)
+CQuadrupole::CQuadrupole(const shared_ptr<const DeviceParameters> params)
 : CDevice(params->name)
 {
 	length = params->length;

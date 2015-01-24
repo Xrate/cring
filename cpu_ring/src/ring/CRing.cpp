@@ -1,28 +1,23 @@
 ﻿#include "CRing.h"
 #include <ctime>
 
-CRing* CRing::instance = nullptr;
+shared_ptr<const CRing> CRing::instance;
 
-CRing* CRing::getInstance(RingConfig* config)
+shared_ptr<const CRing> CRing::createInstance(const shared_ptr<const RingConfig> config)
 {
 	if (!instance)
-		instance = new CRing(config);
+		instance = shared_ptr<const CRing>(new CRing(config));
 	return instance;
 }
 
-CRing * CRing::getInstance()
+CRingPtr CRing::getInstance()
 {
 	if (instance)
 		return instance;
 	throw exception("CRing: Try to access null CRing");
 }
 
-void CRing::destroyInstance()
-{
-	delete instance;
-}
-
-void CRing::setConf(RingConfig* config)
+CRing::CRing(shared_ptr<const RingConfig> config)
 {
 	auto deviceMap = config->getDevicesMap();
 	for (string name : config->getStructure())
@@ -31,20 +26,14 @@ void CRing::setConf(RingConfig* config)
 		devices.push_back(CDevice::createDevice(deviceParams));
 	}
 	numDevices = devices.size();
-	delete config;
 }
 
-const vector<CDevice*>& CRing::getDevices() const
-{
-	return devices;
-}
-
-void CRing::affectBeam(CBeam* beam, size_t nTurns) const
+void CRing::affectBeam(shared_ptr<CBeam> beam) const
 {
 	clock_t begin = clock();
 
-	for (int iT = 0; iT < nTurns; ++iT)
-	for (CDevice* device : devices)
+	for (int iT = 0; iT < beam->turns(); ++iT)
+	for (auto device : devices)
 	{
 		device->affectBeam(beam);
 	}
@@ -52,24 +41,12 @@ void CRing::affectBeam(CBeam* beam, size_t nTurns) const
 	clock_t end = clock();
 	double elapsed_secs = double(end - begin) / CLOCKS_PER_SEC;
 
-	cout << "Time: " << elapsed_secs << "s. Turns: " << nTurns << endl;
-
+	cout << "Time: "      << elapsed_secs  << "s. " <<
+			"Turns: "     << beam->turns() << ". "  <<
+		    "Particles: " << beam->size()  << endl;
 }
 
-CRing::CRing(RingConfig* config)
+const vector<shared_ptr<const CDevice>>& CRing::getDevices() const
 {
-	setConf(config);
-}
-
-CRing::~CRing()
-{
-	for (auto device : devices)
-	{
-		if (device != nullptr)
-		{
-			delete device;
-			device = nullptr;
-		}
-	}	
-	devices.clear();
+	return devices;
 }

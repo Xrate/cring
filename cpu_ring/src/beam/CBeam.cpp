@@ -4,6 +4,7 @@ CBeam::CBeam(BeamParameters parameters) :
 parameters_(parameters),
 particles_(parameters.numParticles),
 numParticles_(parameters.numParticles),
+numTurns_(parameters.numTurns),
 path_(0.)
 {
 	generateParticles(parameters_.distType);
@@ -34,8 +35,8 @@ void CBeam::createUniformParticles()
 			dP *= (-1. + 2. / RAND_MAX * rand());
 
 			// Particle should be in 3 ellipses (XY, XX', YY')
-			bool isXY = pow2(X / parameters_.twissX.coordMax)
-					  + pow2(Y / parameters_.twissY.coordMax) <= 1.;
+			bool isXY = sqr(X / parameters_.twissX.coordMax)
+					  + sqr(Y / parameters_.twissY.coordMax) <= 1.;
 			bool isXX = X*X   * parameters_.twissX.gam 
 					  + aX*aX * parameters_.twissX.bet 
 					  + X*aX  * parameters_.twissX.alf * 2.
@@ -69,7 +70,12 @@ void CBeam::generateParticles(DistType dist_type)
 	}
 }
 
-CBeam::~CBeam()
+size_t CBeam::size() const
 {
-	particles_.clear();
+	return numParticles_;
+}
+
+size_t CBeam::turns() const
+{
+	return numTurns_;
 }

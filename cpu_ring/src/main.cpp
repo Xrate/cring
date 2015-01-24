@@ -12,19 +12,16 @@ int main(int argc, char *argv[])
 	names.quadrupoleFile = string("data/quadrupoles.in");
 	names.sextupoleFile = string("data/sextupoles.in");
 	names.structureFile = string("data/structure.in");
-	string ellipseFile = string("data/ellipse.in");
+	string beamFile = string("data/beam.in");
 
-	const CRing* ring = CRing::getInstance(RingConfig::readRingConfig(names));
-	CBeam * const beam = new CBeam(BeamParameters::readBeamParameters(ellipseFile));
+	shared_ptr<const CRing> ring = CRing::createInstance(RingConfig::readRingConfig(names));
+	const shared_ptr<CBeam> beam = make_shared<CBeam>(BeamParameters::readBeamParameters(beamFile));
 
 	Logger::setUpLogger(beam);
 
-	const size_t nTurns = 1;
-	ring->affectBeam(beam, nTurns);
+	ring->affectBeam(beam);
 
-	CRing::destroyInstance();
 	Logger::closeLogger();
-	delete beam;
 
 	return 0;
 }

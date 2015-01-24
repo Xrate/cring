@@ -20,7 +20,7 @@ CDevice::CDevice(const string& name_)
 	}
 }
 
-void CDevice::affectBeam(CBeam* beam) const
+void CDevice::affectBeam(const shared_ptr<CBeam> beam) const
 {
 	for (size_t iS = 0; iS < nSteps; ++iS)
 	{
@@ -39,8 +39,8 @@ void CDevice::affectBeam(CBeam* beam) const
 			beam->particles_[iP].aY =
 				mY_P[1][0] * p.Y + mY_P[1][1] * p.aY + mY_P[1][2] * p.dp;
 			beam->particles_[iP].isAlive = 
-					pow2(beam->particles_[iP].X / appertureX)
-				  + pow2(beam->particles_[iP].Y / appertureY) <= 1.;
+					sqr(beam->particles_[iP].X / appertureX)
+				  + sqr(beam->particles_[iP].Y / appertureY) <= 1.;
 		}
 		auto tX = beam->parameters_.twissX;
 		beam->parameters_.twissX.bet =
@@ -80,14 +80,14 @@ void CDevice::generateTwissM()
 	mY_T[2][0] = +1 * C_*C_;  mY_T[2][1] = -2 * C_*S_;   mY_T[2][2] = +1 * S_*S_;
 }
 
-CDevice* CDevice::createDevice(DeviceParameters* params)
+shared_ptr<CDevice> CDevice::createDevice(shared_ptr<const DeviceParameters> params)
 {
 	switch (params->type)
 	{
-	case DIPOLE: return new CDipole(params);
-	case DRIFT: return new CDrift(params);
-	case QUADRUPOLE: return new CQuadrupole(params);
-	case SEXTUPOLE: return new CSextupole(params);
+	case DIPOLE: return make_shared<CDipole>(params);
+	case DRIFT: return make_shared<CDrift>(params);
+	case QUADRUPOLE: return make_shared<CQuadrupole>(params);
+	case SEXTUPOLE: return make_shared<CSextupole>(params);
 	}
 	throw exception("DeviceFactory: enum FileNames error.");
 }

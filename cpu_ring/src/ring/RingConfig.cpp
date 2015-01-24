@@ -11,12 +11,12 @@ RingConfig::RingConfig(FileNames fileNames)
 	readStructure(fileNames.structureFile);
 }
 
-RingConfig* RingConfig::readRingConfig(FileNames fileNames)
+shared_ptr<const RingConfig> RingConfig::readRingConfig(FileNames fileNames)
 {
-	return new RingConfig(fileNames);
+	return shared_ptr<const RingConfig>(new RingConfig(fileNames));
 }
 
-const map<string, DeviceParameters*>& RingConfig::getDevicesMap() const
+const map<string, shared_ptr<DeviceParameters>>& RingConfig::getDevicesMap() const
 {
 	if (!devices.empty())
 		return devices;
@@ -58,8 +58,8 @@ void RingConfig::readParams(FileNames fileNames, DeviceType type)
 				double force = atof(words.at(2).c_str());
 				double appX = atof(words.at(3).c_str());
 				double appY = atof(words.at(4).c_str());
-				auto device = new DeviceParameters(name, type, length, force, appX, appY);
-				devices.insert(pair<string, DeviceParameters*>(name, device));
+				auto dParams = make_shared<DeviceParameters>(name, type, length, force, appX, appY);
+				devices.insert(pair<string, shared_ptr<DeviceParameters>>(name, dParams));
 				break;
 			}
 		case DRIFT: 
@@ -70,8 +70,8 @@ void RingConfig::readParams(FileNames fileNames, DeviceType type)
 				double force = 0.;
 				double appX = atof(words.at(2).c_str());
 				double appY = atof(words.at(3).c_str());
-				auto device = new DeviceParameters(name, type, length, force, appX, appY);
-				devices.insert(pair<string, DeviceParameters*>(name, device));
+				auto dParams = make_shared<DeviceParameters>(name, type, length, force, appX, appY);
+				devices.insert(pair<string, shared_ptr<DeviceParameters>>(name, dParams));
 				break;
 			}
 		default:
@@ -87,14 +87,4 @@ void RingConfig::readStructure(string fileName)
 	while (getline(file, line))
 	if (!(line.empty() || line.at(0) == '#'))
 		structure.push_back(line);
-}
-
-RingConfig::~RingConfig()
-{
-	for (auto it = devices.begin(); it != devices.end(); ++it) {
-		if (it->second != nullptr) {
-			delete it->second;
-			it->second = nullptr;
-		}
-	}
 }
