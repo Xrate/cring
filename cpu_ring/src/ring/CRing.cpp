@@ -10,7 +10,7 @@ shared_ptr<const CRing> CRing::createInstance(const shared_ptr<const RingConfig>
 	return instance;
 }
 
-CRingPtr CRing::getInstance()
+shared_ptr<const CRing> CRing::getInstance()
 {
 	if (instance)
 		return instance;
@@ -19,8 +19,8 @@ CRingPtr CRing::getInstance()
 
 CRing::CRing(shared_ptr<const RingConfig> config)
 {
-	auto deviceMap = config->getDevicesMap();
-	for (string name : config->getStructure())
+	auto deviceMap = config->devices;
+	for (string name : config->structure)
 	{
 		auto deviceParams = deviceMap.at(name);
 		devices.push_back(CDevice::createDevice(deviceParams));
@@ -44,9 +44,4 @@ void CRing::affectBeam(shared_ptr<CBeam> beam) const
 	cout << "Time: "      << elapsed_secs  << "s. " <<
 			"Turns: "     << beam->turns() << ". "  <<
 		    "Particles: " << beam->size()  << endl;
-}
-
-const vector<shared_ptr<const CDevice>>& CRing::getDevices() const
-{
-	return devices;
 }

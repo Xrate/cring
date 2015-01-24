@@ -14,7 +14,7 @@ int main(int argc, char *argv[])
 	names.structureFile = string("data/structure.in");
 	string beamFile = string("data/beam.in");
 
-	shared_ptr<const CRing> ring = CRing::createInstance(RingConfig::readRingConfig(names));
+	const shared_ptr<const CRing> ring = CRing::createInstance(RingConfig::readRingConfig(names));
 	const shared_ptr<CBeam> beam = make_shared<CBeam>(BeamParameters::readBeamParameters(beamFile));
 
 	Logger::setUpLogger(beam);

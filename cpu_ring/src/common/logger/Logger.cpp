@@ -15,15 +15,14 @@ void Logger::setUpLogger(const shared_ptr<const CBeam> beam_)
 		throw new exception("Error: Trying to log empty beam");
 
 	beam = beam_;
-
 	beamPointers.particles = beam->particles_.data();
 	beamPointers.twissX = &beam->parameters_.twissX;
 	beamPointers.twissY = &beam->parameters_.twissY;
 
+	ellFile = new ofstream(dirName + "\\ellipses.out", ofstream::out);
 	pFile = new ofstream*[beam_->size()];
 	for (size_t iP = 0; iP < beam_->size(); ++iP)
 		pFile[iP] = new ofstream(dirName + "\\particles\\" + to_string(iP) + ".out", ofstream::out);
-	ellFile = new ofstream(dirName + "\\ellipses.out", ofstream::out);
 }
 
 void Logger::GenerateDir()
