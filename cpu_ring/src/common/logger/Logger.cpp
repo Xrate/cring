@@ -2,7 +2,7 @@
 #include <chrono>
 #include <windows.h>
 
-string Logger::dirName = "Log_";
+string Logger::dirName = "output\\Log_";
 shared_ptr<const CBeam> Logger::beam;
 Logger::BeamPointers Logger::beamPointers;
 ofstream** Logger::pFile;
@@ -31,6 +31,7 @@ void Logger::GenerateDir()
 	using namespace chrono;
 	time_t end_time = system_clock::to_time_t(system_clock::now());
 	dirName.append(to_string(end_time));
+	CreateDirectory("output", nullptr);
 	CreateDirectory(dirName.c_str(), nullptr);
 	CreateDirectory((dirName+"\\particles").c_str(), nullptr);
 }
