@@ -7,5 +7,5 @@
 24     # Emittance Y (pi*1e-6 m*rad)
 3      # Momentum (GeV)
 0.003  # Momentum Spread (1)
-1024   # Number of Particles
+16     # Number of Particles
 16     # Turns count

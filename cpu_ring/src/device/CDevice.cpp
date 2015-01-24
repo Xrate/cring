@@ -57,8 +57,10 @@ void CDevice::affectBeam(const shared_ptr<CBeam> beam) const
 			mY_T[1][0] * tY.bet + mY_T[1][1] * tY.alf + mY_T[1][2] * tY.gam;
 		beam->parameters_.twissY.gam =
 			mY_T[2][0] * tY.bet + mY_T[2][1] * tY.alf + mY_T[2][2] * tY.gam;
+
 		beam->path_ += step;
-		Logger::printParticles(appertureX, appertureY);
+
+		Logger::printParticles();
 		Logger::printEllipses(appertureX, appertureY);
 	}
 }

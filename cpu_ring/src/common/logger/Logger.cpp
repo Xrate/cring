@@ -5,57 +5,8 @@
 string Logger::dirName = "Log_";
 shared_ptr<const CBeam> Logger::beam;
 Logger::BeamPointers Logger::beamPointers;
-ofstream* Logger::pXFile = nullptr;
-ofstream* Logger::pYFile = nullptr;
-ofstream* Logger::eXFile = nullptr;
-ofstream* Logger::eYFile = nullptr;
-
-void Logger::GenerateDir()
-{
-	using namespace chrono;
-	time_t end_time = system_clock::to_time_t(system_clock::now());
-	dirName.append(to_string(end_time));
-	CreateDirectory(dirName.c_str(), nullptr);
-}
-
-void Logger::printParticles(double aX, double aY)
-{
-	size_t numParticles = beam->numParticles_;
-	*pXFile << beam->path_ << " ";
-	*pXFile << aX << " ";
-	*pYFile << beam->path_ << " ";
-	*pYFile << aY << " ";
-	for (size_t iP = 0; iP < numParticles; ++iP)
-	{
-		*pXFile << beamPointers.particles[iP].X << " ";
-		*pYFile << beamPointers.particles[iP].Y << " ";
-	}
-	*pXFile << endl;
-	*pYFile << endl;
-}
-
-void Logger::printEllipses(double aX, double aY)
-{
-	*eXFile << beam->path_ << " ";
-	*eXFile << aX << " ";
-	*eYFile << beam->path_ << " ";
-	*eYFile << aY << " ";
-
-	*eXFile << beamPointers.twissX->coordMax << " ";
-	*eXFile << beamPointers.twissX->alf << " ";
-	*eXFile << beamPointers.twissX->bet << " ";
-	*eXFile << beamPointers.twissX->gam << " ";
-	*eXFile << beamPointers.twissX->emt << " ";
-
-	*eYFile << beamPointers.twissY->coordMax << " ";
-	*eYFile << beamPointers.twissY->alf << " ";
-	*eYFile << beamPointers.twissY->bet << " ";
-	*eYFile << beamPointers.twissY->gam << " ";
-	*eYFile << beamPointers.twissY->emt << " ";
-	
-	*eXFile << endl;
-	*eYFile << endl;
-}
+ofstream** Logger::pFile;
+ofstream* Logger::ellFile;
 
 void Logger::setUpLogger(const shared_ptr<const CBeam> beam_)
 {
@@ -69,16 +20,48 @@ void Logger::setUpLogger(const shared_ptr<const CBeam> beam_)
 	beamPointers.twissX = &beam->parameters_.twissX;
 	beamPointers.twissY = &beam->parameters_.twissY;
 
-	pXFile = new ofstream(dirName + "\\particlesX.out", ofstream::out);
-	pYFile = new ofstream(dirName + "\\particlesY.out", ofstream::out);
-	eXFile = new ofstream(dirName + "\\ellipsesX.out", ofstream::out);
-	eYFile = new ofstream(dirName + "\\ellipsesY.out", ofstream::out);
+	pFile = new ofstream*[beam_->size()];
+	for (size_t iP = 0; iP < beam_->size(); ++iP)
+		pFile[iP] = new ofstream(dirName + "\\particles\\" + to_string(iP) + ".out", ofstream::out);
+	ellFile = new ofstream(dirName + "\\ellipses.out", ofstream::out);
+}
+
+void Logger::GenerateDir()
+{
+	using namespace chrono;
+	time_t end_time = system_clock::to_time_t(system_clock::now());
+	dirName.append(to_string(end_time));
+	CreateDirectory(dirName.c_str(), nullptr);
+	CreateDirectory((dirName+"\\particles").c_str(), nullptr);
+}
+
+void Logger::printParticles()
+{
+#pragma omp parallel for
+	for (int iP = 0; iP < beam->size(); ++iP)
+	{
+		char temp[19];
+		sprintf_s(temp, "%+1.5f %+1.5f\n", beamPointers.particles[iP].X, beamPointers.particles[iP].Y);
+		*pFile[iP] << temp;
+	}
+}
+
+void Logger::printEllipses(const double& aX, const double& aY)
+{
+	char temp[125];
+	sprintf_s(temp, "%+1.5f %+1.5f %+1.5f %+1.5f %+1.5f %+1.5f %+1.5f %+1.5f %+1.5f %+1.5f %+1.5f %+1.5f %+1.5f\n", 
+		beam->path_, aX, beamPointers.twissX->coordMax, aY, beamPointers.twissY->coordMax, 
+		beamPointers.twissX->alf, beamPointers.twissX->bet, beamPointers.twissX->gam, beamPointers.twissX->emt,
+		beamPointers.twissY->alf, beamPointers.twissY->bet, beamPointers.twissY->gam, beamPointers.twissY->emt);
+	*ellFile << temp;
 }
 
 void Logger::closeLogger()
 {
-	pXFile->close(); delete pXFile;
-	pYFile->close(); delete pYFile;
-	eXFile->close(); delete eXFile;
-	eYFile->close(); delete eYFile;
+	for (size_t iP = 0; iP < beam->size(); ++iP)
+	{
+		pFile[iP]->close(); delete pFile[iP];
+	}
+	delete[] pFile;
+	ellFile->close(); delete ellFile;
 }

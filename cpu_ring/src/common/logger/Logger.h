@@ -6,16 +6,14 @@
 class Logger
 {
 public:
-	void static printParticles(double, double);
-	void static printEllipses(double, double);
+	void static printParticles();
+	void static printEllipses(const double& appX, const double& appY);
 
 	void static setUpLogger(const shared_ptr<const CBeam> beam_);
 	void static closeLogger();
 private:
-	static ofstream *pXFile;
-	static ofstream *pYFile;
-	static ofstream *eXFile;
-	static ofstream *eYFile;
+	static ofstream **pFile;
+	static ofstream *ellFile;
 	static string dirName;
 	static void GenerateDir();
 	static shared_ptr<const CBeam> beam;
