@@ -11,6 +11,7 @@ public:
 	explicit CDevice(const string& name_);
 	virtual ~CDevice(){}
 	void affectBeam(const shared_ptr<CBeam> beam) const;
+	size_t numSteps() const;
 protected:
 	void generateTwissM();
 	virtual void initMatrices() = 0;

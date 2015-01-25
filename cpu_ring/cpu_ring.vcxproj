@@ -78,6 +78,7 @@
     <ClCompile Include="src\beam\BeamParameters.cpp" />
     <ClCompile Include="src\beam\CBeam.cpp" />
     <ClCompile Include="src\common\logger\Logger.cpp" />
+    <ClCompile Include="src\common\plotter\Plotter.cpp" />
     <ClCompile Include="src\device\CDevice.cpp" />
     <ClCompile Include="src\device\DeviceParameters.cpp" />
     <ClCompile Include="src\device\devices\cdipole.cpp" />
@@ -92,6 +93,7 @@
     <ClInclude Include="src\beam\BeamParameters.h" />
     <ClInclude Include="src\beam\CBeam.h" />
     <ClInclude Include="src\common\logger\Logger.h" />
+    <ClInclude Include="src\common\plotter\Plotter.h" />
     <ClInclude Include="src\device\CDevice.h" />
     <ClInclude Include="src\device\DeviceParameters.h" />
     <ClInclude Include="src\device\devices\cdipole.h" />

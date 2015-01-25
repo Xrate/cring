@@ -9,6 +9,8 @@ public:
 	void static printParticles();
 	void static printEllipses(const double& appX, const double& appY);
 
+	string static logDir();
+
 	void static setUpLogger(const shared_ptr<const CBeam> beam_);
 	void static closeLogger();
 private:

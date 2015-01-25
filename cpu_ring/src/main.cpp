@@ -2,6 +2,7 @@
 #include "ring/CRing.h"
 #include "ring/RingConfig.h"
 #include "common/logger/Logger.h"
+#include "common/plotter/Plotter.h"
 #include <vld.h>
 
 int main(int argc, char *argv[])
@@ -18,10 +19,11 @@ int main(int argc, char *argv[])
 	const shared_ptr<CBeam> beam = make_shared<CBeam>(BeamParameters::readBeamParameters(beamFile));
 
 	Logger::setUpLogger(beam);
-
 	ring->affectBeam(beam);
-
 	Logger::closeLogger();
+
+	Plotter::setUpPlotter(Logger::logDir(), beam->turns(), beam->size(), ring->numSteps());
+	Plotter::plot("plot14", 1, 4);
 
 	return 0;
 }

@@ -57,6 +57,11 @@ void Logger::printEllipses(const double& aX, const double& aY)
 	*ellFile << temp;
 }
 
+string Logger::logDir()
+{
+	return dirName;
+}
+
 void Logger::closeLogger()
 {
 	for (size_t iP = 0; iP < beam->size(); ++iP)

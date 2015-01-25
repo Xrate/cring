@@ -23,7 +23,9 @@ CRing::CRing(shared_ptr<const RingConfig> config)
 	for (string name : config->structure)
 	{
 		auto deviceParams = deviceMap.at(name);
-		devices.push_back(CDevice::createDevice(deviceParams));
+		auto device = CDevice::createDevice(deviceParams);
+		nSteps += device->numSteps();
+		devices.push_back(device);
 	}
 	numDevices = devices.size();
 }
@@ -44,4 +46,9 @@ void CRing::affectBeam(shared_ptr<CBeam> beam) const
 	cout << "Time: "      << elapsed_secs  << "s. " <<
 			"Turns: "     << beam->turns() << ". "  <<
 		    "Particles: " << beam->size()  << endl;
+}
+
+size_t CRing::numSteps() const
+{
+	return nSteps;
 }

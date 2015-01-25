@@ -93,3 +93,8 @@ shared_ptr<CDevice> CDevice::createDevice(shared_ptr<const DeviceParameters> par
 	}
 	throw exception("DeviceFactory: enum FileNames error.");
 }
+
+size_t CDevice::numSteps() const
+{
+	return nSteps;
+}
