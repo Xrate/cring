@@ -8,7 +8,7 @@ Logger::BeamPointers Logger::beamPointers;
 ofstream** Logger::pFile;
 ofstream* Logger::ellFile;
 
-void Logger::setUpLogger(const shared_ptr<const CBeam> beam_)
+void Logger::setUp(const shared_ptr<const CBeam> beam_)
 {
 	GenerateDir();
 	if (beam_ == nullptr)
@@ -62,7 +62,7 @@ string Logger::logDir()
 	return dirName;
 }
 
-void Logger::closeLogger()
+void Logger::close()
 {
 	for (size_t iP = 0; iP < beam->size(); ++iP)
 	{

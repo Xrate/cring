@@ -1,6 +1,7 @@
 #include "global.h"
 #include "ring/CRing.h"
 #include "ring/RingConfig.h"
+#include "analysis/FreqAnalyzer.h"
 #include "common/logger/Logger.h"
 #include "common/plotter/Plotter.h"
 #include <vld.h>
@@ -18,12 +19,15 @@ int main(int argc, char *argv[])
 	const shared_ptr<const CRing> ring = CRing::createInstance(RingConfig::readRingConfig(names));
 	const shared_ptr<CBeam> beam = make_shared<CBeam>(BeamParameters::readBeamParameters(beamFile));
 
-	Logger::setUpLogger(beam);
+	Logger::setUp(beam);
 	ring->affectBeam(beam);
-	Logger::closeLogger();
+	Logger::close();
 
-	Plotter::setUpPlotter(Logger::logDir(), beam->turns(), beam->size(), ring->numSteps());
+	FreqAnalyzer::setUp(Logger::logDir(), beam->turns(), beam->size(), ring->numSteps());
+
+	Plotter::setUp(Logger::logDir(), beam->turns(), beam->size(), ring->numSteps());
 	Plotter::plot("plot14", 1, 4);
+	Plotter::plotFreqMap();
 
 	return 0;
 }

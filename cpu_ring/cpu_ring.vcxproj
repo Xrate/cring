@@ -75,6 +75,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\analysis\FreqAnalyzer.cpp" />
     <ClCompile Include="src\beam\BeamParameters.cpp" />
     <ClCompile Include="src\beam\CBeam.cpp" />
     <ClCompile Include="src\common\logger\Logger.cpp" />
@@ -90,6 +91,7 @@
     <ClCompile Include="src\ring\RingConfig.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\analysis\FreqAnalyzer.h" />
     <ClInclude Include="src\beam\BeamParameters.h" />
     <ClInclude Include="src\beam\CBeam.h" />
     <ClInclude Include="src\common\logger\Logger.h" />

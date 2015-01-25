@@ -6,7 +6,7 @@ size_t Plotter::nTurns_;
 size_t Plotter::nParticles_;
 size_t Plotter::nSteps_;
 
-void Plotter::setUpPlotter(string dirName, size_t turns, size_t size, size_t num_steps)
+void Plotter::setUp(string dirName, size_t turns, size_t size, size_t num_steps)
 {
 	dirName_ = dirName;
 	nTurns_ = turns;
@@ -99,4 +99,8 @@ void Plotter::plotY(string plot_name, size_t start_turn, size_t last_turn)
 		<< " using 1:(-$5) title '' ls 3 with lines, \\" << endl;
 
 	pFile.close();
+}
+
+void Plotter::plotFreqMap()
+{
 }

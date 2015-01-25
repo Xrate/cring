@@ -11,8 +11,8 @@ public:
 
 	string static logDir();
 
-	void static setUpLogger(const shared_ptr<const CBeam> beam_);
-	void static closeLogger();
+	void static setUp(const shared_ptr<const CBeam> beam_);
+	void static close();
 private:
 	static ofstream **pFile;
 	static ofstream *ellFile;
