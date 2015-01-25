@@ -4,10 +4,10 @@
 
 enum DeviceType // Number is nSteps for device (cannot be the same!)
 {
-	DIPOLE = 15,
-	DRIFT = 2,
-	QUADRUPOLE = 7,
-	SEXTUPOLE = 3
+	DIPOLE = 25,
+	DRIFT = 10,
+	QUADRUPOLE = 20,
+	SEXTUPOLE = 15
 };
 
 struct DeviceParameters

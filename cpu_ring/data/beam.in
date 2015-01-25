@@ -3,9 +3,9 @@
 0      # Alpha Y (1)
 12.9350814  # Beta X (m)
 9.091061433 # Beta Y (m)
-24     # Emittance X (pi*1e-6 m*rad)
-24     # Emittance Y (pi*1e-6 m*rad)
+240    # Emittance X (pi*1e-6 m*rad)
+240    # Emittance Y (pi*1e-6 m*rad)
 3      # Momentum (GeV)
 0.003  # Momentum Spread (1)
-16     # Number of Particles
-16     # Turns count
+32     # Number of Particles
+1      # Turns count

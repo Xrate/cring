@@ -1,5 +1,4 @@
 ﻿#include "BeamParameters.h"
-#include <cmath>
 #include <fstream>
 #include <sstream>
 
@@ -15,8 +14,6 @@ TwissParameters::TwissParameters(double alf, double bet, double emt) :
 alf(alf), bet(bet), emt(emt)
 {
 	gam = (1. + sqr(alf)) / bet;
-	coordMax = sqrt(bet * emt);
-	angleMax = sqrt(gam * emt);
 }
 
 BeamParameters BeamParameters::readBeamParameters(string fileName)

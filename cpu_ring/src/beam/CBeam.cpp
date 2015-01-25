@@ -19,31 +19,31 @@ void CBeam::createUniformParticles()
 		bool isDead = true;
 		while (isDead)
 		{
-			X = parameters_.twissX.coordMax;
+			X = parameters_.twissX.coordMax();
 			X *= (-1. + 2. / RAND_MAX * rand());
 
-			Y = parameters_.twissY.coordMax;
+			Y = parameters_.twissY.coordMax();
 			Y *= (-1. + 2. / RAND_MAX * rand());
 
-			aX = parameters_.twissY.angleMax;
+			aX = parameters_.twissY.angleMax();
 			aX *= (-1. + 2. / RAND_MAX * rand());
 
-			aY = parameters_.twissY.angleMax;
+			aY = parameters_.twissY.angleMax();
 			aY *= (-1. + 2. / RAND_MAX * rand());
 
 			dP = parameters_.momentumSpread;
 			dP *= (-1. + 2. / RAND_MAX * rand());
 
 			// Particle should be in 3 ellipses (XY, XX', YY')
-			bool isXY = sqr(X / parameters_.twissX.coordMax)
-					  + sqr(Y / parameters_.twissY.coordMax) <= 1.;
+			bool isXY = sqr(X / parameters_.twissX.coordMax())
+					  + sqr(Y / parameters_.twissY.coordMax()) <= 1.;
 			bool isXX = X*X   * parameters_.twissX.gam 
 					  + aX*aX * parameters_.twissX.bet 
 					  + X*aX  * parameters_.twissX.alf * 2.
 					  <= parameters_.twissX.emt;
-			bool isYY = X*X   * parameters_.twissY.gam
-					  + aX*aX * parameters_.twissY.bet
-					  + X*aX  * parameters_.twissY.alf * 2.
+			bool isYY = Y*Y   * parameters_.twissY.gam
+					  + aY*aY * parameters_.twissY.bet
+					  + Y*aY  * parameters_.twissY.alf * 2.
 					  <= parameters_.twissY.emt;
 			isDead = !(isXY && isXX && isYY);
 		}

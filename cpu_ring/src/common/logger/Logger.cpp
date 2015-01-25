@@ -40,8 +40,9 @@ void Logger::printParticles()
 #pragma omp parallel for
 	for (int iP = 0; iP < beam->size(); ++iP)
 	{
-		char temp[19];
-		sprintf_s(temp, "%+1.5f %+1.5f\n", beamPointers.particles[iP].X, beamPointers.particles[iP].Y);
+		char temp[28];
+		sprintf_s(temp, "%03.3f %+1.5f %+1.5f\n", 
+			beam->path_, beamPointers.particles[iP].X, beamPointers.particles[iP].Y);
 		*pFile[iP] << temp;
 	}
 }
@@ -49,8 +50,8 @@ void Logger::printParticles()
 void Logger::printEllipses(const double& aX, const double& aY)
 {
 	char temp[125];
-	sprintf_s(temp, "%+1.5f %+1.5f %+1.5f %+1.5f %+1.5f %+1.5f %+1.5f %+1.5f %+1.5f %+1.5f %+1.5f %+1.5f %+1.5f\n", 
-		beam->path_, aX, beamPointers.twissX->coordMax, aY, beamPointers.twissY->coordMax, 
+	sprintf_s(temp, "%03.3f %+1.5f %+1.5f %+1.5f %+1.5f %+1.5f %+1.5f %+1.5f %+1.5f %+1.5f %+1.5f %+1.5f %+1.5f\n", 
+		beam->path_, aX, beamPointers.twissX->coordMax(), aY, beamPointers.twissY->coordMax(), 
 		beamPointers.twissX->alf, beamPointers.twissX->bet, beamPointers.twissX->gam, beamPointers.twissX->emt,
 		beamPointers.twissY->alf, beamPointers.twissY->bet, beamPointers.twissY->gam, beamPointers.twissY->emt);
 	*ellFile << temp;

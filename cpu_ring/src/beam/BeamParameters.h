@@ -12,8 +12,8 @@ struct TwissParameters
 	double bet;
 	double gam;
 	double emt;
-	double coordMax;
-	double angleMax;
+	inline double coordMax() const { return sqrt(bet * emt); }
+	inline double angleMax() const { return sqrt(gam * emt); }
 };
 
 struct BeamParameters {
