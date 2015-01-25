@@ -101,5 +101,8 @@
     <ClInclude Include="src\analysis\FreqAnalyzer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\common\logger\ftoa.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

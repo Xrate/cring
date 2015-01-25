@@ -94,6 +94,7 @@
     <ClInclude Include="src\analysis\FreqAnalyzer.h" />
     <ClInclude Include="src\beam\BeamParameters.h" />
     <ClInclude Include="src\beam\CBeam.h" />
+    <ClInclude Include="src\common\logger\ftoa.h" />
     <ClInclude Include="src\common\logger\Logger.h" />
     <ClInclude Include="src\common\plotter\Plotter.h" />
     <ClInclude Include="src\device\CDevice.h" />

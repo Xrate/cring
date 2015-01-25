@@ -1,7 +1,7 @@
 #include "global.h"
 #include "ring/CRing.h"
 #include "ring/RingConfig.h"
-#include "analysis/FreqAnalyzer.h"
+//#include "analysis/FreqAnalyzer.h"
 #include "common/logger/Logger.h"
 #include "common/plotter/Plotter.h"
 #include <vld.h>
@@ -23,7 +23,7 @@ int main(int argc, char *argv[])
 	ring->affectBeam(beam);
 	Logger::close();
 
-	FreqAnalyzer::setUp(Logger::logDir(), beam->turns(), beam->size(), ring->numSteps());
+//	FreqAnalyzer::setUp(Logger::logDir(), beam->turns(), beam->size(), ring->numSteps());
 
 	Plotter::setUp(Logger::logDir(), beam->turns(), beam->size(), ring->numSteps());
 	Plotter::plot("plot14", 1, 4);

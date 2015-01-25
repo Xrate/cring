@@ -1,6 +1,7 @@
 ﻿#include "Logger.h"
 #include <chrono>
 #include <windows.h>
+#include "ftoa.h"
 
 string Logger::dirName = "output\\Log_";
 shared_ptr<const CBeam> Logger::beam;
@@ -37,13 +38,14 @@ void Logger::GenerateDir()
 
 void Logger::printParticles()
 {
-#pragma omp parallel for
+	#pragma omp parallel for
 	for (int iP = 0; iP < beam->size(); ++iP)
 	{
-		char temp[28];
-		sprintf_s(temp, "%03.3f %+1.5f %+1.5f\n", 
-			beam->path_, beamPointers.particles[iP].X, beamPointers.particles[iP].Y);
-		*pFile[iP] << temp;
+		char res[30];
+		ftoa(beam->path_, res, 6, 3);
+		ftoa(beamPointers.particles[iP].X, res + 11, 1, 6);
+		ftoa(beamPointers.particles[iP].Y, res + 20, 1, 6);
+		*pFile[iP] << res;
 	}
 }
 
