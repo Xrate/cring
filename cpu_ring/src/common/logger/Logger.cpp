@@ -37,26 +37,43 @@ void Logger::GenerateDir()
 }
 
 void Logger::printParticles()
-{
+{	// Bottleneck! Change if you really know what you do!
+	// All hard-coded digits present for maximum performance.
+	// Optimize ftoa(), if you can =)
 	#pragma omp parallel for
 	for (int iP = 0; iP < beam->size(); ++iP)
 	{
-		char res[30];
+		char res[33];
 		ftoa(beam->path_, res, 6, 3);
-		ftoa(beamPointers.particles[iP].X, res + 11, 1, 6);
-		ftoa(beamPointers.particles[iP].Y, res + 20, 1, 6);
+		ftoa(beamPointers.particles[iP].X, res + 12, 1, 6);
+		ftoa(beamPointers.particles[iP].Y, res + 22, 1, 6);
+		res[31] = '\n';
 		*pFile[iP] << res;
 	}
 }
 
 void Logger::printEllipses(const double& aX, const double& aY)
-{
-	char temp[125];
-	sprintf_s(temp, "%03.3f %+1.5f %+1.5f %+1.5f %+1.5f %+1.5f %+1.5f %+1.5f %+1.5f %+1.5f %+1.5f %+1.5f %+1.5f\n", 
-		beam->path_, aX, beamPointers.twissX->coordMax(), aY, beamPointers.twissY->coordMax(), 
-		beamPointers.twissX->alf, beamPointers.twissX->bet, beamPointers.twissX->gam, beamPointers.twissX->emt,
-		beamPointers.twissY->alf, beamPointers.twissY->bet, beamPointers.twissY->gam, beamPointers.twissY->emt);
-	*ellFile << temp;
+{	// Bottleneck! Change if you really know what you do!
+	// All hard-coded digits present for maximum performance.
+	// Optimize ftoa(), if you can =)
+	char res[137];
+	ftoa(beam->path_, res, 6, 3);
+	ftoa(aX, res + 12, 1, 6);
+	ftoa(beamPointers.twissX->coordMax(), res + 22, 1, 6);
+	ftoa(aY, res + 32, 1, 6);
+	ftoa(beamPointers.twissY->coordMax(), res + 42, 1, 6);
+
+	ftoa(beamPointers.twissX->alf, res + 52, 1, 6);
+	ftoa(beamPointers.twissX->bet, res + 62, 3, 6);
+	ftoa(beamPointers.twissX->gam, res + 74, 1, 6);
+	ftoa(beamPointers.twissX->emt, res + 84, 1, 6);
+	ftoa(beamPointers.twissY->alf, res + 94, 1, 6);
+	ftoa(beamPointers.twissY->bet, res + 104, 3, 6);
+	ftoa(beamPointers.twissY->gam, res + 116, 1, 6);
+	ftoa(beamPointers.twissY->emt, res + 126, 1, 6);
+
+	res[135] = '\n';
+	*ellFile << res;
 }
 
 string Logger::logDir()

@@ -24,10 +24,16 @@ inline int intToStr(int x, char str[], int d)
 
 inline void ftoa(double n, char *res, int before, int after)
 {
+	int i = 0;
+
+	res[0] = n > 0 ? '+' : '-'; ++i;
+
+	n = fabs(n);
+
 	int ipart = static_cast<int>(n);
 	double fpart = n - static_cast<double>(ipart);
 
-	int i = intToStr(ipart, res, before);
+	i += intToStr(ipart, res + i, before);
 
 	res[i] = '.'; ++i;
 	for (short j = 0; j < after; ++j)
