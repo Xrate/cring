@@ -17,7 +17,8 @@ shared_ptr<const CRing> CRing::getInstance()
 	throw exception("CRing: Try to access null CRing");
 }
 
-CRing::CRing(shared_ptr<const RingConfig> config)
+CRing::CRing(shared_ptr<const RingConfig> config) :
+nSteps(0)
 {
 	auto deviceMap = config->devices;
 	for (string name : config->structure)
