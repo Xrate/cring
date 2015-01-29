@@ -34,8 +34,8 @@ void FreqAnalyzer::calculate()
 	double* inX = new double[nTurns_];
 	double* inY = new double[nTurns_];
 	fftw_complex* out = static_cast<fftw_complex*>(fftw_malloc(sizeof(fftw_complex) * (nTurns_/2 + 1)));
-	fftw_plan planX = fftw_plan_dft_r2c_1d(static_cast<int>(nTurns_), inX, out, FFTW_FORWARD);
-	fftw_plan planY = fftw_plan_dft_r2c_1d(static_cast<int>(nTurns_), inX, out, FFTW_FORWARD);
+	fftw_plan planX = fftw_plan_dft_r2c_1d(static_cast<int>(nTurns_), inX, out, FFTW_MEASURE);
+	fftw_plan planY = fftw_plan_dft_r2c_1d(static_cast<int>(nTurns_), inX, out, FFTW_MEASURE);
 
 	for (int iP = 0; iP < nParticles_; ++iP)
 	{
@@ -45,6 +45,8 @@ void FreqAnalyzer::calculate()
 		Qx[iP] = findFrequency(planX, out);
 		Qy[iP] = findFrequency(planY, out);
 	}
+	delete[] inX;
+	delete[] inY;
 }
 
 void FreqAnalyzer::readParticleTraj(size_t iP, double* inX, double* inY)
