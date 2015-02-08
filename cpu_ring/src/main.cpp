@@ -1,9 +1,12 @@
 #include "global.h"
 #include "ring/CRing.h"
 #include "ring/RingConfig.h"
+
 #include "analysis/FreqAnalyzer.h"
 #include "common/logger/Logger.h"
 #include "common/plotter/Plotter.h"
+#include "common/OutDirConfig.h"
+
 #include <vld.h>
 #include <fftw3.h>
 
@@ -24,12 +27,14 @@ int main(int argc, char *argv[])
 	ring->affectBeam(beam);
 	Logger::close();
 
-	FreqAnalyzer::setUp(Logger::logDir(), beam->turns(), beam->size(), ring->numSteps());
+	const OutDirConfig dirConfig = { Logger::logDir(), beam->turns(), beam->size(), ring->numSteps() };
+
+	FreqAnalyzer::setUp(dirConfig);
 	FreqAnalyzer::calculate();
 	FreqAnalyzer::print();
 
-	Plotter::setUp(Logger::logDir(), beam->turns(), beam->size(), ring->numSteps());
-	Plotter::plot("plot14", 1, 4);
+	Plotter::setUp(dirConfig);
+	Plotter::plot("plot14", 1, 32);
 	Plotter::plotFreqMap();
 
 	return 0;

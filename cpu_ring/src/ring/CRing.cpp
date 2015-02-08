@@ -20,12 +20,11 @@ shared_ptr<const CRing> CRing::getInstance()
 CRing::CRing(shared_ptr<const RingConfig> config) :
 nSteps(0)
 {
-	auto deviceMap = config->devices;
 	for (string name : config->structure)
 	{
-		auto deviceParams = deviceMap.at(name);
+		auto deviceParams = config->devices.at(name);
 		auto device = CDevice::createDevice(deviceParams);
-		nSteps += device->numSteps();
+		nSteps += static_cast<size_t>(deviceParams.type_);
 		devices.push_back(device);
 	}
 	numDevices = devices.size();

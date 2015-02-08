@@ -16,9 +16,9 @@ void Logger::setUp(const shared_ptr<const CBeam> beam_)
 		throw new exception("Error: Trying to log empty beam");
 
 	beam = beam_;
-	beamPointers.particles = beam->particles_.data();
-	beamPointers.twissX = &beam->parameters_.twissX;
-	beamPointers.twissY = &beam->parameters_.twissY;
+	beamPointers.particles = beam->particles().data();
+	beamPointers.twissX = &beam->parameters().twissX;
+	beamPointers.twissY = &beam->parameters().twissY;
 
 	ellFile = new ofstream(dirName + "\\ellipses.out", ofstream::out);
 	pFile = new ofstream*[beam_->size()];
@@ -44,7 +44,7 @@ void Logger::printParticles()
 	for (int iP = 0; iP < beam->size(); ++iP)
 	{
 		char res[33];
-		ftoa(beam->path_, res, 6, 3);
+		ftoa(beam->path(), res, 6, 3);
 		ftoa(beamPointers.particles[iP].X, res + 12, 1, 6);
 		ftoa(beamPointers.particles[iP].Y, res + 22, 1, 6);
 		res[31] = '\n';
@@ -57,7 +57,7 @@ void Logger::printEllipses(const double& aX, const double& aY)
 	// All hard-coded digits present for maximum performance.
 	// Optimize ftoa(), if you can =)
 	char res[137];
-	ftoa(beam->path_, res, 6, 3);
+	ftoa(beam->path(), res, 6, 3);
 	ftoa(aX, res + 12, 1, 6);
 	ftoa(beamPointers.twissX->coordMax(), res + 22, 1, 6);
 	ftoa(aY, res + 32, 1, 6);

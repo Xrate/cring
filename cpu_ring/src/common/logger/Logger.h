@@ -1,5 +1,5 @@
-﻿#ifndef LOGGER_H
-#define LOGGER_H
+﻿#pragma once
+
 #include "../../beam/CBeam.h"
 #include <fstream>
 
@@ -14,10 +14,12 @@ public:
 	void static setUp(const shared_ptr<const CBeam> beam_);
 	void static close();
 private:
+	static void GenerateDir();
+	static string dirName;
+
 	static ofstream **pFile;
 	static ofstream *ellFile;
-	static string dirName;
-	static void GenerateDir();
+	
 	static shared_ptr<const CBeam> beam;
 	static struct BeamPointers
 	{
@@ -26,5 +28,3 @@ private:
 		TwissParameters const* twissY;
 	} beamPointers;
 };
-
-#endif // LOGGER_H

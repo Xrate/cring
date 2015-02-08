@@ -1,14 +1,14 @@
 #include "cquadrupole.h"
 #include <cmath>
 
-CQuadrupole::CQuadrupole(const shared_ptr<const DeviceParameters> params)
-: CDevice(params->name)
+CQuadrupole::CQuadrupole(const DeviceParameters& params)
+: CDevice(params.name_)
 {
-	length = params->length;
-	force = params->force;
-	appertureX = params->appertureX;
-	appertureY = params->appertureY;
-	nSteps = size_t(params->type);
+	length = params.length_;
+	force = params.force_;
+	appertureX = params.appertureX_;
+	appertureY = params.appertureY_;
+	nSteps = size_t(params.type_);
 	step = length / nSteps;
 
 	CQuadrupole::initMatrices();

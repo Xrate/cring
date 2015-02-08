@@ -88,10 +88,10 @@
     <ClCompile Include="src\analysis\FreqAnalyzer.cpp" />
     <ClCompile Include="src\beam\BeamParameters.cpp" />
     <ClCompile Include="src\beam\CBeam.cpp" />
+    <ClCompile Include="src\beam\ParticleCreator\ParticleCreator.cpp" />
     <ClCompile Include="src\common\logger\Logger.cpp" />
     <ClCompile Include="src\common\plotter\Plotter.cpp" />
     <ClCompile Include="src\device\CDevice.cpp" />
-    <ClCompile Include="src\device\DeviceParameters.cpp" />
     <ClCompile Include="src\device\devices\cdipole.cpp" />
     <ClCompile Include="src\device\devices\cdrift.cpp" />
     <ClCompile Include="src\device\devices\cquadrupole.cpp" />
@@ -104,8 +104,10 @@
     <ClInclude Include="src\analysis\FreqAnalyzer.h" />
     <ClInclude Include="src\beam\BeamParameters.h" />
     <ClInclude Include="src\beam\CBeam.h" />
+    <ClInclude Include="src\beam\ParticleCreator\ParticleCreator.h" />
     <ClInclude Include="src\common\logger\ftoa.h" />
     <ClInclude Include="src\common\logger\Logger.h" />
+    <ClInclude Include="src\common\OutDirConfig.h" />
     <ClInclude Include="src\common\plotter\Plotter.h" />
     <ClInclude Include="src\device\CDevice.h" />
     <ClInclude Include="src\device\DeviceParameters.h" />

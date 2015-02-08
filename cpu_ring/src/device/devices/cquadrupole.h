@@ -1,5 +1,4 @@
-#ifndef CQUADRUPOLE_H
-#define CQUADRUPOLE_H
+#pragma once
 
 #include "../CDevice.h"
 #include "../DeviceParameters.h"
@@ -7,10 +6,8 @@
 class CQuadrupole : public CDevice
 {
 public:
-	explicit CQuadrupole(const shared_ptr<const DeviceParameters> params);
+	explicit CQuadrupole(const DeviceParameters& params);
     virtual void initMatrices() override;
 private:
     double force;
 };
-
-#endif // CQUADRUPOLE_H

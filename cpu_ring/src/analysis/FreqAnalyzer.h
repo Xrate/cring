@@ -1,12 +1,13 @@
-﻿#ifndef FREQANALYZER_H
-#define FREQANALYZER_H
+﻿#pragma once
+
 #include "../global.h"
+#include "../common/OutDirConfig.h"
 #include <fftw3.h>
 
 class FreqAnalyzer
 {
 public:
-	static void setUp(string dirName, size_t turns, size_t size, size_t num_steps);
+	static void setUp(OutDirConfig dirConfig);
 	static void print();
 	static void calculate();
 private:
@@ -19,5 +20,3 @@ private:
 	static vector<double> Qx;
 	static vector<double> Qy;
 };
-
-#endif // FREQANALYZER_H

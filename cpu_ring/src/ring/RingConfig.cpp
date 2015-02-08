@@ -39,8 +39,8 @@ void RingConfig::readParams(FileNames fileNames, DeviceType type)
 		double force = atof(words.at(2).c_str());
 		double appX = atof(words.at(3).c_str());
 		double appY = atof(words.at(4).c_str());
-		auto dParams = make_shared<DeviceParameters>(name, type, length, force, appX, appY);
-		devices.insert(pair<string, shared_ptr<DeviceParameters>>(name, dParams));
+		DeviceParameters dParams = { name, type, length, force, appX, appY };
+		devices.insert(pair<string, DeviceParameters>(name, dParams));
 	}
 }
 

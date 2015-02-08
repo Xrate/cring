@@ -1,81 +1,33 @@
 ﻿#include "CBeam.h"
+#include "ParticleCreator/ParticleCreator.h"
 
 CBeam::CBeam(BeamParameters parameters) :
 parameters_(parameters),
 particles_(parameters.numParticles),
 numParticles_(parameters.numParticles),
 numTurns_(parameters.numTurns),
-path_(0.)
+path_(0)
 {
-	generateParticles(parameters_.distType);
+	auto creator = IParticleCreator::getParticleCreator(parameters_.distType);
+	creator->createParticles(parameters_, particles_);
 }
 
-void CBeam::createUniformParticles()
+ParticleVec& CBeam::particles()
 {
-//#pragma omp parallel for
-	for (unsigned iParticle = 0; iParticle < parameters_.numParticles; ++iParticle)
-	{
-		double X = 0, Y = 0, aX = 0, aY = 0, dP = 0;
-		bool isDead = true;
-		while (isDead)
-		{
-			X = parameters_.twissX.coordMax();
-			X *= (-1. + 2. / RAND_MAX * rand());
-
-			Y = parameters_.twissY.coordMax();
-			Y *= (-1. + 2. / RAND_MAX * rand());
-
-			aX = parameters_.twissY.angleMax();
-			aX *= (-1. + 2. / RAND_MAX * rand());
-
-			aY = parameters_.twissY.angleMax();
-			aY *= (-1. + 2. / RAND_MAX * rand());
-
-			dP = parameters_.momentumSpread;
-			dP *= (-1. + 2. / RAND_MAX * rand());
-
-			// Particle should be in 3 ellipses (XY, XX', YY')
-			bool isXY = sqr(X / parameters_.twissX.coordMax())
-					  + sqr(Y / parameters_.twissY.coordMax()) <= 1.;
-			bool isXX = X*X   * parameters_.twissX.gam 
-					  + aX*aX * parameters_.twissX.bet 
-					  + X*aX  * parameters_.twissX.alf * 2.
-					  <= parameters_.twissX.emt;
-			bool isYY = Y*Y   * parameters_.twissY.gam
-					  + aY*aY * parameters_.twissY.bet
-					  + Y*aY  * parameters_.twissY.alf * 2.
-					  <= parameters_.twissY.emt;
-			isDead = !(isXY && isXX && isYY);
-		}
-		particles_[iParticle].X  = X;
-		particles_[iParticle].aX = aX;
-		particles_[iParticle].Y = Y;
-		particles_[iParticle].aY = aY;
-		particles_[iParticle].dp = dP;
-		particles_[iParticle].isAlive = true;
-	}
+	return particles_;
 }
 
-void CBeam::createGaussianParticles()
+BeamParameters& CBeam::parameters()
 {
+	return parameters_;
 }
 
-void CBeam::generateParticles(DistType dist_type)
+const ParticleVec& CBeam::particles() const
 {
-	switch (dist_type)
-	{
-	case UNIFORM:  createUniformParticles(); break;
-	case GAUSSIAN: createGaussianParticles(); break;
-	default: createUniformParticles(); break;
-	}
+	return particles_;
 }
 
-size_t CBeam::size() const
+const BeamParameters& CBeam::parameters() const
 {
-	return numParticles_;
-}
-
-size_t CBeam::turns() const
-{
-	return numTurns_;
+	return parameters_;
 }

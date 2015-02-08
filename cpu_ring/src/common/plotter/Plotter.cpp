@@ -6,12 +6,12 @@ size_t Plotter::nTurns_;
 size_t Plotter::nParticles_;
 size_t Plotter::nSteps_;
 
-void Plotter::setUp(string dirName, size_t turns, size_t size, size_t num_steps)
+void Plotter::setUp(OutDirConfig dirConfig)
 {
-	dirName_ = dirName;
-	nTurns_ = turns;
-	nParticles_ = size;
-	nSteps_ = num_steps;
+	dirName_ = dirConfig.dirName;
+	nTurns_ = dirConfig.turns;
+	nParticles_ = dirConfig.particles;
+	nSteps_ = dirConfig.steps;
 }
 
 void Plotter::plot(string plotName, size_t turn)

@@ -1,6 +1,4 @@
-﻿#ifndef BEAMPARAMETERS_H
-#define BEAMPARAMETERS_H
-
+﻿#pragma once
 #include "../global.h"
 
 enum DistType { UNIFORM, GAUSSIAN };
@@ -31,4 +29,3 @@ struct BeamParameters {
 	double momentum;
 	double momentumSpread;
 };
-#endif // BEAMPARAMETERS_H

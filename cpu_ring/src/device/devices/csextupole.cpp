@@ -1,12 +1,13 @@
 #include "csextupole.h"
 
-CSextupole::CSextupole(const shared_ptr<const DeviceParameters> params)
-: CDevice(params->name)
+CSextupole::CSextupole(const DeviceParameters& params)
+: CDevice(params.name_)
 {
-	length = params->length;
-	appertureX = params->appertureX;
-	appertureY = params->appertureY;
-	nSteps = size_t(params->type);
+	length = params.length_;
+	force = 0;
+	appertureX = params.appertureX_;
+	appertureY = params.appertureY_;
+	nSteps = size_t(params.type_);
 	step = length / nSteps;
 
 	CSextupole::initMatrices();

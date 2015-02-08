@@ -9,14 +9,14 @@ size_t FreqAnalyzer::nSteps_;
 vector<double> FreqAnalyzer::Qx;
 vector<double> FreqAnalyzer::Qy;
 
-void FreqAnalyzer::setUp(string dirName, size_t turns, size_t size, size_t num_steps)
+void FreqAnalyzer::setUp(OutDirConfig dirConfig)
 {
-	dirName_ = dirName;
-	nTurns_ = turns;
-	nParticles_ = size;
-	nSteps_ = num_steps;
-	Qx = vector<double>(size);
-	Qy = vector<double>(size);
+	dirName_ = dirConfig.dirName;
+	nTurns_ = dirConfig.turns;
+	nParticles_ = dirConfig.particles;
+	nSteps_ = dirConfig.steps;
+	Qx = vector<double>(nTurns_);
+	Qy = vector<double>(nTurns_);
 }
 
 void FreqAnalyzer::print()

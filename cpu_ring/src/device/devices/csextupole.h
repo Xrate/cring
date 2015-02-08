@@ -1,5 +1,4 @@
-#ifndef CSEXTUPOLE_H
-#define CSEXTUPOLE_H
+#pragma once
 
 #include "../CDevice.h"
 #include "../DeviceParameters.h"
@@ -7,11 +6,8 @@
 class CSextupole : public CDevice
 {
 public:
-	explicit CSextupole(const shared_ptr<const DeviceParameters> params);
+	explicit CSextupole(const DeviceParameters& params);
 	virtual void initMatrices() override;
 private:
 	double force;
 };
-
-
-#endif // CSEXTUPOLE_H

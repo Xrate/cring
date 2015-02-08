@@ -1,5 +1,5 @@
-﻿#ifndef CRING_H
-#define CRING_H
+﻿#pragma once
+
 #include "../global.h"
 #include "RingConfig.h"
 #include "../device/CDevice.h"
@@ -19,5 +19,3 @@ private:
 	size_t nSteps;
 	vector<shared_ptr<const CDevice>> devices;
 };
-
-#endif // CRING_H

@@ -1,5 +1,5 @@
-﻿#ifndef DEVICEPARAMETERS_H
-#define DEVICEPARAMETERS_H
+﻿#pragma once
+
 #include "../global.h"
 
 enum DeviceType // Number is nSteps for device (cannot be the same!)
@@ -12,15 +12,10 @@ enum DeviceType // Number is nSteps for device (cannot be the same!)
 
 struct DeviceParameters
 {
-	DeviceParameters(string name, DeviceType type, 
-					 double length, double force, 
-					 double apperture_x, double apperture_y);
-	string name;
-	DeviceType type;
-	double length;
-	double force;
-	double appertureX;
-	double appertureY;
+	string name_;
+	DeviceType type_;
+	double length_;
+	double force_;
+	double appertureX_;
+	double appertureY_;
 };
-
-#endif // DEVICEPARAMETERS_H

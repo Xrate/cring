@@ -1,5 +1,5 @@
-﻿#ifndef RINGCONFIG_H
-#define RINGCONFIG_H
+﻿#pragma once
+
 #include "../global.h"
 #include "../device/DeviceParameters.h"
 #include <map>
@@ -29,11 +29,10 @@ class RingConfig
 {
 public:
 	static shared_ptr<const RingConfig> readRingConfig(FileNames fileNames);
-	map<string, shared_ptr<DeviceParameters>> devices;
+	map<string, DeviceParameters> devices;
 	vector<string> structure;
 private:
 	explicit RingConfig(FileNames fileNames);
 	void readParams(FileNames fileNames, DeviceType type);
 	void readStructure(string fileName);
 };
-#endif // RINGCONFIG_H

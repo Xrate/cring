@@ -1,5 +1,5 @@
-﻿#ifndef CBEAM_H
-#define CBEAM_H
+﻿#pragma once
+
 #include "../global.h"
 #include "BeamParameters.h"
 
@@ -16,17 +16,17 @@ typedef vector<Particle> ParticleVec;
 
 class CBeam
 {
-	friend class CDevice;
-	friend class Logger;
 public:
-	explicit CBeam(BeamParameters parameters);
+	explicit CBeam(BeamParameters params);
 	size_t size() const;
 	size_t turns() const;
+	double path() const;
+	void addPath(double step);
+	ParticleVec& particles();
+	BeamParameters& parameters();
+	const ParticleVec& particles() const;
+	const BeamParameters& parameters() const;
 private:
-	void generateParticles(DistType dist_type);
-	void createUniformParticles();
-	void createGaussianParticles();
-	// Fields
 	BeamParameters parameters_;
 	ParticleVec particles_;
 	const size_t numParticles_;
@@ -34,4 +34,22 @@ private:
 	double path_;
 };
 
-#endif // CBEAM_H
+inline size_t CBeam::size() const
+{
+	return numParticles_;
+}
+
+inline size_t CBeam::turns() const
+{
+	return numTurns_;
+}
+
+inline double CBeam::path() const
+{
+	return path_;
+}
+
+inline void CBeam::addPath(double step)
+{
+	path_ += step;
+}

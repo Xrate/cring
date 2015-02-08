@@ -1,5 +1,4 @@
-#ifndef FTOA_H
-#define FTOA_H
+#pragma once
 
 inline int intToStr(int x, char str[], int d)
 {
@@ -28,7 +27,7 @@ inline void ftoa(double n, char *res, int before, int after)
 
 	res[0] = n > 0 ? '+' : '-'; ++i;
 
-	n = fabs(n);
+	n = n > 0 ? n : -n;
 
 	int ipart = static_cast<int>(n);
 	double fpart = n - static_cast<double>(ipart);
@@ -43,5 +42,3 @@ inline void ftoa(double n, char *res, int before, int after)
 	res[i] = ' ';
 	res[i + 1] = '\0';
 }
-
-#endif // FTOA_H
