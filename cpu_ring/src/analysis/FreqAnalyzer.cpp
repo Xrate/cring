@@ -1,6 +1,7 @@
 ﻿#include "FreqAnalyzer.h"
 #include "fstream"
 #include <sstream>
+#include <locale>
 
 string FreqAnalyzer::dirName_;
 size_t FreqAnalyzer::nTurns_;
@@ -31,22 +32,35 @@ void FreqAnalyzer::print()
 
 void FreqAnalyzer::calculate()
 {
-	double* inX = new double[nTurns_];
-	double* inY = new double[nTurns_];
-	fftw_complex* out = static_cast<fftw_complex*>(fftw_malloc(sizeof(fftw_complex) * (nTurns_/2 + 1)));
-	fftw_plan planX = fftw_plan_dft_r2c_1d(static_cast<int>(nTurns_), inX, out, FFTW_MEASURE);
-	fftw_plan planY = fftw_plan_dft_r2c_1d(static_cast<int>(nTurns_), inX, out, FFTW_MEASURE);
+	clock_t begin = clock();
 
+	double* inXAll = static_cast<double*>(fftw_malloc(sizeof(double)* nTurns_));
+	double* inYAll = static_cast<double*>(fftw_malloc(sizeof(double)* nTurns_));
+	fftw_complex* outAll = static_cast<fftw_complex*>(fftw_malloc(sizeof(fftw_complex) * (nTurns_/2 + 1)));
+	fftw_plan plan = fftw_plan_dft_r2c_1d(static_cast<int>(nTurns_), inXAll, outAll, FFTW_MEASURE);
+
+#pragma omp parallel for
 	for (int iP = 0; iP < nParticles_; ++iP)
 	{
-		vector<double> trajX(0);
-		vector<double> trajY(0);
+		double* inX = static_cast<double*>(fftw_malloc(sizeof(double)* nTurns_));
+		double* inY = static_cast<double*>(fftw_malloc(sizeof(double)* nTurns_));
+		fftw_complex* out = static_cast<fftw_complex*>(fftw_malloc(sizeof(fftw_complex)* (nTurns_ / 2 + 1)));
 		readParticleTraj(iP, inX, inY);
-		Qx[iP] = findFrequency(planX, out);
-		Qy[iP] = findFrequency(planY, out);
+		Qx[iP] = findFrequency(plan, inX, out);
+		Qy[iP] = findFrequency(plan, inY, out);
+		fftw_free(inX);
+		fftw_free(inY);
+		fftw_free(out);
 	}
-	delete[] inX;
-	delete[] inY;
+	fftw_free(inXAll);
+	fftw_free(inYAll);
+	fftw_free(outAll);
+	fftw_destroy_plan(plan);
+
+	clock_t end = clock();
+	double elapsed_secs = double(end - begin) / CLOCKS_PER_SEC;
+
+	cout << "Time of FFT: " << elapsed_secs << "s. " << endl;
 }
 
 void FreqAnalyzer::readParticleTraj(size_t iP, double* inX, double* inY)
@@ -75,9 +89,9 @@ void FreqAnalyzer::readParticleTraj(size_t iP, double* inX, double* inY)
 		throw exception(("File" + to_string(iP) + ".out has wrong format").c_str());
 }
 
-double FreqAnalyzer::findFrequency(fftw_plan& plan, fftw_complex* out)
+double FreqAnalyzer::findFrequency(fftw_plan& plan, double* in, fftw_complex* out)
 {
-	fftw_execute(plan);
+	fftw_execute_dft_r2c(plan, in, out);
 	size_t n = nTurns_ / 2 + 1;
 	double beta = 0., max = 0.;
 	for (unsigned iP = 0; iP < n; ++iP)

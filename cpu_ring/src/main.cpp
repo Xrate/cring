@@ -22,6 +22,7 @@ int main(int argc, char *argv[])
 
 	const shared_ptr<const CRing> ring = CRing::createInstance(RingConfig::readRingConfig(names));
 	const shared_ptr<CBeam> beam = make_shared<CBeam>(BeamParameters::readBeamParameters(beamFile));
+	cout <<"Turns: " << beam->turns() << ". " << "Particles: " << beam->size() << endl;
 
 	Logger::setUp(beam);
 	ring->affectBeam(beam);

@@ -46,5 +46,5 @@ BeamParameters BeamParameters::readBeamParameters(string fileName)
 	TwissParameters tY(params.at(1), params.at(3), params.at(5)*1.e-6);
 
 	return BeamParameters(tX, tY, static_cast<size_t>(params.at(8)), 
-		static_cast<size_t>(params.at(9)), UNIFORM, params.at(6), params.at(7));
+		static_cast<size_t>(params.at(9)), UNIFORM, params.at(6), params.at(7)*0.01);
 }

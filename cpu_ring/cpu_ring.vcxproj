@@ -41,16 +41,16 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <OutDir>build\$(Platform)\$(Configuration)\</OutDir>
     <IntDir>build\$(Platform)\$(Configuration)\</IntDir>
-    <ExecutablePath>D:\dev\fftw;$(ExecutablePath)</ExecutablePath>
-    <IncludePath>D:\dev\fftw;$(IncludePath)</IncludePath>
-    <LibraryPath>D:\dev\fftw;$(LibraryPath)</LibraryPath>
+    <ExecutablePath>$(SolutionDir)\fftw;$(ExecutablePath)</ExecutablePath>
+    <IncludePath>$(SolutionDir)\fftw;$(IncludePath)</IncludePath>
+    <LibraryPath>$(SolutionDir)\fftw;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <OutDir>build\$(Platform)\$(Configuration)\</OutDir>
     <IntDir>build\$(Platform)\$(Configuration)\</IntDir>
-    <ExecutablePath>D:\dev\fftw;$(ExecutablePath)</ExecutablePath>
-    <IncludePath>D:\dev\fftw;$(IncludePath)</IncludePath>
-    <LibraryPath>D:\dev\fftw;$(LibraryPath)</LibraryPath>
+    <ExecutablePath>$(SolutionDir)\fftw;$(ExecutablePath)</ExecutablePath>
+    <IncludePath>$(SolutionDir)\fftw;$(IncludePath)</IncludePath>
+    <LibraryPath>$(SolutionDir)\fftw;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>

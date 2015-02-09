@@ -43,9 +43,7 @@ void CRing::affectBeam(shared_ptr<CBeam> beam) const
 	clock_t end = clock();
 	double elapsed_secs = double(end - begin) / CLOCKS_PER_SEC;
 
-	cout << "Time: "      << elapsed_secs  << "s. " <<
-			"Turns: "     << beam->turns() << ". "  <<
-		    "Particles: " << beam->size()  << endl;
+	cout << "Time of traj: " << elapsed_secs << "s. " << endl;
 }
 
 size_t CRing::numSteps() const
