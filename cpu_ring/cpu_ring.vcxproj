@@ -116,6 +116,7 @@
     <ClInclude Include="src\device\devices\cdrift.h" />
     <ClInclude Include="src\device\devices\cquadrupole.h" />
     <ClInclude Include="src\device\devices\csextupole.h" />
+    <ClInclude Include="src\field_maps\physics.h" />
     <ClInclude Include="src\global.h" />
     <ClInclude Include="src\ring\CRing.h" />
     <ClInclude Include="src\field_maps\FieldMap.h" />

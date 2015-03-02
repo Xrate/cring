@@ -64,7 +64,7 @@ void RingConfig::readParams(FileNames fileNames, DeviceType type)
 		double force = atof(words.at(2).c_str());
 		double appX = atof(words.at(3).c_str());
 		double appY = atof(words.at(4).c_str());
-		string mapFileName = words.size() == 6 ? verifyFile(dirName + "/" + words.at(5) + ".in") : "";
+		string mapFileName = words.size() == 6 ? verifyFile(dirName + "/" + words.at(5) + ".table") : "";
 
 		DeviceParameters dParams = { name, type, length, force, appX, appY, mapFileName };
 		devices.insert(pair<string, DeviceParameters>(name, dParams));

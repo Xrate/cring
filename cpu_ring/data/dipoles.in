@@ -1,6 +1,6 @@
 # Dipoles
-# name - length -  angle(radians) - apertureX - apertureY
-cr01mh1 2.1271 0.261799 0.19 0.07
+# name - length -  angle(radians) - apertureX - apertureY - Map(optional)
+cr01mh1 2.1271 0.261799 0.19 0.07 dipole1
 cr01mh2 2.1271 0.261799 0.19 0.07
 cr01mh3 2.1271 0.261799 0.19 0.07
 cr01mh4 2.1271 0.261799 0.19 0.07

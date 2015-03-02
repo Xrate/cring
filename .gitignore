@@ -6,6 +6,7 @@
 *.user
 *.sln.docstates
 *.out
+*.table
 output/
 
 # Build results

@@ -63,24 +63,23 @@ void CDevice::affectBeam(const shared_ptr<CBeam> beam) const
 	auto params = &beam->parameters();
 	for (size_t iS = 0; iS < nSteps; ++iS)
 	{
+		beam->addPath(step);
 		#pragma omp parallel for
 		for (int iP = 0; iP < beam->size(); ++iP)
+			//affectParticle1stOrder(particles[iP]);
 			hasMap ? affectParticleWithMap(particles[iP]) : affectParticle1stOrder(particles[iP]);
-
-		auto tX = params->twissX;
-		params->twissX.bet = mX_T[0][0] * tX.bet + mX_T[0][1] * tX.alf + mX_T[0][2] * tX.gam;
-		params->twissX.alf = mX_T[1][0] * tX.bet + mX_T[1][1] * tX.alf + mX_T[1][2] * tX.gam;
-		params->twissX.gam = mX_T[2][0] * tX.bet + mX_T[2][1] * tX.alf + mX_T[2][2] * tX.gam;
-
-		auto tY = params->twissY;
-		params->twissY.bet = mY_T[0][0] * tY.bet + mY_T[0][1] * tY.alf + mY_T[0][2] * tY.gam;
-		params->twissY.alf = mY_T[1][0] * tY.bet + mY_T[1][1] * tY.alf + mY_T[1][2] * tY.gam;
-		params->twissY.gam = mY_T[2][0] * tY.bet + mY_T[2][1] * tY.alf + mY_T[2][2] * tY.gam;
-
-		beam->addPath(step);
-
 		Logger::printParticles();
-		Logger::printEllipses(appertureX, appertureY);
+
+		//auto tX = params->twissX;
+		//params->twissX.bet = mX_T[0][0] * tX.bet + mX_T[0][1] * tX.alf + mX_T[0][2] * tX.gam;
+		//params->twissX.alf = mX_T[1][0] * tX.bet + mX_T[1][1] * tX.alf + mX_T[1][2] * tX.gam;
+		//params->twissX.gam = mX_T[2][0] * tX.bet + mX_T[2][1] * tX.alf + mX_T[2][2] * tX.gam;
+
+		//auto tY = params->twissY;
+		//params->twissY.bet = mY_T[0][0] * tY.bet + mY_T[0][1] * tY.alf + mY_T[0][2] * tY.gam;
+		//params->twissY.alf = mY_T[1][0] * tY.bet + mY_T[1][1] * tY.alf + mY_T[1][2] * tY.gam;
+		//params->twissY.gam = mY_T[2][0] * tY.bet + mY_T[2][1] * tY.alf + mY_T[2][2] * tY.gam;
+		//Logger::printEllipses(appertureX, appertureY);
 	}
 }
 
@@ -99,5 +98,5 @@ inline void CDevice::affectParticle1stOrder(Particle& particle) const
 
 void CDevice::affectParticleWithMap(Particle& particle) const
 {
-	throw exception("Map logic not implemented");
+	return;
 }

@@ -16,17 +16,15 @@ void FreqAnalyzer::setUp(OutDirConfig dirConfig)
 	nTurns_ = dirConfig.turns;
 	nParticles_ = dirConfig.particles;
 	nSteps_ = dirConfig.steps;
-	Qx = vector<double>(nTurns_);
-	Qy = vector<double>(nTurns_);
+	Qx = vector<double>(nParticles_);
+	Qy = vector<double>(nParticles_);
 }
 
 void FreqAnalyzer::print()
 {
 	ofstream pFile = ofstream(dirName_ + "\\freqMap.out", ifstream::out);
 	for (size_t iP = 0; iP < nParticles_; ++iP)
-	{
 		pFile << Qx[iP] << ' ' << Qy[iP] << endl;
-	}
 	pFile.close();
 }
 
@@ -39,7 +37,7 @@ void FreqAnalyzer::calculate()
 	fftw_complex* outAll = static_cast<fftw_complex*>(fftw_malloc(sizeof(fftw_complex) * (nTurns_/2 + 1)));
 	fftw_plan plan = fftw_plan_dft_r2c_1d(static_cast<int>(nTurns_), inXAll, outAll, FFTW_MEASURE);
 
-#pragma omp parallel for
+	#pragma omp parallel for
 	for (int iP = 0; iP < nParticles_; ++iP)
 	{
 		double* inX = static_cast<double*>(fftw_malloc(sizeof(double)* nTurns_));
@@ -94,7 +92,7 @@ double FreqAnalyzer::findFrequency(fftw_plan& plan, double* in, fftw_complex* ou
 	fftw_execute_dft_r2c(plan, in, out);
 	size_t n = nTurns_ / 2 + 1;
 	double beta = 0., max = 0.;
-	for (unsigned iP = 0; iP < n; ++iP)
+	for (unsigned iP = 1; iP < n; ++iP)
 	{
 		double x = out[iP][0];
 		double y = out[iP][1];

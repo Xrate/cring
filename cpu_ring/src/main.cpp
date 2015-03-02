@@ -34,9 +34,9 @@ int main(int argc, char *argv[])
 	FreqAnalyzer::calculate();
 	FreqAnalyzer::print();
 
-	Plotter::setUp(dirConfig);
-	Plotter::plot("plot14", 1, 32);
-	Plotter::plotFreqMap();
+	//Plotter::setUp(dirConfig);
+	//Plotter::plot("plot14", 1, 32);
+	//Plotter::plotFreqMap();
 
 	return 0;
 }
