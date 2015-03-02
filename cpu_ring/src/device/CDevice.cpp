@@ -17,16 +17,18 @@ shared_ptr<CDevice> CDevice::createDevice(const DeviceParameters& params)
 	throw exception("DeviceFactory: enum FileNames error.");
 }
 
-CDevice::CDevice(const string& name_, const string& configFileName_) :
-	hasMap(false)
+CDevice::CDevice(const string& name_, const string& mapFileName_) :
+hasMap(false)
 {
 	if (name_.empty())
 		throw exception("Trying to create empty CDevice object.");
 	name = name_;
 
-	if (!configFileName_.empty())
+	if (!mapFileName_.empty())
+	{
 		hasMap = true;
-	configFileName = configFileName_;
+		fieldMap = FieldMap::getFieldMap(mapFileName_);
+	}
 
 	for (size_t i = 0; i < 3; ++i)
 	for (size_t j = 0; j < 3; ++j)
@@ -55,11 +57,6 @@ void CDevice::generateTwissMatrices()
 	mY_T[2][0] = +1 * C_*C_;  mY_T[2][1] = -2 * C_*S_;   mY_T[2][2] = +1 * S_*S_;
 }
 
-void CDevice::generateMap()
-{
-	return;
-}
-
 void CDevice::affectBeam(const shared_ptr<CBeam> beam) const
 {
 	auto particles = beam->particles().data();
@@ -68,7 +65,7 @@ void CDevice::affectBeam(const shared_ptr<CBeam> beam) const
 	{
 		#pragma omp parallel for
 		for (int iP = 0; iP < beam->size(); ++iP)
-			hasMap ? affectParticle1stOrder(particles[iP]) : affectParticleWithMap(particles[iP]);
+			hasMap ? affectParticleWithMap(particles[iP]) : affectParticle1stOrder(particles[iP]);
 
 		auto tX = params->twissX;
 		params->twissX.bet = mX_T[0][0] * tX.bet + mX_T[0][1] * tX.alf + mX_T[0][2] * tX.gam;
@@ -102,13 +99,5 @@ inline void CDevice::affectParticle1stOrder(Particle& particle) const
 
 void CDevice::affectParticleWithMap(Particle& particle) const
 {
-	auto p = particle;
-	if (!p.isAlive)
-		return;
-	particle.X = mX_P[0][0] * p.X + mX_P[0][1] * p.aX + mX_P[0][2] * p.dp;
-	particle.aX = mX_P[1][0] * p.X + mX_P[1][1] * p.aX + mX_P[1][2] * p.dp;
-	particle.Y = mY_P[0][0] * p.Y + mY_P[0][1] * p.aY + mY_P[0][2] * p.dp;
-	particle.aY = mY_P[1][0] * p.Y + mY_P[1][1] * p.aY + mY_P[1][2] * p.dp;
-	particle.isAlive = sqr(particle.X / appertureX)
-		+ sqr(particle.Y / appertureY) <= 1.;
+	throw exception("Map logic not implemented");
 }

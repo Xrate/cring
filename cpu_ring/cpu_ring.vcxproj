@@ -96,6 +96,7 @@
     <ClCompile Include="src\device\devices\cdrift.cpp" />
     <ClCompile Include="src\device\devices\cquadrupole.cpp" />
     <ClCompile Include="src\device\devices\csextupole.cpp" />
+    <ClCompile Include="src\field_maps\FieldMap.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\ring\CRing.cpp" />
     <ClCompile Include="src\ring\RingConfig.cpp" />
@@ -117,6 +118,7 @@
     <ClInclude Include="src\device\devices\csextupole.h" />
     <ClInclude Include="src\global.h" />
     <ClInclude Include="src\ring\CRing.h" />
+    <ClInclude Include="src\field_maps\FieldMap.h" />
     <ClInclude Include="src\ring\RingConfig.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

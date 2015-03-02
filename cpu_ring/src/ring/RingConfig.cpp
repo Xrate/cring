@@ -33,18 +33,9 @@ inline string getDirName(const string& str)
 	return str.substr(0, found);
 }
 
-inline bool fileExist(const string& name) {
+inline string verifyFile(const string& name) {
 	struct stat buffer;
-	return (stat(name.c_str(), &buffer) == 0);
-}
-
-inline string getConfigFileName(const string& name, const string& dirName)
-{
-	if (fileExist(dirName + "/" + name + ".in"))
-		return dirName + "/" + name + ".in";
-	if (fileExist(dirName + "/" + "default" + ".in"))
-		return dirName + "/" + "default" + ".in";
-	return "";
+	return (stat(name.c_str(), &buffer) == 0) ? name : "";
 }
 
 void RingConfig::readParams(FileNames fileNames, DeviceType type)
@@ -65,7 +56,7 @@ void RingConfig::readParams(FileNames fileNames, DeviceType type)
 		vector<string> words{ istream_iterator<string>{iss},
 							  istream_iterator<string>{} };
 
-		if (words.size() != 5)
+		if (words.size() > 6)
 			throw exception(("File " + fileName + " has wrong format").c_str());
 
 		string name(words.at(0));
@@ -73,10 +64,9 @@ void RingConfig::readParams(FileNames fileNames, DeviceType type)
 		double force = atof(words.at(2).c_str());
 		double appX = atof(words.at(3).c_str());
 		double appY = atof(words.at(4).c_str());
+		string mapFileName = words.size() == 6 ? verifyFile(dirName + "/" + words.at(5) + ".in") : "";
 
-		string configFileName = getConfigFileName(name, dirName);
-
-		DeviceParameters dParams = { name, type, length, force, appX, appY, configFileName };
+		DeviceParameters dParams = { name, type, length, force, appX, appY, mapFileName };
 		devices.insert(pair<string, DeviceParameters>(name, dParams));
 	}
 }

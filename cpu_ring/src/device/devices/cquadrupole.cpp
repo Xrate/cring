@@ -2,7 +2,7 @@
 #include <cmath>
 
 CQuadrupole::CQuadrupole(const DeviceParameters& params)
-	: CDevice(params.name_, params.configFileName_)
+: CDevice(params.name_, params.mapFileName_)
 {
 	length = params.length_;
 	force = params.force_;
@@ -32,6 +32,4 @@ void CQuadrupole::initDevice()
 		swap(mX_P, mY_P);
 
     generateTwissMatrices();
-	if (hasMap)
-		generateMap();
 }

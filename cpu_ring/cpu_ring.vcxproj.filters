@@ -57,6 +57,9 @@
     <ClCompile Include="src\beam\ParticleCreator\ParticleCreator.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\field_maps\FieldMap.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\beam\BeamParameters.h">
@@ -108,6 +111,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\common\OutDirConfig.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\field_maps\FieldMap.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

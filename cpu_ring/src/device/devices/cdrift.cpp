@@ -1,7 +1,7 @@
 #include "cdrift.h"
 
 CDrift::CDrift(const DeviceParameters& params)
-	: CDevice(params.name_, params.configFileName_)
+: CDevice(params.name_, params.mapFileName_)
 {
 	length = params.length_;
 	appertureX = params.appertureX_;
@@ -23,6 +23,4 @@ void CDrift::initDevice()
 	mY_P[2][0] = 0.;  mY_P[2][1] = 0.;    mY_P[2][2] = 1.;
 
     generateTwissMatrices();
-	if (hasMap)
-		generateMap();
 }

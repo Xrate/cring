@@ -3,17 +3,17 @@
 #include "../global.h"
 #include "DeviceParameters.h"
 #include "../beam/CBeam.h"
+#include "../field_maps/FieldMap.h"
 
 class CDevice
 {
 public:
 	static shared_ptr<CDevice> createDevice(const DeviceParameters& params);
-	explicit CDevice(const string& name_, const string& configFileName_);
+	explicit CDevice(const string& name_, const string& mapFileName_);
 	virtual ~CDevice(){}
 	virtual void affectBeam(const shared_ptr<CBeam> beam) const;
 protected:
 	void generateTwissMatrices();
-	void generateMap();
 	virtual void initDevice() = 0;
 
 	string name;
@@ -27,7 +27,7 @@ protected:
 	double appertureY;
 	size_t nSteps;
 
-	string configFileName;
+	shared_ptr<const FieldMap> fieldMap;
 	bool hasMap;
 private:
 	void affectParticle1stOrder(Particle& particle) const;
