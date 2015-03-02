@@ -2,7 +2,7 @@
 #include <cmath>
 
 CQuadrupole::CQuadrupole(const DeviceParameters& params)
-: CDevice(params.name_)
+	: CDevice(params.name_, params.configFileName_)
 {
 	length = params.length_;
 	force = params.force_;
@@ -11,10 +11,10 @@ CQuadrupole::CQuadrupole(const DeviceParameters& params)
 	nSteps = size_t(params.type_);
 	step = length / nSteps;
 
-	CQuadrupole::initMatrices();
+	CQuadrupole::initDevice();
 }
 
-void CQuadrupole::initMatrices()
+void CQuadrupole::initDevice()
 {
 	
     double sq_k = sqrt(fabs(force));
@@ -31,5 +31,7 @@ void CQuadrupole::initMatrices()
 	if (force < 0)
 		swap(mX_P, mY_P);
 
-    generateTwissM();
+    generateTwissMatrices();
+	if (hasMap)
+		generateMap();
 }

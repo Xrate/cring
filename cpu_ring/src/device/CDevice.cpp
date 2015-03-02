@@ -17,11 +17,17 @@ shared_ptr<CDevice> CDevice::createDevice(const DeviceParameters& params)
 	throw exception("DeviceFactory: enum FileNames error.");
 }
 
-CDevice::CDevice(const string& name_)
+CDevice::CDevice(const string& name_, const string& configFileName_) :
+	hasMap(false)
 {
 	if (name_.empty())
 		throw exception("Trying to create empty CDevice object.");
 	name = name_;
+
+	if (!configFileName_.empty())
+		hasMap = true;
+	configFileName = configFileName_;
+
 	for (size_t i = 0; i < 3; ++i)
 	for (size_t j = 0; j < 3; ++j)
 	{
@@ -32,6 +38,28 @@ CDevice::CDevice(const string& name_)
 	}
 }
 
+void CDevice::generateTwissMatrices()
+{
+	double C = mX_P[0][0], S = mX_P[0][1];
+	double C_ = mX_P[1][0], S_ = mX_P[1][1];
+
+	mX_T[0][0] = +1 * C *C;   mX_T[0][1] = -2 * C *S;    mX_T[0][2] = +1 * S *S;
+	mX_T[1][0] = -1 * C *C_;  mX_T[1][1] = C*S_ + C_*S;  mX_T[1][2] = -1 * S *S_;
+	mX_T[2][0] = +1 * C_*C_;  mX_T[2][1] = -2 * C_*S_;   mX_T[2][2] = +1 * S_*S_;
+
+	C = mY_P[0][0], S = mY_P[0][1];
+	C_ = mY_P[1][0], S_ = mY_P[1][1];
+
+	mY_T[0][0] = +1 * C *C;   mY_T[0][1] = -2 * C *S;    mY_T[0][2] = +1 * S *S;
+	mY_T[1][0] = -1 * C *C_;  mY_T[1][1] = C*S_ + C_*S;  mY_T[1][2] = -1 * S *S_;
+	mY_T[2][0] = +1 * C_*C_;  mY_T[2][1] = -2 * C_*S_;   mY_T[2][2] = +1 * S_*S_;
+}
+
+void CDevice::generateMap()
+{
+	return;
+}
+
 void CDevice::affectBeam(const shared_ptr<CBeam> beam) const
 {
 	auto particles = beam->particles().data();
@@ -40,17 +68,8 @@ void CDevice::affectBeam(const shared_ptr<CBeam> beam) const
 	{
 		#pragma omp parallel for
 		for (int iP = 0; iP < beam->size(); ++iP)
-		{
-			auto p = (particles[iP]);
-			if (!p.isAlive)
-				continue;
-			particles[iP].X =  mX_P[0][0] * p.X + mX_P[0][1] * p.aX + mX_P[0][2] * p.dp;
-			particles[iP].aX = mX_P[1][0] * p.X + mX_P[1][1] * p.aX + mX_P[1][2] * p.dp;
-			particles[iP].Y =  mY_P[0][0] * p.Y + mY_P[0][1] * p.aY + mY_P[0][2] * p.dp;
-			particles[iP].aY = mY_P[1][0] * p.Y + mY_P[1][1] * p.aY + mY_P[1][2] * p.dp;
-			particles[iP].isAlive = sqr(particles[iP].X / appertureX)
-								  + sqr(particles[iP].Y / appertureY) <= 1.;
-		}
+			hasMap ? affectParticle1stOrder(particles[iP]) : affectParticleWithMap(particles[iP]);
+
 		auto tX = params->twissX;
 		params->twissX.bet = mX_T[0][0] * tX.bet + mX_T[0][1] * tX.alf + mX_T[0][2] * tX.gam;
 		params->twissX.alf = mX_T[1][0] * tX.bet + mX_T[1][1] * tX.alf + mX_T[1][2] * tX.gam;
@@ -68,19 +87,28 @@ void CDevice::affectBeam(const shared_ptr<CBeam> beam) const
 	}
 }
 
-void CDevice::generateTwissM()
+inline void CDevice::affectParticle1stOrder(Particle& particle) const
 {
-	double C = mX_P[0][0],  S = mX_P[0][1];
-	double C_= mX_P[1][0],  S_= mX_P[1][1];
+	auto p = particle;
+	if (!p.isAlive)
+		return;
+	particle.X  = mX_P[0][0] * p.X + mX_P[0][1] * p.aX + mX_P[0][2] * p.dp;
+	particle.aX = mX_P[1][0] * p.X + mX_P[1][1] * p.aX + mX_P[1][2] * p.dp;
+	particle.Y  = mY_P[0][0] * p.Y + mY_P[0][1] * p.aY + mY_P[0][2] * p.dp;
+	particle.aY = mY_P[1][0] * p.Y + mY_P[1][1] * p.aY + mY_P[1][2] * p.dp;
+	particle.isAlive = sqr(particle.X / appertureX)
+		+ sqr(particle.Y / appertureY) <= 1.;
+}
 
-	mX_T[0][0] = +1 * C *C;   mX_T[0][1] = -2 * C *S;    mX_T[0][2] = +1 * S *S;
-	mX_T[1][0] = -1 * C *C_;  mX_T[1][1] = C*S_ + C_*S;  mX_T[1][2] = -1 * S *S_;
-	mX_T[2][0] = +1 * C_*C_;  mX_T[2][1] = -2 * C_*S_;   mX_T[2][2] = +1 * S_*S_;
-
-	C = mY_P[0][0], S = mY_P[0][1];
-	C_= mY_P[1][0], S_= mY_P[1][1];
-
-	mY_T[0][0] = +1 * C *C;   mY_T[0][1] = -2 * C *S;    mY_T[0][2] = +1 * S *S;
-	mY_T[1][0] = -1 * C *C_;  mY_T[1][1] = C*S_ + C_*S;  mY_T[1][2] = -1 * S *S_;
-	mY_T[2][0] = +1 * C_*C_;  mY_T[2][1] = -2 * C_*S_;   mY_T[2][2] = +1 * S_*S_;
+void CDevice::affectParticleWithMap(Particle& particle) const
+{
+	auto p = particle;
+	if (!p.isAlive)
+		return;
+	particle.X = mX_P[0][0] * p.X + mX_P[0][1] * p.aX + mX_P[0][2] * p.dp;
+	particle.aX = mX_P[1][0] * p.X + mX_P[1][1] * p.aX + mX_P[1][2] * p.dp;
+	particle.Y = mY_P[0][0] * p.Y + mY_P[0][1] * p.aY + mY_P[0][2] * p.dp;
+	particle.aY = mY_P[1][0] * p.Y + mY_P[1][1] * p.aY + mY_P[1][2] * p.dp;
+	particle.isAlive = sqr(particle.X / appertureX)
+		+ sqr(particle.Y / appertureY) <= 1.;
 }

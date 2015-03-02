@@ -18,4 +18,5 @@ struct DeviceParameters
 	double force_;
 	double appertureX_;
 	double appertureY_;
+	string configFileName_;
 };

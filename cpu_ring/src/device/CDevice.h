@@ -8,12 +8,13 @@ class CDevice
 {
 public:
 	static shared_ptr<CDevice> createDevice(const DeviceParameters& params);
-	explicit CDevice(const string& name_);
+	explicit CDevice(const string& name_, const string& configFileName_);
 	virtual ~CDevice(){}
-	void affectBeam(const shared_ptr<CBeam> beam) const;
+	virtual void affectBeam(const shared_ptr<CBeam> beam) const;
 protected:
-	void generateTwissM();
-	virtual void initMatrices() = 0;
+	void generateTwissMatrices();
+	void generateMap();
+	virtual void initDevice() = 0;
 
 	string name;
 	double mX_P[3][3];
@@ -25,4 +26,10 @@ protected:
 	double appertureX;
 	double appertureY;
 	size_t nSteps;
+
+	string configFileName;
+	bool hasMap;
+private:
+	void affectParticle1stOrder(Particle& particle) const;
+	void affectParticleWithMap(Particle& particle) const;
 };

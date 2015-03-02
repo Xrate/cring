@@ -7,7 +7,7 @@ class CSextupole : public CDevice
 {
 public:
 	explicit CSextupole(const DeviceParameters& params);
-	virtual void initMatrices() override;
+	virtual void initDevice() override;
 private:
 	double force;
 };

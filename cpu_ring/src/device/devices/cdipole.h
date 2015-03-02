@@ -7,8 +7,7 @@ class CDipole : public CDevice
 {
 public:
 	explicit CDipole(const DeviceParameters& params);
-    virtual void initMatrices() override;
-
+    virtual void initDevice() override;
 private:
     double angle;
 };

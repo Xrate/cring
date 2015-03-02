@@ -1,7 +1,7 @@
 #include "cdipole.h"
 
 CDipole::CDipole(const DeviceParameters& params)
-    : CDevice(params.name_)
+    : CDevice(params.name_, params.configFileName_)
 {
 	length = params.length_;
 	angle  = params.force_;
@@ -10,13 +10,13 @@ CDipole::CDipole(const DeviceParameters& params)
 	nSteps = size_t(params.type_);
     step = length / nSteps;
 
-	CDipole::initMatrices();
+	CDipole::initDevice();
 }
 
-void CDipole::initMatrices()
+void CDipole::initDevice()
 {
     double rho = length / angle;
-    double fi  = step   / rho;
+    double fi  = step / rho;
 
 	mX_P[0][0] = cos(fi);       mX_P[0][1] = sin(fi)*rho;  mX_P[0][2] = (1-cos(fi))*rho;
 	mX_P[1][0] = -sin(fi)/rho;  mX_P[1][1] = cos(fi);      mX_P[1][2] = sin(fi);
@@ -26,5 +26,7 @@ void CDipole::initMatrices()
 	mY_P[1][0] = 0.;  mY_P[1][1] = 1.;    mY_P[1][2] = 0.;
 	mY_P[2][0] = 0.;  mY_P[2][1] = 0.;    mY_P[2][2] = 1.;
 
-    generateTwissM();
+    generateTwissMatrices();
+	if (hasMap)
+		generateMap();
 }

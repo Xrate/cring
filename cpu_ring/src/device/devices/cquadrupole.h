@@ -7,7 +7,7 @@ class CQuadrupole : public CDevice
 {
 public:
 	explicit CQuadrupole(const DeviceParameters& params);
-    virtual void initMatrices() override;
+    virtual void initDevice() override;
 private:
     double force;
 };
