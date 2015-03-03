@@ -63,7 +63,8 @@ void FreqAnalyzer::calculate()
 
 void FreqAnalyzer::readParticleTraj(size_t iP, double* inX, double* inY)
 {
-	ifstream pFile = ifstream(dirName_ + "\\particles\\" + to_string(iP) + ".out", ifstream::in);
+	string fileName = dirName_ + "\\particles\\" + to_string(iP) + ".out";
+	ifstream pFile = ifstream(fileName, ifstream::in);
 
 	size_t lineNumber = static_cast<size_t>(static_cast <double>(rand()) / RAND_MAX * nSteps_);
 	string line;
@@ -83,6 +84,8 @@ void FreqAnalyzer::readParticleTraj(size_t iP, double* inX, double* inY)
 		}
 		lineNumber++;
 	}
+
+	pFile.close();
 	if (counter != nTurns_)
 		throw exception(("File" + to_string(iP) + ".out has wrong format").c_str());
 }

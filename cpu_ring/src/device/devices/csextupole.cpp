@@ -15,13 +15,11 @@ CSextupole::CSextupole(const DeviceParameters& params)
 
 void CSextupole::initDevice()
 {
-	mX_P[0][0] = 1.;  mX_P[0][1] = step;  mX_P[0][2] = 0.;
-	mX_P[1][0] = 0.;  mX_P[1][1] = 1.;    mX_P[1][2] = 0.;
-	mX_P[2][0] = 0.;  mX_P[2][1] = 0.;    mX_P[2][2] = 1.;
+	mX_P[0] = 1.;  mX_P[1] = step;  mX_P[2] = 0.;
+	mX_P[3] = 0.;  mX_P[4] = 1.;    mX_P[5] = 0.;
 
-	mY_P[0][0] = 1.;  mY_P[0][1] = step;  mY_P[0][2] = 0.;
-	mY_P[1][0] = 0.;  mY_P[1][1] = 1.;    mY_P[1][2] = 0.;
-	mY_P[2][0] = 0.;  mY_P[2][1] = 0.;    mY_P[2][2] = 1.;
+	mY_P[0] = 1.;  mY_P[1] = step;  mY_P[2] = 0.;
+	mY_P[3] = 0.;  mY_P[4] = 1.;    mY_P[5] = 0.;
 
 	generateTwissMatrices();
 }

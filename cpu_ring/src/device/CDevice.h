@@ -17,10 +17,10 @@ protected:
 	virtual void initDevice() = 0;
 
 	string name;
-	double mX_P[3][3];
-	double mY_P[3][3];
-	double mX_T[3][3];
-	double mY_T[3][3];
+	double mX_P[6];
+	double mY_P[6];
+	double mX_T[9];
+	double mY_T[9];
 	double length;
 	double step;
 	double appertureX;
@@ -29,7 +29,8 @@ protected:
 
 	shared_ptr<const FieldMap> fieldMap;
 	bool hasMap;
-private:
-	void affectParticle1stOrder(Particle& particle) const;
+
+	void affectEllipses1stOrder(BeamParameters *params) const;
+	void affectParticle1stOrder(Particle& particle, const double Mx[6], const double My[6]) const;
 	void affectParticleWithMap(Particle& particle) const;
 };
