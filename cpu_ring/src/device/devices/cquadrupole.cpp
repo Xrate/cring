@@ -17,7 +17,6 @@ CQuadrupole::CQuadrupole(const DeviceParameters& params)
 
 void CQuadrupole::initDevice()
 {
-	
     double sq_k = sqrt(fabs(force));
     double fi   = sq_k * step;
 
@@ -27,8 +26,7 @@ void CQuadrupole::initDevice()
 	mY_P[0] = cosh(fi);      mY_P[1] = sinh(fi)/sq_k; mY_P[2] = 0.;
 	mY_P[3] = sinh(fi)*sq_k; mY_P[4] = cosh(fi);      mY_P[5] = 0.;
 
-	if (force < 0)
-		swap(mX_P, mY_P);
+	if (force < 0) swap(mX_P, mY_P);
 
     generateTwissMatrices();
 }
@@ -72,7 +70,6 @@ void CQuadrupole::generateMatrices(vector<double[6]> &MxP_all,
 		MyP_all.at(iP)[0] = cosh(fi);      MyP_all.at(iP)[1] = sinh(fi) / sq_k; MyP_all.at(iP)[2] = 0.;
 		MyP_all.at(iP)[3] = sinh(fi)*sq_k; MyP_all.at(iP)[4] = cosh(fi);        MyP_all.at(iP)[5] = 0.;
 
-		if (force < 0)
-			swap(MxP_all.at(iP), MyP_all.at(iP));
+		if (force < 0) swap(MxP_all.at(iP), MyP_all.at(iP));
 	}
 }

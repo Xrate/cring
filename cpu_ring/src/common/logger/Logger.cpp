@@ -12,8 +12,7 @@ ofstream* Logger::ellFile;
 void Logger::setUp(const shared_ptr<const CBeam> beam_)
 {
 	GenerateDir();
-	if (beam_ == nullptr)
-		throw new exception("Error: Trying to log empty beam");
+	if (beam_ == nullptr) throw new exception("Error: Trying to log empty beam");
 
 	beam = beam_;
 	beamPointers.particles = beam->particles().data();

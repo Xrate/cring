@@ -5,15 +5,13 @@ shared_ptr<const CRing> CRing::instance;
 
 shared_ptr<const CRing> CRing::createInstance(const shared_ptr<const RingConfig> config)
 {
-	if (!instance)
-		instance = shared_ptr<const CRing>(new CRing(config));
+	if (!instance) instance = shared_ptr<const CRing>(new CRing(config));
 	return instance;
 }
 
 shared_ptr<const CRing> CRing::getInstance()
 {
-	if (instance)
-		return instance;
+	if (instance) return instance;
 	throw exception("CRing: Try to access null CRing");
 }
 
@@ -44,9 +42,4 @@ void CRing::affectBeam(shared_ptr<CBeam> beam) const
 	double elapsed_secs = double(end - begin) / CLOCKS_PER_SEC;
 
 	cout << "Time of traj: " << elapsed_secs << "s. " << endl;
-}
-
-size_t CRing::numSteps() const
-{
-	return nSteps;
 }

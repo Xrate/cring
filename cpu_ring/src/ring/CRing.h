@@ -19,3 +19,8 @@ private:
 	size_t nSteps;
 	vector<shared_ptr<const CDevice>> devices;
 };
+
+inline size_t CRing::numSteps() const
+{
+	return nSteps;
+}

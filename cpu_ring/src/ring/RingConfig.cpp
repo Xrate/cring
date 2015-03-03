@@ -22,18 +22,16 @@ void RingConfig::readStructure(string fileName)
 	ifstream file(fileName);
 	string line;
 	while (getline(file, line))
-	if (!(line.empty() || line.at(0) == '#'))
-		structure.push_back(line);
+		if (!(line.empty() || line.at(0) == '#')) structure.push_back(line);
 }
 
 inline string getDirName(const string& str)
 {
-	size_t found;
-	found = str.find_last_of("/\\");
-	return str.substr(0, found);
+	return str.substr(0, str.find_last_of("/\\"));
 }
 
-inline string verifyFile(const string& name) {
+inline string verifyFile(const string& name) 
+{
 	struct stat buffer;
 	return (stat(name.c_str(), &buffer) == 0) ? name : "";
 }
@@ -41,8 +39,7 @@ inline string verifyFile(const string& name) {
 void RingConfig::readParams(FileNames fileNames, DeviceType type)
 {
 	ifstream file(fileNames.fileName(type));
-	if (!file)
-		throw exception(("File " + fileNames.fileName(type) + " cannot be found").c_str());
+	if (!file) throw exception(("File " + fileNames.fileName(type) + " cannot be found").c_str());
 	
 	string fileName = fileNames.fileName(type);
 	string dirName = getDirName(fileName);
@@ -50,14 +47,13 @@ void RingConfig::readParams(FileNames fileNames, DeviceType type)
 	string line;
 	while (getline(file, line))
 	{
-		if (line.empty() || line.at(0) == '#')
-			continue;
+		if (line.empty() || line.at(0) == '#') continue;
+
 		istringstream iss(line);
 		vector<string> words{ istream_iterator<string>{iss},
 							  istream_iterator<string>{} };
 
-		if (words.size() > 6)
-			throw exception(("File " + fileName + " has wrong format").c_str());
+		if (words.size() > 6) throw exception(("File " + fileName + " has wrong format").c_str());
 
 		string name(words.at(0));
 		double length = atof(words.at(1).c_str());

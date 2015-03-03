@@ -24,13 +24,9 @@ Particle UniformParticleCreator::createParticle(const BeamParameters& params)
 	while (isDead)
 	{
 		X_ = params.twissX.coordMax()  * normedRand();
-
 		Y_ = params.twissY.coordMax()  * normedRand();
-
 		aX_ = params.twissY.angleMax() * normedRand();
-
 		aY_ = params.twissY.angleMax() * normedRand();
-
 		dP_ = params.momentumSpread    * normedRand();
 
 		// Particle should be in 3 ellipses (XY, XX', YY')

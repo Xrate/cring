@@ -20,8 +20,7 @@ shared_ptr<CDevice> CDevice::createDevice(const DeviceParameters& params)
 CDevice::CDevice(const string& name_, const string& mapFileName_) :
 hasMap(false)
 {
-	if (name_.empty())
-		throw exception("Trying to create empty CDevice object.");
+	if (name_.empty()) throw exception("Trying to create empty CDevice object.");
 	name = name_;
 
 	if (!mapFileName_.empty())
@@ -59,7 +58,9 @@ void CDevice::affectBeam(const shared_ptr<CBeam> beam) const
 	{
 		#pragma omp parallel for
 		for (int iP = 0; iP < beam->size(); ++iP)
-			hasMap ? affectParticleWithMap(particles[iP]) : affectParticle1stOrder(particles[iP], mX_P, mY_P);
+			hasMap 
+				? affectParticleWithMap(particles[iP]) 
+				: affectParticle1stOrder(particles[iP], mX_P, mY_P);
 
 		affectEllipses1stOrder(params);
 
@@ -78,8 +79,7 @@ void CDevice::affectParticle1stOrder(Particle& particle, const double Mx[6], con
 	particle.aX = Mx[3] * p.X + Mx[4] * p.aX + Mx[5] * p.dp;
 	particle.Y =  My[0] * p.Y + My[1] * p.aY + My[2] * p.dp;
 	particle.aY = My[3] * p.Y + My[4] * p.aY + My[5] * p.dp;
-	particle.isAlive = sqr(particle.X / appertureX)
-		+ sqr(particle.Y / appertureY) <= 1.;
+	particle.isAlive = sqr(particle.X / appertureX) + sqr(particle.Y / appertureY) <= 1.;
 }
 
 void CDevice::affectParticleWithMap(Particle& particle) const
