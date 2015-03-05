@@ -103,4 +103,24 @@ void Plotter::plotY(string plot_name, size_t start_turn, size_t last_turn)
 
 void Plotter::plotFreqMap()
 {
+	auto pFile = ofstream(dirName_ + "\\" + "freqMap" + ".plt", ofstream::out);
+
+	pFile << "set terminal png medium size " << 2000 << " " << 2000 << endl;
+	pFile << "set output '" << "freqMap.png'" << endl << endl;
+
+	pFile << "set autoscale fix" << endl << endl;
+
+	pFile << "set xlabel 'Qy'" << endl;
+	pFile << "set ylabel 'Qx'" << endl << endl;
+
+	pFile << "set title 'Frequency Map'" << endl;
+	pFile << "set grid" << endl << endl;
+
+	pFile << "set style line 1 lt 2 lw 2 pt 1 ps 0.25 linecolor rgb 'black'" << endl;
+
+	pFile << "filename = 'freqMap.out'" << endl << endl;
+
+	pFile << "plot filename using 1:2 ls 1 title ''" << endl;
+
+	pFile.close();
 }
