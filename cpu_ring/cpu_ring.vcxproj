@@ -97,6 +97,7 @@
     <ClCompile Include="src\device\devices\cquadrupole.cpp" />
     <ClCompile Include="src\device\devices\csextupole.cpp" />
     <ClCompile Include="src\field_maps\FieldMap.cpp" />
+    <ClCompile Include="src\field_maps\FieldMapData.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\ring\CRing.cpp" />
     <ClCompile Include="src\ring\RingConfig.cpp" />
@@ -116,6 +117,7 @@
     <ClInclude Include="src\device\devices\cdrift.h" />
     <ClInclude Include="src\device\devices\cquadrupole.h" />
     <ClInclude Include="src\device\devices\csextupole.h" />
+    <ClInclude Include="src\field_maps\FieldMapData.h" />
     <ClInclude Include="src\field_maps\physics.h" />
     <ClInclude Include="src\global.h" />
     <ClInclude Include="src\ring\CRing.h" />

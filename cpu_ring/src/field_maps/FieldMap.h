@@ -1,7 +1,7 @@
 #pragma once
 
 #include "../global.h"
-#include "physics.h"
+#include "FieldMapData.h"
 #include <map>
 
 class FieldMap
@@ -13,17 +13,7 @@ public:
 	FieldMap::~FieldMap();
 private:
 	static map<string, shared_ptr<const FieldMap>> fieldMaps;
-
-	size_t numPoints;
-
-	double maxX;
-	double maxY;
-	double maxZ;
-
-	double stepX;
-	double stepY;
-	double stepZ;
-
 	FieldMap(const string& fileName);
-	Field* rawMap;
+
+	FieldMapData data;
 };

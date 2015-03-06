@@ -19,25 +19,26 @@ FieldMap::FieldMap(const string& fileName)
 	if (NULL == fopen_s(&file, fileName.c_str(), "r"))
 		throw exception(("File " + fileName + " cannot be found").c_str());
 
-	fscanf_s(file, "%lf %lf %lf %lf %lf %lf", &maxX, &maxY, &maxZ, &stepX, &stepY, &stepZ);
-	numPoints = static_cast<size_t>((2 * maxX / stepX + 1) * (2 * maxY / stepY + 1) * (2 * maxZ / stepZ + 1));
+	fscanf_s(file, "%lf %lf %lf %lf %lf %lf", &data.maxX, &data.maxY, &data.maxZ, &data.stepX, &data.stepY, &data.stepZ);
+	data.numPoints = static_cast<size_t>((2 * data.maxX / data.stepX + 1) 
+		* (2 * data.maxY / data.stepY + 1) * (2 * data.maxZ / data.stepZ + 1));
 
-	rawMap = new Field[numPoints];
+	data.rawMap = new Field[data.numPoints];
 
-	for (size_t row = 0; row < numPoints; ++row)
+	for (size_t row = 0; row < data.numPoints; ++row)
 	{
 		double tmp;
 		double Bx, By, Bz;
 		fscanf_s(file, "%lf %lf %lf %lf %lf %lf", &tmp, &tmp, &tmp, &Bx, &By, &Bz);
-		rawMap[row] = { Bx, By, Bz };
+		data.rawMap[row] = { Bx, By, Bz };
 	}
 }
 
 FieldMap::~FieldMap()
 {
-	if (rawMap != nullptr)
+	if (data.rawMap != nullptr)
 	{
-		delete[] rawMap;
-		rawMap = nullptr;
+		delete[] data.rawMap;
+		data.rawMap = nullptr;
 	}
 }
