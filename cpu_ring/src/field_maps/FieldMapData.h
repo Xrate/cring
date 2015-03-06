@@ -17,4 +17,4 @@ struct FieldMapData
 	Field* rawMap;
 };
 
-Field getFieldValue(FieldMapData& map, Point p);
+Field getFieldValue(const FieldMapData& map, Point p);
