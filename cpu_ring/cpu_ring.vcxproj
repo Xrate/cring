@@ -58,6 +58,7 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>false</SDLCheck>
       <MultiProcessorCompilation>false</MultiProcessorCompilation>
+      <AdditionalIncludeDirectories>D:\Study\cring\cpu_ring\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -75,7 +76,8 @@
       <OpenMPSupport>true</OpenMPSupport>
       <WholeProgramOptimization>true</WholeProgramOptimization>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
-      <AdditionalIncludeDirectories>D:\dev\fftw;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>D:\Study\cring\cpu_ring\src;D:\dev\fftw;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -98,6 +100,8 @@
     <ClCompile Include="src\device\devices\csextupole.cpp" />
     <ClCompile Include="src\field_maps\FieldMap.cpp" />
     <ClCompile Include="src\field_maps\FieldMapData.cpp" />
+    <ClCompile Include="src\field_maps\movement\CoordConvertor.cpp" />
+    <ClCompile Include="src\field_maps\movement\geometry.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\ring\CRing.cpp" />
     <ClCompile Include="src\ring\RingConfig.cpp" />
@@ -106,6 +110,7 @@
     <ClInclude Include="src\analysis\FreqAnalyzer.h" />
     <ClInclude Include="src\beam\BeamParameters.h" />
     <ClInclude Include="src\beam\CBeam.h" />
+    <ClInclude Include="src\beam\Particle.h" />
     <ClInclude Include="src\beam\ParticleCreator\ParticleCreator.h" />
     <ClInclude Include="src\common\logger\ftoa.h" />
     <ClInclude Include="src\common\logger\Logger.h" />
@@ -118,6 +123,8 @@
     <ClInclude Include="src\device\devices\cquadrupole.h" />
     <ClInclude Include="src\device\devices\csextupole.h" />
     <ClInclude Include="src\field_maps\FieldMapData.h" />
+    <ClInclude Include="src\field_maps\movement\CoordConvertor.h" />
+    <ClInclude Include="src\field_maps\movement\geometry.h" />
     <ClInclude Include="src\field_maps\physics.h" />
     <ClInclude Include="src\global.h" />
     <ClInclude Include="src\ring\CRing.h" />

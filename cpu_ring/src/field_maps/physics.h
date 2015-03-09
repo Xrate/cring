@@ -1,27 +1,44 @@
 #pragma once
-#include "../global.h"
+#include "global.h"
 
-
-struct Field
+namespace physics
 {
-	double Bx;
-	double By;
-	double Bz;
-};
+    struct Point
+    {
+        double X;
+        double Y;
+        double Z;
+    };
 
-struct Point
-{
-	double X;
-	double Y;
-	double Z;
-};
+    inline const Point operator+(const Point& lhs, const Point& rhs)
+    {
+        return Point{ lhs.X + rhs.X, lhs.Y + rhs.Y, lhs.Z + rhs.Z };
+    }
 
-inline double abs(Field& f)
-{
-	return sqrt(sqr(f.Bx) + sqr(f.By) + sqr(f.Bz));
-}
+    inline const Point operator*(const Point& lhs, double alfa)
+    {
+        return Point{ lhs.X * alfa, lhs.Y * alfa, lhs.Z * alfa };
+    }
 
-inline double abs(Point& p)
-{
-	return sqrt(sqr(p.X) + sqr(p.Y) + sqr(p.Z));
+    inline double abs(Point& f)
+    {
+        return sqrt(sqr(f.X) + sqr(f.Y) + sqr(f.Z));
+    }
+
+    typedef Point Field;
+
+    struct Plane
+    {
+        double A;
+        double B;
+        double C;
+        double D;
+        Point center;
+    };
+
+    struct Vector
+    {
+        Point M;
+        Field vec;
+    };
 }

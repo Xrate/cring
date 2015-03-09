@@ -7,6 +7,7 @@
 *.sln.docstates
 *.out
 *.table
+*.sh
 output/
 
 # Build results

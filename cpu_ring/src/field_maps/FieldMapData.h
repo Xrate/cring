@@ -1,20 +1,23 @@
 #pragma once
 
-#include "physics.h"
+#include "field_maps/physics.h"
 
-struct FieldMapData
+namespace physics
 {
-	size_t numPoints;
+    struct FieldMapData
+    {
+        size_t numPoints;
 
-	double maxX;
-	double maxY;
-	double maxZ;
+        double maxX;
+        double maxY;
+        double maxZ;
 
-	double stepX;
-	double stepY;
-	double stepZ;
+        double stepX;
+        double stepY;
+        double stepZ;
 
-	Field* rawMap;
-};
+        Field* rawMap;
+    };
 
-Field getFieldValue(const FieldMapData& map, Point p);
+    Field getFieldInPoint(const FieldMapData& map, Point p);
+}

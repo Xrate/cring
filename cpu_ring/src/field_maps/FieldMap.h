@@ -1,19 +1,22 @@
 #pragma once
 
-#include "../global.h"
-#include "FieldMapData.h"
+#include "global.h"
+#include "field_maps/FieldMapData.h"
+#include "beam/Particle.h"
 #include <map>
 
 class FieldMap
 {
 public:
-	static shared_ptr<const FieldMap> getFieldMap(const string& fileName);
+    static shared_ptr<const FieldMap> getFieldMap(const string& fileName);
 
-	Field getFieldValue(Point p);
-	FieldMap::~FieldMap();
+    void affectParticle(Particle& p, const double rho, const double length, 
+                        const size_t nSteps, const size_t iS) const;
+
+    FieldMap::~FieldMap();
 private:
-	static map<string, shared_ptr<const FieldMap>> fieldMaps;
-	FieldMap(const string& fileName);
+    static map<string, shared_ptr<const FieldMap>> fieldMaps;
+    FieldMap(const string& fileName);
 
-	FieldMapData data;
+    physics::FieldMapData data;
 };

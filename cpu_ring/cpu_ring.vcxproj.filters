@@ -63,6 +63,12 @@
     <ClCompile Include="src\field_maps\FieldMapData.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\field_maps\movement\geometry.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\field_maps\movement\CoordConvertor.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\beam\BeamParameters.h">
@@ -123,6 +129,15 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\field_maps\FieldMapData.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\beam\Particle.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\field_maps\movement\CoordConvertor.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\field_maps\movement\geometry.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
