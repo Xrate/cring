@@ -14,13 +14,8 @@ struct TwissParameters
     inline double angleMax() const { return sqrt(gam * emt); }
 };
 
-struct BeamParameters {
-    BeamParameters(TwissParameters twiss_x,
-    TwissParameters twiss_y,size_t num_particles, size_t numTurns,
-    DistType dist_type, double momentum, double momentum_spread);
-
-    static BeamParameters readBeamParameters(string fileName);
-
+struct BeamParameters 
+{
     TwissParameters twissX;
     TwissParameters twissY;
     size_t numParticles;
@@ -28,4 +23,6 @@ struct BeamParameters {
     DistType distType;
     double momentum;
     double momentumSpread;
+
+    static BeamParameters readBeamParameters(string fileName);
 };

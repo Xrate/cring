@@ -36,8 +36,7 @@ const Vector getDirectionVector(const Plane& p1, const Plane& p2)
     return Vector{ Point{ x, y, z }, m>0 ? Field{ m, n, p } : Field{ -m, -n, -p } };
 }
 
-const Vector getNewMomentum(const Vector& momentum, const Vector& directionVector, 
-                            const Point& center, const Field& field)
+const Vector getNewMomentum(const Vector& momentum, const Vector& directionVector, const Point& center)
 {
     double radius = dist(momentum.M, center);
     double mnp = sqr(directionVector.vec.X) + sqr(directionVector.vec.Y) + sqr(directionVector.vec.Z);
@@ -47,9 +46,9 @@ const Vector getNewMomentum(const Vector& momentum, const Vector& directionVecto
     double mc1 = (directionVector.vec.X * c1);
     double nc2 = (directionVector.vec.Y * c2);
     double pc3 = (directionVector.vec.Z * c3);
-    double dist = (sqr(c1) + sqr(c2) + sqr(c3) - sqr(radius));
+    double d1 = (sqr(c1) + sqr(c2) + sqr(c3) - sqr(radius));
 
-    double a = (-0.5 * sqrt(sqr(2 * mc1 + 2 * nc2 + 2 * pc3) - 4 * mnp * dist) - mc1 - nc2 - pc3) / mnp;
+    double a = (-0.5 * sqrt(sqr(2 * mc1 + 2 * nc2 + 2 * pc3) - 4 * mnp * d1) - mc1 - nc2 - pc3) / mnp;
 
     Point newPoint{ directionVector.M.X + a * directionVector.vec.X,
                     directionVector.M.Y + a * directionVector.vec.Y,
@@ -67,7 +66,7 @@ void FieldMap::affectParticle(Particle& p, const double angle, const double leng
     const size_t nSteps, const size_t iS) const
 {
     CoordConvertor convertor(angle, length, nSteps);
-    const Vector momentum = convertor.getSpeedVector(p, iS);
+    const Vector momentum = convertor.getMomentum(p, iS);
     Field field;
     try
     {
@@ -79,15 +78,13 @@ void FieldMap::affectParticle(Particle& p, const double angle, const double leng
         return;
     }
 
-    const Plane oldPlane = convertor.getPlane(iS);
     const Plane newPlane = convertor.getPlane(iS + 1);
-    
 
     const Plane movePlane = getMovementPlane(momentum, field);
     const Point center = getMovementCenter(momentum, field);
 
     const Vector directionVector = getDirectionVector(newPlane, movePlane);
-    const Vector newMomentum = getNewMomentum(momentum, directionVector, center, field);
+    const Vector newMomentum = getNewMomentum(momentum, directionVector, center);
 
     convertor.updateParticle(p, newMomentum, iS + 1);
 }

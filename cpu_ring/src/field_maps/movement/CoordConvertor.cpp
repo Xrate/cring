@@ -26,15 +26,17 @@ const physics::Plane CoordConvertor::getPlane(const size_t iS) const
     double x = rho * (1 - cos(angle));
     double z = rho * sin(angle);
 
-    double A = (z / rho) * (1 - x / rho);
+    if (z == 0) return physics::Plane{ 0, 0, 1, 0 };
+
+    double A = (z / rho) / (1 - x / rho);
     double B = 0.;
     double C = 1.;
-    double D = -z *(1 - x / rho);
+    double D = -z / (1 - x / rho);
 
     return physics::Plane{ A, B, C, D };
 }
 
-const Vector CoordConvertor::getSpeedVector(const Particle& p, const size_t iS) const
+const Vector CoordConvertor::getMomentum(const Particle& p, const size_t iS) const
 {
     Point M = CurveToPlain(p.X, p.Y, iS);
     double angle = currentAngle(iS);
@@ -49,8 +51,7 @@ const Vector CoordConvertor::getSpeedVector(const Particle& p, const size_t iS) 
 void CoordConvertor::updateParticle(Particle& p, const Vector& newMomentum, const size_t iS)
 {
     double angle = currentAngle(iS);
-    p.X = (newMomentum.M.Z - rho * (1 - cos(angle))) / cos(angle) +
-          (newMomentum.M.X - rho * sin(angle)) / cos(angle);
+    p.X = (newMomentum.M.X - rho * (1 - cos(angle))) / cos(angle);
     p.Y = newMomentum.M.Y;
 
     p.aX = tan(atan(newMomentum.vec.X / newMomentum.vec.Z) - angle);

@@ -50,7 +50,6 @@ namespace physics
         double B;
         double C;
         double D;
-        Point center;
     };
 
     struct Vector
