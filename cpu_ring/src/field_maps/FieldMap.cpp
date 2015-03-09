@@ -1,8 +1,6 @@
 #include "FieldMap.h"
-#include "movement/CoordConvertor.h"
-#include "movement/geometry.h"
+#include "field_maps/movement/CoordConvertor.h"
 #include <fstream>
-#include <sstream>
 
 map<string, shared_ptr<const FieldMap>> FieldMap::fieldMaps;
 
@@ -44,24 +42,4 @@ FieldMap::~FieldMap()
         delete[] data.rawMap;
         data.rawMap = nullptr;
     }
-}
-
-void FieldMap::affectParticle(Particle& p, const double rho, const double length,
-                              const size_t nSteps, const size_t iS) const
-{
-    CoordConvertor convertor(rho, length, nSteps);
-    moveParticle(p, convertor);
-
-    //Point plain;
-    //Plane oldPlane = convertor.GetPlane(iS);
-    //Plane newPlane = convertor.GetPlane(iS + 1);
-
-    //convertor.CurveToPlain(p.X, p.Y, oldPlane, 
-    //                       plain);
-    //Field field = getFieldInPoint(data, plain);
-    //Vector momentum = getParticleMomentum(p);
-    //
-
-    //convertor.PlainToCurve(plain, newPlane, 
-    //                       p.X, p.Y);
 }

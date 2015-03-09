@@ -5,7 +5,7 @@ CSextupole::CSextupole(const DeviceParameters& params)
 {
     length = params.length_;
     force = params.force_;
-    radius = 0.;
+    angle = 0.;
     appertureX = params.appertureX_;
     appertureY = params.appertureY_;
     nSteps = size_t(params.type_);

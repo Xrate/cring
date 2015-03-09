@@ -18,7 +18,7 @@ void IParticleCreator::createParticles(const BeamParameters& params, ParticleVec
 
 Particle UniformParticleCreator::createParticle(const BeamParameters& params)
 {
-    double X_ = 0, Y_ = 0, aX_ = 0, aY_ = 0, dP_ = 0;
+    double X_ = 0, Y_ = 0, aX_ = 0, aY_ = 0, dP_ = 0, P_ = 0;
     bool isDead = true;
     auto normedRand = []() -> double { return -1. + 2. / RAND_MAX * rand(); };
     while (isDead)
@@ -28,6 +28,7 @@ Particle UniformParticleCreator::createParticle(const BeamParameters& params)
         aX_ = params.twissY.angleMax() * normedRand();
         aY_ = params.twissY.angleMax() * normedRand();
         dP_ = params.momentumSpread    * normedRand();
+        P_ = params.momentum * (1 + dP_);
 
         // Particle should be in 3 ellipses (XY, XX', YY')
         bool isXY = sqr(X_ / params.twissX.coordMax())
@@ -42,7 +43,7 @@ Particle UniformParticleCreator::createParticle(const BeamParameters& params)
             <= params.twissY.emt;
         isDead = !(isXY && isXX && isYY);
     }
-    return Particle{true, X_, aX_, Y_, aY_, dP_ };
+    return Particle{ true, X_, aX_, Y_, aY_, dP_, P_ };
 }
 
 Particle GaussianParticleCreator::createParticle(const BeamParameters& params)

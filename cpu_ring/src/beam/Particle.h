@@ -10,5 +10,6 @@ struct Particle
     double Y;
     double aY;
     double dp;
+    double p;
 };
 typedef vector<Particle> ParticleVec;

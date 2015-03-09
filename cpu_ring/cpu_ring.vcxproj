@@ -124,7 +124,6 @@
     <ClInclude Include="src\device\devices\csextupole.h" />
     <ClInclude Include="src\field_maps\FieldMapData.h" />
     <ClInclude Include="src\field_maps\movement\CoordConvertor.h" />
-    <ClInclude Include="src\field_maps\movement\geometry.h" />
     <ClInclude Include="src\field_maps\physics.h" />
     <ClInclude Include="src\global.h" />
     <ClInclude Include="src\ring\CRing.h" />

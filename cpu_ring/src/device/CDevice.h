@@ -23,7 +23,7 @@ protected:
     double mX_T[9];
     double mY_T[9];
     double length;
-    double radius;
+    double angle;
     double step;
     double appertureX;
     double appertureY;

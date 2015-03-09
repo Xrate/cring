@@ -137,8 +137,5 @@
     <ClInclude Include="src\field_maps\movement\CoordConvertor.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\field_maps\movement\geometry.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
   </ItemGroup>
 </Project>

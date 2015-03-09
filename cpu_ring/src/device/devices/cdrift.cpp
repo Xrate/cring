@@ -4,7 +4,7 @@ CDrift::CDrift(const DeviceParameters& params)
 : CDevice(params.name_, params.mapFileName_)
 {
     length = params.length_;
-    radius = 0.;
+    angle = 0.;
     appertureX = params.appertureX_;
     appertureY = params.appertureY_;
     nSteps = size_t(params.type_);

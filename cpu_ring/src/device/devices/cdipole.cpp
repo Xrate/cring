@@ -5,7 +5,6 @@ CDipole::CDipole(const DeviceParameters& params)
 {
     length = params.length_;
     angle  = params.force_;
-    radius = length / angle;
     appertureX = params.appertureX_;
     appertureY = params.appertureY_;
     nSteps = size_t(params.type_);
@@ -16,8 +15,8 @@ CDipole::CDipole(const DeviceParameters& params)
 
 void CDipole::initDevice()
 {
-    double rho = radius;
-    double fi = step / radius;
+    double rho = length / angle;
+    double fi = step / rho;
 
     mX_P[0] = cos(fi);       mX_P[1] = sin(fi)*rho;  mX_P[2] = (1-cos(fi))*rho;
     mX_P[3] = -sin(fi)/rho;  mX_P[4] = cos(fi);      mX_P[5] = sin(fi);
