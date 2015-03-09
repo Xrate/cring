@@ -1,7 +1,7 @@
 #include "CoordConvertor.h"
 
 CoordConvertor::CoordConvertor(const double angle, const double length, const size_t nSteps)
-: rho(rho), theta(angle), n(nSteps)
+: rho(length/angle), theta(angle), n(nSteps)
 {
 }
 
@@ -39,9 +39,20 @@ const Vector CoordConvertor::getSpeedVector(const Particle& p, const size_t iS) 
     Point M = CurveToPlain(p.X, p.Y, iS);
     double angle = currentAngle(iS);
 
-    double alf_X = atan(p.aX) - angle;
+    double alf_X = atan(p.aX) + angle;
     double alf_Y = atan(p.aY);
 
-    Field F = { p.p * sin(alf_X), p.p * sin(alf_Y), p.p * cos(alf_X) };
+    Field F = { p.p * cos(alf_Y) * sin(alf_X), p.p * sin(alf_Y), p.p * cos(alf_Y) * cos(alf_X) };
     return Vector{ M, F };
+}
+
+void CoordConvertor::updateParticle(Particle& p, const Vector& newMomentum, const size_t iS)
+{
+    double angle = currentAngle(iS);
+    p.X = (newMomentum.M.Z - rho * (1 - cos(angle))) / cos(angle) +
+          (newMomentum.M.X - rho * sin(angle)) / cos(angle);
+    p.Y = newMomentum.M.Y;
+
+    p.aX = tan(atan(newMomentum.vec.X / newMomentum.vec.Z) - angle);
+    p.aY = tan(asin(newMomentum.vec.Y / abs(newMomentum.vec)));
 }

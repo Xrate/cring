@@ -11,6 +11,7 @@ public:
     Point CurveToPlain(double X, double Y, const size_t iS) const;
     const Plane getPlane(const size_t iS) const;
     const Vector getSpeedVector(const Particle& p, const size_t iS) const;
+    void updateParticle(Particle& p, const Vector& newMomentum, const size_t iS);
 private:
     const double rho;
     const double theta;

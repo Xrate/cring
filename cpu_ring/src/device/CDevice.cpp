@@ -83,10 +83,8 @@ void CDevice::affectParticle1stOrder(Particle& particle, const double Mx[6], con
 
 void CDevice::affectParticleWithMap(Particle& particle, const size_t iS) const
 {
-    auto p = particle;
-    if (!p.isAlive) return;
-
-    fieldMap->affectParticle(p, angle, length, nSteps, iS);
+    if (!particle.isAlive) return;
+    fieldMap->affectParticle(particle, angle, length, nSteps, iS);
 }
 
 void CDevice::affectEllipses1stOrder(BeamParameters *params) const

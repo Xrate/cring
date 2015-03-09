@@ -29,9 +29,8 @@ NearestPointsField getNearestPoints(const FieldMapData& map, Point p)
     size_t yRow = static_cast<size_t>(p.Y / map.stepY + map.maxY / map.stepY);
     size_t zRow = static_cast<size_t>(p.Z / map.stepZ + map.maxZ / map.stepZ);
     
-    assert(xRow > 0 && xRow < xSteps);
-    assert(yRow > 0 && yRow < ySteps);
-    assert(zRow > 0 && zRow < zSteps);
+    if (xRow < 0 || xRow >= xSteps || yRow < 0 || yRow >= ySteps || zRow < 0 || zRow >= zSteps)
+        throw exception("Particle now is out of bending area");
 
     NearestPointsField np;
 

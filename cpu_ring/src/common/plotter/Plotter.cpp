@@ -35,6 +35,8 @@ void Plotter::plotX(string plot_name, size_t start_turn, size_t last_turn)
     pFile << "set autoscale fix" << endl << endl;
 
     pFile << "set xlabel 'S'" << endl;
+    pFile << "set xtics 15" << endl;
+    pFile << "set mxtics 5" << endl;
     pFile << "set ylabel 'X'" << endl << endl;
 
     pFile << "set title 'Trajectory XOS'" << endl;
@@ -73,6 +75,8 @@ void Plotter::plotY(string plot_name, size_t start_turn, size_t last_turn)
     pFile << "set autoscale fix" << endl << endl;
 
     pFile << "set xlabel 'S'" << endl;
+    pFile << "set xtics 15" << endl;
+    pFile << "set mxtics 5" << endl;
     pFile << "set ylabel 'Y'" << endl << endl;
 
     pFile << "set title 'Trajectory YOS'" << endl;
