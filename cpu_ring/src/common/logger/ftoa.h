@@ -2,7 +2,7 @@
 
 inline int intToStr(int x, char str[], int d)
 {
-    char len = 0;
+    int len = 0;
     while (x)
     {
         str[len++] = (x % 10) + '0';
@@ -12,7 +12,7 @@ inline int intToStr(int x, char str[], int d)
     while (len < d)
         str[len++] = '0';
 
-    for (char i = 0, j = len - 1, temp; i < j; ++i, --j)
+    for (int i = 0, j = len - 1, temp; i < j; ++i, --j)
     {
         temp = str[i];
         str[i] = str[j];

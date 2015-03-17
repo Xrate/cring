@@ -18,4 +18,5 @@ private:
     const size_t n;
 
     double currentAngle(const size_t iS) const;
+    double xCoordCorrection(double angle) const;
 };

@@ -16,18 +16,18 @@ const Plane getMovementPlane(const Vector& momentum, const Field& field)
 const Point getMovementCenter(const Vector& momentum, const Field& field)
 {
     Field force = momentum.vec * field;
-    double radius = 1. / 0.2998 * sqr(abs(momentum.vec)) / abs(force);
+    double radius = 3.3356 * sqr(abs(momentum.vec)) / abs(force);
 
-    return Point{ momentum.M.X + radius * force.X / abs(force),
-                  momentum.M.Y + radius * force.Y / abs(force),
-                  momentum.M.Z + radius * force.Z / abs(force) };
+    return Point{ momentum.M.X - radius * force.X / abs(force),
+                  momentum.M.Y - radius * force.Y / abs(force),
+                  momentum.M.Z - radius * force.Z / abs(force) };
 }
 
 const Vector getDirectionVector(const Plane& p1, const Plane& p2)
 {
-    double z = (p2.D*p1.A - p1.D*p2.A) / (p1.C*p2.A - p2.C*p1.A);
+    double x = (p2.D*p1.C - p1.D*p2.C) / (p1.A*p2.C - p2.A*p1.C);
     double y = 0;
-    double x = -(p1.C*z + p1.D) / p1.A;
+    double z = -(p1.A*x + p1.D) / p1.C;
     
     double m = p1.B * p2.C - p1.C * p2.B;
     double n = p1.C * p2.A - p1.A * p2.C;
@@ -48,14 +48,11 @@ const Vector getNewMomentum(const Vector& momentum, const Vector& directionVecto
     double pc3 = (directionVector.vec.Z * c3);
     double d1 = (sqr(c1) + sqr(c2) + sqr(c3) - sqr(radius));
 
-    double a = (-0.5 * sqrt(sqr(2 * mc1 + 2 * nc2 + 2 * pc3) - 4 * mnp * d1) - mc1 - nc2 - pc3) / mnp;
+    double a = (0.5 * sqrt(sqr(2 * mc1 + 2 * nc2 + 2 * pc3) - 4 * mnp * d1) - mc1 - nc2 - pc3) / mnp;
 
     Point newPoint{ directionVector.M.X + a * directionVector.vec.X,
                     directionVector.M.Y + a * directionVector.vec.Y,
                     directionVector.M.Z + a * directionVector.vec.Z };
-
-    double er = sqr(directionVector.vec.X*a + c1) + sqr(directionVector.vec.Y*a + c2) +
-        sqr(directionVector.vec.Z*a + c3) - sqr(radius);
 
     Field newDirection = ((newPoint - center) * momentum.vec) * (newPoint - center);
 
@@ -85,6 +82,9 @@ void FieldMap::affectParticle(Particle& p, const double angle, const double leng
 
     const Vector directionVector = getDirectionVector(newPlane, movePlane);
     const Vector newMomentum = getNewMomentum(momentum, directionVector, center);
+
+    bool er1 = HasPoint(newPlane, newMomentum.M);
+    bool er2 = HasPoint(movePlane, newMomentum.M);
 
     convertor.updateParticle(p, newMomentum, iS + 1);
 }

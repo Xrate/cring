@@ -3,6 +3,8 @@
 
 namespace physics
 {
+    const double DOUBLE_ERR = 1e-15;
+
     struct Point
     {
         double X;
@@ -50,7 +52,13 @@ namespace physics
         double B;
         double C;
         double D;
+        
     };
+
+    inline bool HasPoint(Plane plane, Point p)
+    {
+        return plane.A*p.X + plane.B*p.Y + plane.C*p.Z + plane.D < DOUBLE_ERR;
+    }
 
     struct Vector
     {

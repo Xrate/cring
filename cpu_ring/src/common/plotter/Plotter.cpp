@@ -29,7 +29,7 @@ void Plotter::plotX(string plot_name, size_t start_turn, size_t last_turn)
 {
     auto pFile = ofstream(dirName_ + "\\" + plot_name + "X.plt", ofstream::out);
 
-    pFile << "set terminal png medium size " << (last_turn - start_turn + 1) * 10000 << " " << 1000 << endl;
+    pFile << "set terminal png medium size " << (last_turn - start_turn + 1) * 2000 << "," << 1000 << endl;
     pFile << "set output '" << plot_name << "X.png'" << endl << endl;
 
     pFile << "set autoscale fix" << endl << endl;
@@ -69,7 +69,7 @@ void Plotter::plotY(string plot_name, size_t start_turn, size_t last_turn)
 {
     auto pFile = ofstream(dirName_ + "\\" + plot_name + "Y.plt", ofstream::out);
 
-    pFile << "set terminal png medium size " << (last_turn - start_turn + 1) * 10000 << " " << 1000 << endl;
+    pFile << "set terminal png medium size " << (last_turn - start_turn + 1) * 10000 << "," << 1000 << endl;
     pFile << "set output '" << plot_name << "Y.png'" << endl << endl;
 
     pFile << "set autoscale fix" << endl << endl;
@@ -109,7 +109,7 @@ void Plotter::plotFreqMap()
 {
     auto pFile = ofstream(dirName_ + "\\" + "freqMap" + ".plt", ofstream::out);
 
-    pFile << "set terminal png medium size " << 2000 << " " << 2000 << endl;
+    pFile << "set terminal png medium size " << 2000 << "," << 2000 << endl;
     pFile << "set output '" << "freqMap.png'" << endl << endl;
 
     pFile << "set autoscale fix" << endl << endl;
