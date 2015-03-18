@@ -18,6 +18,7 @@ void IParticleCreator::createParticles(const BeamParameters& params, ParticleVec
 
 Particle UniformParticleCreator::createParticle(const BeamParameters& params)
 {
+    const double m0 = 0.93272;
     double X_ = 0, Y_ = 0, aX_ = 0, aY_ = 0, dP_ = 0, P_ = 0;
     bool isDead = true;
     auto normedRand = []() -> double { return -1. + 2. / RAND_MAX * rand(); };
@@ -28,7 +29,7 @@ Particle UniformParticleCreator::createParticle(const BeamParameters& params)
         aX_ = params.twissY.angleMax() * normedRand();
         aY_ = params.twissY.angleMax() * normedRand();
         dP_ = params.momentumSpread    * normedRand();
-        P_ = params.momentum * (1 + dP_);
+        P_ = sqrt(sqr(params.energy + m0) - sqr(m0)) * (1 + dP_);
 
         // Particle should be in 3 ellipses (XY, XX', YY')
         bool isXY = sqr(X_ / params.twissX.coordMax())

@@ -21,7 +21,7 @@ struct BeamParameters
     size_t numParticles;
     size_t numTurns;
     DistType distType;
-    double momentum;
+    double energy;
     double momentumSpread;
 
     static BeamParameters readBeamParameters(string fileName);
