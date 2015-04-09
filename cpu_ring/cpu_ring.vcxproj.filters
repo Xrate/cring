@@ -69,6 +69,27 @@
     <ClCompile Include="src\field_maps\movement\CoordConvertor.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\devices_2\common\Device.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\devices_2\common\DeviceFactory.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\devices_2\matrix\MDevice.h">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\devices_2\matrix\MDevice.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\devices_2\matrix\MDipole.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\devices_2\matrix\MQuadrupole.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\devices_2\matrix\MDrift.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\beam\BeamParameters.h">
@@ -135,6 +156,30 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\field_maps\movement\CoordConvertor.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\devices_2\common\Device.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\devices_2\common\DeviceFactory.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\devices_2\common\DeviceParameters.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\devices_2\field\FDevice.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\devices_2\matrix\MDipole.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\devices_2\matrix\MQuadrupole.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\devices_2\matrix\MDrift.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\devices_2\field_matrix\FMDipole.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
