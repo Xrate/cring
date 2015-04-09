@@ -1,9 +1,9 @@
 #pragma once
 
-#include "devices_2/matrix/MDevice.h"
+#include "devices_2/matrix/MQuadrupole.h"
 #include "devices_2/field/FDevice.h"
 
-class FMQuadrupole : public MDevice, public FDevice
+class FMQuadrupole : public MQuadrupole, public FDevice
 {
 public:
     explicit      FMQuadrupole(const DeviceParameters& params)               ;
