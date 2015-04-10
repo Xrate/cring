@@ -14,7 +14,7 @@ RingConfig::RingConfig(FileNames fileNames)
 
 shared_ptr<const RingConfig> RingConfig::readRingConfig(FileNames fileNames)
 {
-    return shared_ptr<const RingConfig>(new RingConfig(fileNames));
+    return make_shared<RingConfig const>(fileNames);
 }
 
 void RingConfig::readStructure(string fileName)
@@ -65,4 +65,16 @@ void RingConfig::readParams(FileNames fileNames, DeviceType type)
         DeviceParameters dParams = { name, type, length, force, appX, appY, mapFileName };
         devices.insert(pair<string, DeviceParameters>(name, dParams));
     }
+}
+
+string FileNames::fileName(DeviceType type)
+{
+    switch (type)
+    {
+    case DIPOLE: return dipoleFile;
+    case DRIFT: return driftFile;
+    case QUADRUPOLE: return quadrupoleFile;
+    case SEXTUPOLE: return sextupoleFile;
+    }
+    throw exception("RingConf: enum FileNames error.");
 }

@@ -5,7 +5,7 @@ shared_ptr<const CRing> CRing::instance;
 
 shared_ptr<const CRing> CRing::createInstance(const shared_ptr<const RingConfig> config)
 {
-    if (!instance) instance = shared_ptr<const CRing>(new CRing(config));
+    if (!instance) instance = make_shared<CRing const>(config);
     return instance;
 }
 
@@ -34,12 +34,15 @@ void CRing::affectBeam(shared_ptr<CBeam> beam) const
 
     for (int iT = 0; iT < beam->turns(); ++iT)
     for (auto device : devices)
-    {
         device->affectBeam(beam);
-    }
 
     clock_t end = clock();
     double elapsed_secs = double(end - begin) / CLOCKS_PER_SEC;
 
     cout << "Time of traj: " << elapsed_secs << "s. " << endl;
+}
+
+inline size_t CRing::numSteps() const
+{
+    return nSteps;
 }

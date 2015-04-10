@@ -12,7 +12,7 @@ namespace physics
         double Z;
     };
 
-    Point NaN = { -1e4, -1e4, -1e4 };
+    Point NaN = { -1e15, -1e15, -1e15 };
 
     typedef Point Field;
 
@@ -22,22 +22,22 @@ namespace physics
         Field vec;
     };
 
-    inline const Point operator+(const Point& lhs, const Point& rhs)
+    inline const Point& operator+(const Point& lhs, const Point& rhs)
     {
         return Point{ lhs.X + rhs.X, lhs.Y + rhs.Y, lhs.Z + rhs.Z };
     }
 
-    inline const Point operator-(const Point& lhs, const Point& rhs)
+    inline const Point& operator-(const Point& lhs, const Point& rhs)
     {
         return Point{ lhs.X - rhs.X, lhs.Y - rhs.Y, lhs.Z - rhs.Z };
     }
 
-    inline const Point operator*(const Point& lhs, double alfa)
+    inline const Point& operator*(const Point& lhs, double alfa)
     {
         return Point{ lhs.X * alfa, lhs.Y * alfa, lhs.Z * alfa };
     }
 
-    inline const Point operator*(const Point& lhs, const Point& rhs)
+    inline const Point& operator*(const Point& lhs, const Point& rhs)
     {
         return Point{ lhs.Y * rhs.Z - lhs.Z * rhs.Y, 
                       lhs.Z * rhs.X - lhs.X * rhs.Z,

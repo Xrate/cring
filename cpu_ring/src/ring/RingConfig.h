@@ -12,17 +12,7 @@ struct FileNames
     string sextupoleFile;
     string structureFile;
 
-    string fileName(DeviceType type)
-    {
-        switch (type)
-        {
-        case DIPOLE: return dipoleFile;
-        case DRIFT: return driftFile;
-        case QUADRUPOLE: return quadrupoleFile;
-        case SEXTUPOLE: return sextupoleFile;
-        }
-        throw exception("RingConf: enum FileNames error.");
-    }
+    string fileName(DeviceType type);
 };
 
 class RingConfig

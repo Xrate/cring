@@ -21,7 +21,7 @@ inline int intToStr(int x, char str[], int d)
     return len;
 }
 
-inline void ftoa(double n, char *res, int before, int after)
+void ftoa(double n, char *res, int before, int after)
 {
     int i = 0;
 

@@ -36,7 +36,7 @@ void Logger::GenerateDir()
 }
 
 void Logger::printParticles()
-{    // Bottleneck! Change if you really know what you do!
+{    // Bottleneck! Change only if you really know what you do!
     // All hard-coded digits present for maximum performance.
     // Optimize ftoa(), if you can =)
     #pragma omp parallel for
@@ -52,7 +52,7 @@ void Logger::printParticles()
 }
 
 void Logger::printEllipses(const double& aX, const double& aY)
-{    // Bottleneck! Change if you really know what you do!
+{    // Bottleneck! Change only if you really know what you do!
     // All hard-coded digits present for maximum performance.
     // Optimize ftoa(), if you can =)
     char res[137];

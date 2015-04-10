@@ -2,12 +2,7 @@
 #include <fstream>
 #include <sstream>
 
-TwissParameters::TwissParameters(double alf, double bet, double emt) :
-alf(alf), bet(bet), emt(emt), gam((1. + sqr(alf)) / bet)
-{
-}
-
-BeamParameters BeamParameters::readBeamParameters(string fileName)
+const BeamParameters& BeamParameters::readBeamParameters(string fileName)
 {
     ifstream file(fileName);
     if (!file) throw exception(("File " + fileName + " cannot be found").c_str());
@@ -28,9 +23,19 @@ BeamParameters BeamParameters::readBeamParameters(string fileName)
 
     if (params.size() != 10) throw exception(("File " + fileName + " has wrong format").c_str());
 
-    TwissParameters tX(params.at(0), params.at(2), params.at(4)*1.e-6);
-    TwissParameters tY(params.at(1), params.at(3), params.at(5)*1.e-6);
+    return BeamParameters(params.data);
+}
 
-    return BeamParameters{ tX, tY, static_cast<size_t>(params.at(8)),
-        static_cast<size_t>(params.at(9)), UNIFORM, params.at(6), params.at(7)*0. };
+BeamParameters::BeamParameters(const double params[10])
+{
+    twissX.alf = params[0];                           twissY.alf = params[1];
+    twissX.bet = params[2];                           twissY.bet = params[3];
+    twissX.emt = params[4]*1.e-6;                     twissY.emt = params[5]*1.e-6;
+    twissX.gam = (1. + sqr(twissX.alf)) / twissX.bet; twissY.gam = (1. + sqr(twissY.alf)) / twissY.bet;
+
+    numParticles = static_cast<size_t>(params[8]);
+    numTurns = static_cast<size_t>(params[9]);
+    distType = DistType::UNIFORM;
+    energy = params[6];
+    momentumSpread = params[7]*0.;
 }
