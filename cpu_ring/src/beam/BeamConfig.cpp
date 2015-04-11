@@ -1,8 +1,8 @@
-﻿#include "BeamParameters.h"
+﻿#include "BeamConfig.h"
 #include <fstream>
 #include <sstream>
 
-const BeamParameters& BeamParameters::readBeamParameters(string fileName)
+const BeamConfig& BeamConfig::readBeamConfig(string fileName)
 {
     ifstream file(fileName);
     if (!file) throw exception(("File " + fileName + " cannot be found").c_str());
@@ -23,10 +23,10 @@ const BeamParameters& BeamParameters::readBeamParameters(string fileName)
 
     if (params.size() != 10) throw exception(("File " + fileName + " has wrong format").c_str());
 
-    return BeamParameters(params.data);
+    return BeamConfig(params.data);
 }
 
-BeamParameters::BeamParameters(const double params[10])
+BeamConfig::BeamConfig(const double params[10])
 {
     twissX.alf = params[0];                           twissY.alf = params[1];
     twissX.bet = params[2];                           twissY.bet = params[3];

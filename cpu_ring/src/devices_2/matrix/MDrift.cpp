@@ -16,8 +16,3 @@ void MDrift::initMatrices()
 
     initTwissMatrices();
 }
-
-void MDrift::affectBeam(const shared_ptr<CBeam> beam) const
-{
-    MDevice::affectBeam(beam);
-}

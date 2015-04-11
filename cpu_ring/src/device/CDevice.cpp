@@ -87,7 +87,7 @@ void CDevice::affectParticleWithMap(Particle& particle, const size_t iS) const
     fieldMap->affectParticle(particle, angle, length, nSteps, iS);
 }
 
-void CDevice::affectEllipses1stOrder(BeamParameters *params) const
+void CDevice::affectEllipses1stOrder(BeamConfig *params) const
 {
     auto tX = params->twissX;
     params->twissX.bet = mX_T[0] * tX.bet + mX_T[1] * tX.alf + mX_T[2] * tX.gam;

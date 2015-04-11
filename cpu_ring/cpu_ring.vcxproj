@@ -88,16 +88,21 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="src\analysis\FreqAnalyzer.cpp" />
-    <ClCompile Include="src\beam\BeamParameters.cpp" />
+    <ClCompile Include="src\beam\BeamConfig.cpp" />
     <ClCompile Include="src\beam\CBeam.cpp" />
     <ClCompile Include="src\beam\ParticleCreator\ParticleCreator.cpp" />
     <ClCompile Include="src\common\logger\Logger.cpp" />
     <ClCompile Include="src\common\plotter\Plotter.cpp" />
     <ClCompile Include="src\devices_2\common\Device.cpp" />
     <ClCompile Include="src\devices_2\common\DeviceFactory.cpp" />
+    <ClCompile Include="src\devices_2\field\FDevice.cpp" />
     <ClCompile Include="src\devices_2\field\field_map\DeviceFieldMap.cpp" />
     <ClCompile Include="src\devices_2\field\field_map\physics\FieldMapData.cpp" />
     <ClCompile Include="src\devices_2\field\field_map\FieldMapHandler.cpp" />
+    <ClCompile Include="src\devices_2\field\field_map\physics\physics.cpp" />
+    <ClCompile Include="src\devices_2\field_matrix\FMDipole.cpp" />
+    <ClCompile Include="src\devices_2\field_matrix\FMDrift.cpp" />
+    <ClCompile Include="src\devices_2\field_matrix\FMQuadrupole.cpp" />
     <ClCompile Include="src\devices_2\matrix\MDevice.cpp" />
     <ClCompile Include="src\devices_2\matrix\MDevice.h" />
     <ClCompile Include="src\devices_2\matrix\MDipole.cpp" />
@@ -118,7 +123,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\analysis\FreqAnalyzer.h" />
-    <ClInclude Include="src\beam\BeamParameters.h" />
+    <ClInclude Include="src\beam\BeamConfig.h" />
     <ClInclude Include="src\beam\CBeam.h" />
     <ClInclude Include="src\beam\Particle.h" />
     <ClInclude Include="src\beam\ParticleCreator\ParticleCreator.h" />

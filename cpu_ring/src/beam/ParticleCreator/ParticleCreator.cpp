@@ -10,13 +10,13 @@ shared_ptr<IParticleCreator> IParticleCreator::getParticleCreator(DistType distT
     }
 }
 
-void IParticleCreator::createParticles(const BeamParameters& params, ParticleVec& particles)
+void IParticleCreator::createParticles(const BeamConfig& params, ParticleVec& particles)
 {
     for (unsigned iParticle = 0; iParticle < params.numParticles; ++iParticle)
         particles[iParticle] = createParticle(params);
 }
 
-Particle UniformParticleCreator::createParticle(const BeamParameters& params)
+Particle UniformParticleCreator::createParticle(const BeamConfig& params)
 {
     const double m0 = 0.93272;
     double X_ = 0, Y_ = 0, aX_ = 0, aY_ = 0, dP_ = 0, P_ = 0;
@@ -47,7 +47,7 @@ Particle UniformParticleCreator::createParticle(const BeamParameters& params)
     return Particle{ true, X_, aX_, Y_, aY_, dP_, P_ };
 }
 
-Particle GaussianParticleCreator::createParticle(const BeamParameters& params)
+Particle GaussianParticleCreator::createParticle(const BeamConfig& params)
 {
     throw exception(("Not implemented"));
 }

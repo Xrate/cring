@@ -1,7 +1,11 @@
 ﻿#pragma once
 
-#include "beam/CBeam.h"
+#include "global.h"
 #include <fstream>
+
+struct Particle;
+struct Twiss;
+class CBeam;
 
 class Logger
 {
@@ -24,7 +28,7 @@ private:
     static struct BeamPointers
     {
         Particle const* particles;
-        TwissParameters const* twissX;
-        TwissParameters const* twissY;
+        Twiss const* twissX;
+        Twiss const* twissY;
     } beamPointers;
 };

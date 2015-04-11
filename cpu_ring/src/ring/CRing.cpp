@@ -1,5 +1,7 @@
 ﻿#include "CRing.h"
 #include <ctime>
+#include "RingConfig.h"
+#include <device/CDevice.h>
 
 shared_ptr<const CRing> CRing::instance;
 

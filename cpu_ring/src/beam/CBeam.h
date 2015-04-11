@@ -1,24 +1,26 @@
 ﻿#pragma once
 
 #include "global.h"
-#include "beam/BeamParameters.h"
-#include "beam/Particle.h"
+#include "BeamConfig.h"
+
+struct BeamConfig;
+struct Particle;
 
 class CBeam
 {
 public:
-    explicit CBeam(BeamParameters params);
+    explicit CBeam(BeamConfig params);
     inline size_t size() const;
     inline size_t turns() const;
     inline double path() const;
     void addPath(double step);
-    inline ParticleVec& particles();
-    inline BeamParameters& parameters();
-    inline const ParticleVec& particles() const;
-    inline const BeamParameters& parameters() const;
+    inline vector<Particle>& particles();
+    inline BeamConfig& parameters();
+    inline const vector<Particle>& particles() const;
+    inline const BeamConfig& parameters() const;
 private:
-    BeamParameters parameters_;
-    ParticleVec particles_;
+    BeamConfig parameters_;
+	vector<Particle> particles_;
     const size_t numParticles_;
     const size_t numTurns_;
     double path_;

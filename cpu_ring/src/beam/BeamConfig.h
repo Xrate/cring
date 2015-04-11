@@ -3,7 +3,7 @@
 
 enum DistType { UNIFORM, GAUSSIAN };
 
-struct TwissParameters
+struct Twiss
 {
     double alf;
     double bet;
@@ -13,16 +13,16 @@ struct TwissParameters
     double angleMax() const { return sqrt(gam * emt); }
 };
 
-struct BeamParameters
+struct BeamConfig
 {
-    TwissParameters twissX;
-    TwissParameters twissY;
+    Twiss twissX;
+    Twiss twissY;
     size_t numParticles;
     size_t numTurns;
     DistType distType;
     double energy;
     double momentumSpread;
 
-	explicit BeamParameters(const double params[10]);
-    static const BeamParameters& readBeamParameters(string fileName);
+	explicit BeamConfig(const double params[10]);
+    static const BeamConfig& readBeamConfig(string fileName);
 };

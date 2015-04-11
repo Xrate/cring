@@ -1,7 +1,8 @@
 ﻿#include "CBeam.h"
 #include "beam/ParticleCreator/ParticleCreator.h"
+#include "BeamConfig.h"
 
-CBeam::CBeam(BeamParameters parameters) :
+CBeam::CBeam(BeamConfig parameters) :
 parameters_(parameters),
 particles_(parameters.numParticles),
 numParticles_(parameters.numParticles),
@@ -17,7 +18,7 @@ inline ParticleVec& CBeam::particles()
     return particles_;
 }
 
-inline BeamParameters& CBeam::parameters()
+inline BeamConfig& CBeam::parameters()
 {
     return parameters_;
 }
@@ -27,7 +28,7 @@ inline const ParticleVec& CBeam::particles() const
     return particles_;
 }
 
-inline const BeamParameters& CBeam::parameters() const
+inline const BeamConfig& CBeam::parameters() const
 {
     return parameters_;
 }

@@ -6,6 +6,6 @@
 class FMDipole : public MDipole, public FDevice
 {
 public:
-    explicit     FMDipole  (const DeviceParameters& params)               ;
-    virtual void affectBeam(const shared_ptr<CBeam> beam  ) const override;
+    explicit      FMDipole      (const DeviceParameters& params  )               ;
+	virtual  void affectParticle(      Particle&         particle) const override;
 };

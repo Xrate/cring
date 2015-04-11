@@ -1,8 +1,10 @@
 ﻿#pragma once
 
 #include "global.h"
-#include "RingConfig.h"
-#include "device/CDevice.h"
+
+class RingConfig;
+class CBeam;
+class CDevice;
 
 class CRing
 {

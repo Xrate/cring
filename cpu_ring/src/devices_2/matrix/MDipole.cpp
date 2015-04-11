@@ -21,8 +21,3 @@ void MDipole::initMatrices()
 
     initTwissMatrices();
 }
-
-void MDipole::affectBeam(const shared_ptr<CBeam> beam) const
-{
-    MDevice::affectBeam(beam);
-}

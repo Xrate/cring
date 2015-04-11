@@ -2,6 +2,8 @@
 
 #include "global.h"
 
+struct BeamConfig;
+struct Particle;
 class CBeam;
 struct DeviceParameters;
 
@@ -18,9 +20,11 @@ struct Geometry
 class Device
 {
 public:
-    explicit Device(const DeviceParameters& params);
-    virtual ~Device(){}
-    virtual void affectBeam(const shared_ptr<CBeam> beam) const = 0;
+    explicit      Device        (const DeviceParameters& params  )          ;
+    virtual      ~Device        (                                ){}
+    virtual  void affectBeam    (const shared_ptr<CBeam> beam    ) const    ;
+	virtual  void affectParticle(      Particle&         particle) const = 0;
+	virtual  void affectEllipses(      BeamConfig*   params  ) const = 0;
 protected:
     Geometry geometry;
     string name;

@@ -6,6 +6,6 @@
 class FMDrift : public MDrift, public FDevice
 {
 public:
-    explicit     FMDrift   (const DeviceParameters& params)               ;
-    virtual void affectBeam(const shared_ptr<CBeam> beam  ) const override;
+    explicit      FMDrift       (const DeviceParameters& params  )               ;
+	virtual  void affectParticle(      Particle&         particle) const override;
 };

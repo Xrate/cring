@@ -2,6 +2,7 @@
 #include <chrono>
 #include <windows.h>
 #include "ftoa.h"
+#include <beam/CBeam.h>
 
 string Logger::dirName = "output\\Log_";
 shared_ptr<const CBeam> Logger::beam;

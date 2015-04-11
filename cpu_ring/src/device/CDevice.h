@@ -32,7 +32,7 @@ protected:
     shared_ptr<const FieldMap> fieldMap;
     bool hasMap;
 
-    void affectEllipses1stOrder(BeamParameters *params) const;
+    void affectEllipses1stOrder(BeamConfig *params) const;
     void affectParticle1stOrder(Particle& particle, const double Mx[6], const double My[6]) const;
     void affectParticleWithMap(Particle& particle, const size_t iS) const;
 };

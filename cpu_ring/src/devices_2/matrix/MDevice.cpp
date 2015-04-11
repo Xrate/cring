@@ -26,24 +26,6 @@ void MDevice::initTwissMatrices()
     mY_T[6] = +1 * C_*C_;  mY_T[7] = -2 * C_*S_;   mY_T[8] = +1 * S_*S_;
 }
 
-void MDevice::affectBeam(const shared_ptr<CBeam> beam) const
-{
-    auto particles = beam->particles().data();
-    auto params = &beam->parameters();
-    for (size_t iS = 0; iS < geometry.nSteps; ++iS)
-    {
-        #pragma omp parallel for
-        for (int iP = 0; iP < beam->size(); ++iP)
-            affectParticle(particles[iP]);
-
-        affectEllipses(params);
-
-        beam->addPath(geometry.step);
-        Logger::printParticles();
-        Logger::printEllipses(geometry.appertureX, geometry.appertureY);
-    }
-}
-
 void MDevice::affectParticle(Particle& particle) const
 {
     auto p = particle;
@@ -56,7 +38,7 @@ void MDevice::affectParticle(Particle& particle) const
     particle.isAlive = sqr(particle.X / geometry.appertureX) + sqr(particle.Y / geometry.appertureY) <= 1.;
 }
 
-void MDevice::affectEllipses(BeamParameters *params) const
+void MDevice::affectEllipses(BeamConfig *params) const
 {
     auto tX = params->twissX;
     params->twissX.bet = mX_T[0] * tX.bet + mX_T[1] * tX.alf + mX_T[2] * tX.gam;

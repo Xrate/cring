@@ -1,6 +1,9 @@
 #pragma once
 
-#include "Device.h"
+#include "global.h"
+
+struct DeviceParameters;
+class Device;
 
 class DeviceFactory
 {

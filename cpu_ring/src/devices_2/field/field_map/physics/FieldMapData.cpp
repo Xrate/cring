@@ -106,9 +106,10 @@ static FieldMapData* createFieldMapData(const string& fileName)
 		data->rawMap[row] = { Bx, By, Bz };
 	}
 	fclose(file);
+	return data;
 }
 
-shared_ptr<const FieldMapData> getFieldMap(const string& fileName)
+shared_ptr<const FieldMapData> physics::getFieldMap(const string& fileName)
 {
     auto it = fieldMaps.find(fileName);
     if (it != fieldMaps.end()) return it->second;
