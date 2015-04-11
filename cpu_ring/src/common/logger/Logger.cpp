@@ -30,9 +30,9 @@ void Logger::GenerateDir()
     using namespace chrono;
     time_t end_time = system_clock::to_time_t(system_clock::now());
     dirName.append(to_string(end_time));
-    CreateDirectory("output", nullptr);
-    CreateDirectory(dirName.c_str(), nullptr);
-    CreateDirectory((dirName+"\\particles").c_str(), nullptr);
+    CreateDirectoryA("output", nullptr);
+    CreateDirectoryA(dirName.c_str(), nullptr);
+    CreateDirectoryA((dirName+"\\particles").c_str(), nullptr);
 }
 
 void Logger::printParticles()

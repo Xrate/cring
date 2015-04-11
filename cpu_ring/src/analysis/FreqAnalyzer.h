@@ -2,7 +2,6 @@
 
 #include "global.h"
 #include "common/OutDirConfig.h"
-#include <fftw3.h>
 
 class FreqAnalyzer
 {
@@ -11,8 +10,7 @@ public:
     static void print();
     static void calculate();
 private:
-    static void readParticleTraj(size_t iP, double* inX, double* inY);
-    static double findFrequency(fftw_plan& plan, double* in, fftw_complex* out);
+    friend static void readParticleTraj(size_t iP, double* inX, double* inY);
     static string dirName_;
     static size_t nTurns_;
     static size_t nParticles_;

@@ -2,6 +2,8 @@
 #include "fstream"
 #include <sstream>
 #include <locale>
+#include <iterator>
+#include <fftw3.h>
 
 string FreqAnalyzer::dirName_;
 size_t FreqAnalyzer::nTurns_;
@@ -28,6 +30,54 @@ void FreqAnalyzer::print()
     pFile.close();
 }
 
+double findFrequency(fftw_plan& plan, double* in, fftw_complex* out, size_t nTurns_)
+{
+	fftw_execute_dft_r2c(plan, in, out);
+	size_t n = nTurns_ / 2 + 1;
+	double beta = 0., max = 0.;
+	for (unsigned iP = 1; iP < n; ++iP)
+	{
+		double x = out[iP][0];
+		double y = out[iP][1];
+		double temp = sqrt(sqr(x) + sqr(y));
+		if (temp > max)
+		{
+			max = temp;
+			beta = double(iP) / nTurns_;
+		}
+	}
+	return beta;
+}
+
+void readParticleTraj(size_t iP, double* inX, double* inY)
+{
+	string fileName = FreqAnalyzer::dirName_ + "\\particles\\" + to_string(iP) + ".out";
+	ifstream pFile = ifstream(fileName, ifstream::in);
+
+	size_t lineNumber = static_cast<size_t>(static_cast <double>(rand()) / RAND_MAX * FreqAnalyzer::nSteps_);
+	string line;
+	size_t counter = 0;
+
+	while (getline(pFile, line))
+	{
+		if (lineNumber == FreqAnalyzer::nSteps_)
+		{
+			istringstream iss(line);
+			vector<string> words{ istream_iterator<string>{iss},
+				istream_iterator<string>{} };
+			inX[counter] = atof(words.at(1).c_str());
+			inY[counter] = atof(words.at(2).c_str());
+			lineNumber = 0;
+			++counter;
+		}
+		lineNumber++;
+	}
+
+	pFile.close();
+	if (counter != FreqAnalyzer::nTurns_)
+		throw exception(("File" + to_string(iP) + ".out has wrong format").c_str());
+}
+
 void FreqAnalyzer::calculate()
 {
     clock_t begin = clock();
@@ -44,8 +94,8 @@ void FreqAnalyzer::calculate()
         double* inY = static_cast<double*>(fftw_malloc(sizeof(double)* nTurns_));
         fftw_complex* out = static_cast<fftw_complex*>(fftw_malloc(sizeof(fftw_complex)* (nTurns_ / 2 + 1)));
         readParticleTraj(iP, inX, inY);
-        Qx[iP] = findFrequency(plan, inX, out);
-        Qy[iP] = findFrequency(plan, inY, out);
+        Qx[iP] = findFrequency(plan, inX, out, nTurns_);
+        Qy[iP] = findFrequency(plan, inY, out, nTurns_);
         fftw_free(inX);
         fftw_free(inY);
         fftw_free(out);
@@ -59,52 +109,4 @@ void FreqAnalyzer::calculate()
     double elapsed_secs = double(end - begin) / CLOCKS_PER_SEC;
 
     cout << "Time of FFT: " << elapsed_secs << "s. " << endl;
-}
-
-void FreqAnalyzer::readParticleTraj(size_t iP, double* inX, double* inY)
-{
-    string fileName = dirName_ + "\\particles\\" + to_string(iP) + ".out";
-    ifstream pFile = ifstream(fileName, ifstream::in);
-
-    size_t lineNumber = static_cast<size_t>(static_cast <double>(rand()) / RAND_MAX * nSteps_);
-    string line;
-    size_t counter = 0;
-
-    while (getline(pFile, line))
-    {
-        if (lineNumber == nSteps_)
-        {
-            istringstream iss(line);
-            vector<string> words{ istream_iterator<string>{iss},
-                istream_iterator<string>{} };
-            inX[counter] = atof(words.at(1).c_str());
-            inY[counter] = atof(words.at(2).c_str());
-            lineNumber = 0;
-            ++counter;
-        }
-        lineNumber++;
-    }
-
-    pFile.close();
-    if (counter != nTurns_)
-        throw exception(("File" + to_string(iP) + ".out has wrong format").c_str());
-}
-
-double FreqAnalyzer::findFrequency(fftw_plan& plan, double* in, fftw_complex* out)
-{
-    fftw_execute_dft_r2c(plan, in, out);
-    size_t n = nTurns_ / 2 + 1;
-    double beta = 0., max = 0.;
-    for (unsigned iP = 1; iP < n; ++iP)
-    {
-        double x = out[iP][0];
-        double y = out[iP][1];
-        double temp = sqrt(sqr(x) + sqr(y));
-        if (temp > max)
-        {
-            max = temp;
-            beta = double(iP) / nTurns_;
-        }
-    }
-    return beta;
 }

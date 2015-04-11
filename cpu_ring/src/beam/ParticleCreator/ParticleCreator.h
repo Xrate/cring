@@ -6,21 +6,22 @@
 class IParticleCreator
 {
 public:
-    static shared_ptr<IParticleCreator> getParticleCreator(DistType distType);
+	static shared_ptr<IParticleCreator> getParticleCreator(DistType distType);
     void createParticles(const BeamParameters& params, ParticleVec& particles);
 protected:
     IParticleCreator() = default;
     virtual Particle createParticle(const BeamParameters& params) = 0;
+	virtual ~IParticleCreator() {}
 };
 
 class UniformParticleCreator : public IParticleCreator
 {
 protected:
-    virtual Particle createParticle(const BeamParameters& params);
+    virtual Particle createParticle(const BeamParameters& params) override;
 };
 
 class GaussianParticleCreator : public IParticleCreator
 {
 protected:
-    virtual Particle createParticle(const BeamParameters& params);
+    virtual Particle createParticle(const BeamParameters& params) override;
 };

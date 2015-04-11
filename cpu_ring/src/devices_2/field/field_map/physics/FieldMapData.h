@@ -1,11 +1,10 @@
 #pragma once
 #include "global.h"
-#include <map>
 
 namespace physics
 {
     struct Point;
-    struct Field;
+	typedef Point Field;
 
     struct FieldMapData
     {

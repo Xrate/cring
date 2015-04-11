@@ -23,6 +23,6 @@ struct BeamParameters
     double energy;
     double momentumSpread;
 
-    BeamParameters(const double params[10]);
+	explicit BeamParameters(const double params[10]);
     static const BeamParameters& readBeamParameters(string fileName);
 };

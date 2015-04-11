@@ -2,6 +2,7 @@
 #include <fstream>
 #include <sstream>
 #include <sys/stat.h>
+#include <iterator>
 
 RingConfig::RingConfig(FileNames fileNames)
 {
@@ -50,8 +51,7 @@ void RingConfig::readParams(FileNames fileNames, DeviceType type)
         if (line.empty() || line.at(0) == '#') continue;
 
         istringstream iss(line);
-        vector<string> words{ istream_iterator<string>{iss},
-                              istream_iterator<string>{} };
+        vector<string> words{ istream_iterator<string>{iss}, istream_iterator<string>{} };
 
         if (words.size() > 6) throw exception(("File " + fileName + " has wrong format").c_str());
 

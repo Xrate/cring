@@ -35,7 +35,7 @@ BeamParameters::BeamParameters(const double params[10])
 
     numParticles = static_cast<size_t>(params[8]);
     numTurns = static_cast<size_t>(params[9]);
-    distType = DistType::UNIFORM;
+    distType = UNIFORM;
     energy = params[6];
     momentumSpread = params[7]*0.;
 }

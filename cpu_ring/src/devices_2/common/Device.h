@@ -3,7 +3,7 @@
 #include "global.h"
 
 class CBeam;
-class DeviceParameters;
+struct DeviceParameters;
 
 struct Geometry
 {

@@ -3,14 +3,14 @@
 #include "field_map/DeviceFieldMap.h"
 
 class CBeam;
-class DeviceParameters;
+struct DeviceParameters;
 
 class FDevice : public virtual Device
 {
 public:
-    explicit      FDevice   (const string&          name_)               ;
-    virtual      ~FDevice   (                            ){}
-    virtual  void affectBeam(const shared_ptr<CBeam> beam) const override;
+    explicit      FDevice   (const DeviceParameters& params)               ;
+    virtual      ~FDevice   (                              ){}
+    virtual  void affectBeam(const shared_ptr<CBeam> beam  ) const override;
 protected:
     unique_ptr<DeviceFieldMap> fieldMap;
 };
