@@ -15,6 +15,8 @@ Device::Device(const DeviceParameters& params)
     geometry.appertureX = params.appertureX_;
     geometry.appertureY = params.appertureY_;
     geometry.step = geometry.length / geometry.nSteps;
+
+	curr_step = 0;
 }
 
 void Device::affectBeam(const shared_ptr<CBeam> beam) const
@@ -23,6 +25,7 @@ void Device::affectBeam(const shared_ptr<CBeam> beam) const
 	auto params = &beam->parameters();
 	for (size_t iS = 0; iS < geometry.nSteps; ++iS)
 	{
+		curr_step = iS;
 		#pragma omp parallel for
 		for (int iP = 0; iP < beam->size(); ++iP)
 			affectParticle(particles[iP]);

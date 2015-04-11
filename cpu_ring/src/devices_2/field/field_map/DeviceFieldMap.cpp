@@ -1,9 +1,12 @@
 #include "DeviceFieldMap.h"
+#include "physics/physics.h"
 
-void DeviceFieldMap::getField(double X, double Y, size_t iS)
+physics::Point DeviceFieldMap::getField(double X, double Y, size_t iS)
 {
+
 }
 
-DeviceFieldMap::DeviceFieldMap(FDevice* prev, FDevice* curr, FDevice* next)
+DeviceFieldMap::DeviceFieldMap(const string& field_map)
 {
+
 }

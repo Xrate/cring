@@ -18,12 +18,10 @@ namespace physics
 		friend double abs(const Point& f);
     };
 
-    typedef Point Field;
-
     struct Vector
     {
         Point M;
-        Field vec;
+		Point vec;
     };
 
     struct Plane

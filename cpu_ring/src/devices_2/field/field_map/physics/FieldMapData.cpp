@@ -93,8 +93,8 @@ static FieldMapData* createFieldMapData(const string& fileName)
 	fscanf_s(file, "%lf %lf %lf %lf %lf %lf", &(data->maxX), &(data->maxY), &(data->maxZ),
 		&(data->stepX), &(data->stepY), &(data->stepZ));
 	data->numPoints = static_cast<size_t>((2 * data->maxX / data->stepX + 1)
-		* (2 * data->maxY / data->stepY + 1)
-		* (2 * data->maxZ / data->stepZ + 1));
+		                                * (2 * data->maxY / data->stepY + 1)
+		                                * (2 * data->maxZ / data->stepZ + 1));
 
 	data->rawMap = new Field[data->numPoints];
 

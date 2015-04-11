@@ -4,10 +4,10 @@
 #include "field_maps/physics.h"
 using namespace physics;
 
-class CoordConvertor
+class CoordConverter
 {
 public:
-    CoordConvertor(const double angle, const double length, const size_t nSteps);
+    CoordConverter(const double angle, const double length, const size_t nSteps);
     Point CurveToPlain(double X, double Y, const size_t iS) const;
     const Plane getPlane(const size_t iS) const;
     const Vector getMomentum(const Particle& p, const size_t iS) const;

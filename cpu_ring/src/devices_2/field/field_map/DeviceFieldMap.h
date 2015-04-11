@@ -3,15 +3,22 @@
 
 class FDevice;
 class FieldMapHandler;
+namespace physics
+{
+	struct Point;
+}
 
 class DeviceFieldMap
 {
-public:
-    void getField(double X, double Y, size_t iS);
 	friend FDevice;
+public:
+	         physics::Point getField      (      double  X        ,
+				                                 double  Y        , 
+								                 size_t  iS       );
 private:
-	DeviceFieldMap(FDevice* prev, FDevice* curr, FDevice* next);
-    unique_ptr<FieldMapHandler> prev_device;
-    unique_ptr<FieldMapHandler> curr_device;
-    unique_ptr<FieldMapHandler> next_device;
+	explicit                DeviceFieldMap(const string& field_map);
+
+    unique_ptr<FieldMapHandler> prev_device_map;
+    unique_ptr<FieldMapHandler> curr_device_map;
+    unique_ptr<FieldMapHandler> next_device_map;
 };
