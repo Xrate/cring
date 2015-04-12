@@ -12,6 +12,12 @@ CurveConverter::CurveConverter(Geometry geometry)
 {
 }
 
+const Point& CurveConverter::getPlainCoord(double X, double Y) const
+{
+	double angle = getCurrentAngle();
+	return convertToPlain(X,Y, angle);
+}
+
 const Plane& CurveConverter::getNextPlane() const
 {
 	double angle = getNextAngle();

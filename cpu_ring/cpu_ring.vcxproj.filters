@@ -117,10 +117,16 @@
     <ClCompile Include="src\devices_2\field\geometry\CoordConverter.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\devices_2\field\geometry\GeometryHelper.cpp">
+    <ClCompile Include="src\devices_2\field\geometry\CurveConverter.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\devices_2\field\geometry\CurveConverter.cpp">
+    <ClCompile Include="src\devices_2\field\geometry\helper\GeometryHelper.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\devices_2\field\geometry\PlainConverter.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\devices_2\field\field_map\ExtendedDeviceFieldMap.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -236,10 +242,16 @@
     <ClInclude Include="src\devices_2\field\geometry\CoordConverter.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\devices_2\field\geometry\GeometryHelper.h">
+    <ClInclude Include="src\devices_2\field\geometry\CurveConverter.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\devices_2\field\geometry\CurveConverter.h">
+    <ClInclude Include="src\devices_2\field\geometry\helper\GeometryHelper.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\devices_2\field\geometry\PlainConverter.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\devices_2\field\field_map\ExtendedDeviceFieldMap.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

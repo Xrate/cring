@@ -11,6 +11,8 @@ class CurveConverter : public CoordConverter
 {
 public:
 	explicit               CurveConverter (      Geometry  geometry)               ;
+	virtual  const Point&  getPlainCoord  (      double    X       ,
+		                                         double    Y       ) const override;
 	virtual  const Plane&  getNextPlane   (                        ) const override;
 	virtual  const Vector& getMomentum    (const Particle& p       ) const override;
 	virtual        void    updateParticle (      Particle& p       ,

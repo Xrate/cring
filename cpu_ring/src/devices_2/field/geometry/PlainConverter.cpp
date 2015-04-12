@@ -11,6 +11,12 @@ PlainConverter::PlainConverter(Geometry geometry)
 {
 }
 
+const Point& PlainConverter::getPlainCoord(double X, double Y) const
+{
+	double z = getCurrentZ();
+	return Point{ X ,Y, z };
+}
+
 double PlainConverter::getCurrentZ() const
 {
 	return 0.5 * length * (2.* (*dev_step) / nSteps - 1.);

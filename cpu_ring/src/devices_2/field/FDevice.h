@@ -16,6 +16,8 @@ public:
 	virtual  void affectParticle(      Particle&         particle) const override;
 	         void updateFieldMap(const FDevice*          prev    ,
 								 const FDevice*          next    )               ;
+
+	const string fieldMapName;
 protected:
     unique_ptr<DeviceFieldMap> fieldMap;
 	unique_ptr<CoordConverter> converter;

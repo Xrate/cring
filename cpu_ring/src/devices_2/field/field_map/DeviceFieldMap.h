@@ -10,15 +10,16 @@ namespace physics
 
 class DeviceFieldMap
 {
-	friend FDevice;
+	friend   FDevice;
 public:
-	         physics::Point getField      (      double  X        ,
-				                                 double  Y        , 
-								                 size_t  iS       );
-private:
-	explicit                DeviceFieldMap(const string& field_map);
+	virtual                ~DeviceFieldMap(                                ){}
 
-    unique_ptr<FieldMapHandler> prev_device_map;
-    unique_ptr<FieldMapHandler> curr_device_map;
-    unique_ptr<FieldMapHandler> next_device_map;
+	virtual  physics::Point getField      (const physics::Point&  point    ) const;
+
+protected:
+	explicit                DeviceFieldMap(const string&          field_map)      ;
+
+    unique_ptr<FieldMapHandler> device_map;
+public:
+	bool hasField;
 };
