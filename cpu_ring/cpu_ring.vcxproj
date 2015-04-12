@@ -98,6 +98,7 @@
     <ClCompile Include="src\devices_2\field\FDevice.cpp" />
     <ClCompile Include="src\devices_2\field\field_map\DeviceFieldMap.cpp" />
     <ClCompile Include="src\devices_2\field\field_map\ExtendedDeviceFieldMap.cpp" />
+    <ClCompile Include="src\devices_2\field\field_map\physics\CoordBooster.cpp" />
     <ClCompile Include="src\devices_2\field\field_map\physics\FieldMapData.cpp" />
     <ClCompile Include="src\devices_2\field\field_map\FieldMapHandler.cpp" />
     <ClCompile Include="src\devices_2\field\field_map\physics\physics.cpp" />
@@ -138,10 +139,12 @@
     <ClInclude Include="src\common\plotter\Plotter.h" />
     <ClInclude Include="src\devices_2\common\Device.h" />
     <ClInclude Include="src\devices_2\common\DeviceFactory.h" />
+    <ClInclude Include="src\devices_2\common\DeviceGeometry.h" />
     <ClInclude Include="src\devices_2\common\DeviceParameters.h" />
     <ClInclude Include="src\devices_2\field\FDevice.h" />
     <ClInclude Include="src\devices_2\field\field_map\DeviceFieldMap.h" />
     <ClInclude Include="src\devices_2\field\field_map\ExtendedDeviceFieldMap.h" />
+    <ClInclude Include="src\devices_2\field\field_map\physics\CoordBooster.h" />
     <ClInclude Include="src\devices_2\field\field_map\physics\FieldMapData.h" />
     <ClInclude Include="src\devices_2\field\field_map\FieldMapHandler.h" />
     <ClInclude Include="src\devices_2\field\field_map\physics\physics.h" />

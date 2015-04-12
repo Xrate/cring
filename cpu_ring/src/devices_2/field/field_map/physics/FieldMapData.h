@@ -21,7 +21,7 @@ namespace physics
         Field* rawMap;
     };
 
-    shared_ptr<const FieldMapData> getFieldMap(const string& fileName);
+    shared_ptr<const FieldMapData> getFieldMapData(const string& fileName);
 
     Field getFieldInPoint(const FieldMapData& map, Point p);
 }

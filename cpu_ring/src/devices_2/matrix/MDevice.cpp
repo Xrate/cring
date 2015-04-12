@@ -1,6 +1,6 @@
 #include "MDevice.h"
 #include "beam/CBeam.h"
-#include "common/logger/Logger.h"
+#include <beam/Particle.h>
 
 MDevice::MDevice(const DeviceParameters& params)
 : Device(params)

@@ -12,12 +12,12 @@ namespace physics
 using namespace physics;
 
 struct Particle;
-struct Geometry;
+struct DeviceGeometry;
 
 class CoordConverter
 {
 public:
-	static        CoordConverter*  getConverter   (      Geometry  geometry)               ;
+	static        CoordConverter*  getConverter   (DeviceGeometry  geometry)               ;
 
 	virtual const Point&           getPlainCoord  (      double    X       ,
 		                                                 double    Y       ) const      = 0;

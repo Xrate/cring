@@ -4,20 +4,20 @@
 namespace physics
 {
     class FieldMapData;
-    class CoordConverter;
+    class CoordBooster;
 }
 class FDevice;
-struct Geometry;
+struct DeviceGeometry;
 
 class FieldMapHandler
 {
 public:
-    static FieldMapHandler* getPrevHandler(Geometry curr, Geometry prev, const string& field_map);
+    static FieldMapHandler* getPrevHandler(DeviceGeometry curr, DeviceGeometry prev, const string& field_map);
     static FieldMapHandler* getCurrHandler(const string& field_map);
-    static FieldMapHandler* getNextHandler(Geometry curr, Geometry next, const string& field_map);
+    static FieldMapHandler* getNextHandler(DeviceGeometry curr, DeviceGeometry next, const string& field_map);
 private:
-	FieldMapHandler(const string& map_name, const physics::FieldMapData* data, const physics::CoordConverter* converter);
+	FieldMapHandler(const string& map_name, const physics::CoordBooster* converter);
 	const string mapName;
-    shared_ptr<physics::FieldMapData> data;
-    unique_ptr<physics::CoordConverter> converter;
+    shared_ptr<const physics::FieldMapData> data;
+    unique_ptr<const physics::CoordBooster> converter;
 };

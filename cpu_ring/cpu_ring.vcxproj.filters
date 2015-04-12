@@ -129,6 +129,9 @@
     <ClCompile Include="src\devices_2\field\field_map\ExtendedDeviceFieldMap.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\devices_2\field\field_map\physics\CoordBooster.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\beam\CBeam.h">
@@ -252,6 +255,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\devices_2\field\field_map\ExtendedDeviceFieldMap.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\devices_2\field\field_map\physics\CoordBooster.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\devices_2\common\DeviceGeometry.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

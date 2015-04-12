@@ -4,7 +4,7 @@
 class PlainConverter : public CoordConverter
 {
 public:
-	explicit               PlainConverter(      Geometry  geometry)               ;
+	explicit               PlainConverter(DeviceGeometry  geometry)               ;
 	virtual  const Point&  getPlainCoord (      double    X       ,
 		                                        double    Y       ) const override;
 	virtual  const Plane&  getNextPlane  (                        ) const override;

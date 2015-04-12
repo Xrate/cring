@@ -1,21 +1,12 @@
 #pragma once
 
 #include "global.h"
+#include "DeviceGeometry.h"
 
 struct BeamConfig;
 struct Particle;
 class CBeam;
 struct DeviceParameters;
-
-struct Geometry
-{
-    double length;
-    double angle;
-    double step;
-    double appertureX;
-    double appertureY;
-    size_t nSteps;
-};
 
 class Device
 {
@@ -26,7 +17,7 @@ public:
 	virtual  void affectParticle(      Particle&         particle) const = 0;
 	virtual  void affectEllipses(      BeamConfig*       params  ) const = 0;
 protected:
-            Geometry geometry;
-            string   name;
-	mutable size_t   curr_step;
+	        DeviceGeometry geometry;
+            string         name;
+	mutable size_t         curr_step;
 };

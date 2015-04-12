@@ -1,11 +1,11 @@
 ﻿#include "CurveConverter.h"
 #include <devices_2/field/field_map/physics/physics.h>
 #include <beam/Particle.h>
-#include <devices_2/common/Device.h>
+#include <devices_2/common/DeviceGeometry.h>
 
 using namespace physics;
 
-CurveConverter::CurveConverter(Geometry geometry)
+CurveConverter::CurveConverter(DeviceGeometry geometry)
 : rho(geometry.length/geometry.angle), 
   theta(geometry.angle), 
   nSteps(geometry.nSteps)

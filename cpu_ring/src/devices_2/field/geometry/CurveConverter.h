@@ -10,7 +10,7 @@ namespace physics
 class CurveConverter : public CoordConverter
 {
 public:
-	explicit               CurveConverter (      Geometry  geometry)               ;
+	explicit               CurveConverter (DeviceGeometry  geometry)               ;
 	virtual  const Point&  getPlainCoord  (      double    X       ,
 		                                         double    Y       ) const override;
 	virtual  const Plane&  getNextPlane   (                        ) const override;

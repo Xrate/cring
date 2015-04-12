@@ -1,11 +1,11 @@
 ﻿#include "PlainConverter.h"
 #include <devices_2/field/field_map/physics/physics.h>
-#include <devices_2/common/Device.h>
+#include <devices_2/common/DeviceGeometry.h>
 #include <beam/Particle.h>
 
 using namespace physics;
 
-PlainConverter::PlainConverter(Geometry geometry)
+PlainConverter::PlainConverter(DeviceGeometry geometry)
 : length(geometry.length),
   nSteps(geometry.nSteps)
 {

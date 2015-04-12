@@ -1,15 +1,15 @@
 ﻿#pragma once
 #include "DeviceFieldMap.h"
 
-struct Geometry;
+struct DeviceGeometry;
 
 class ExtendedDeviceFieldMap : public DeviceFieldMap
 {
 	friend   FDevice;
 public:
 	explicit ExtendedDeviceFieldMap(const string& field_map);
-	void setPrevMap(Geometry curr, Geometry prev, const string& mapName);
-	void setNextMap(Geometry curr, Geometry next, const string& mapName);
+	void setPrevMap(DeviceGeometry curr, DeviceGeometry prev, const string& mapName);
+	void setNextMap(DeviceGeometry curr, DeviceGeometry next, const string& mapName);
 	physics::Point getField(const physics::Point& point) const override;
 	
 protected:
