@@ -2,6 +2,7 @@
 #include "physics/FieldMapData.h"
 #include "physics/CoordBooster.h"
 #include <devices_2/common/DeviceGeometry.h>
+#include "physics/physics.h"
 
 using namespace physics;
 
@@ -48,19 +49,41 @@ static CoordTransformation calculateTransformation(DeviceGeometry curr, DeviceGe
 FieldMapHandler* FieldMapHandler::getPrevHandler(DeviceGeometry curr, DeviceGeometry prev, const string & field_map)
 {
 	CoordTransformation t = calculateTransformation(curr, prev);
-	return new FieldMapHandler(field_map, new CoordBooster(-t.Z, -t.X, t.angle));
+	auto handler = new FieldMapHandler(field_map, new CoordBooster(-t.Z, -t.X, t.angle));
+
+	if (handler->getField(Point{ 0., 0., -curr.length/2 }).isNull())
+		return nullptr;
+
+	return handler;
 }
 
 FieldMapHandler* FieldMapHandler::getCurrHandler(const string & field_map)
 {
 	CoordTransformation t = { 0., 0., 0. };
-	return new FieldMapHandler(field_map, new CoordBooster(t.Z, t.X, t.angle));
+	auto handler = new FieldMapHandler(field_map, new CoordBooster(t.Z, t.X, t.angle));
+
+	if (handler->getField(Point{ 0., 0., 0. }).isNull())
+		return nullptr;
+
+	return handler;
 }
 
 FieldMapHandler* FieldMapHandler::getNextHandler(DeviceGeometry curr, DeviceGeometry next, const string & field_map)
 {
 	CoordTransformation t = calculateTransformation(curr, next);
-	return new FieldMapHandler(field_map, new CoordBooster(t.Z, -t.X, -t.angle));
+	auto handler = new FieldMapHandler(field_map, new CoordBooster(t.Z, -t.X, -t.angle));
+
+	if (handler->getField(Point{ 0., 0., curr.length / 2 }).isNull())
+		return nullptr;
+
+	return handler;
+}
+
+Point FieldMapHandler::getField(Point p)
+{
+	Point own = converter->convertPoint(p);
+	Point field = data->getFieldInPoint(own);
+	return field;
 }
 
 FieldMapHandler::FieldMapHandler(const string& map_name, 

@@ -16,6 +16,17 @@ FDevice::FDevice(const DeviceParameters& params)
 	fieldMap = make_unique<ExtendedDeviceFieldMap>(params.mapFileName_);
 }
 
+void FDevice::updateFieldMap(const FDevice* prev, const FDevice* next)
+{
+	auto extendedFieldMap = dynamic_cast<ExtendedDeviceFieldMap*>(fieldMap.get());
+	extendedFieldMap->setPrevMap(this->geometry, prev->geometry, prev->fieldMapName);
+	extendedFieldMap->setNextMap(this->geometry, next->geometry, next->fieldMapName);
+
+	if (extendedFieldMap->prev_device_map == nullptr &&
+		extendedFieldMap->next_device_map == nullptr)
+		fieldMap = unique_ptr<DeviceFieldMap>(static_cast<DeviceFieldMap*>(fieldMap.get()));
+}
+
 using physics::Plane;
 using physics::Vector;
 using physics::Point;
@@ -30,15 +41,4 @@ void FDevice::affectParticle(Particle& p) const
 	const Vector newMomentum = GeometryHelper::calculateNewMomentum(momentum, field, newPlane);
 
 	converter->updateParticle(p, newMomentum);
-}
-
-void FDevice::updateFieldMap(const FDevice* prev, const FDevice* next)
-{
-	auto extendedFieldMap = dynamic_cast<ExtendedDeviceFieldMap*>(fieldMap.get());
-	extendedFieldMap->setPrevMap(this->geometry, prev->geometry, prev->fieldMapName);
-	extendedFieldMap->setNextMap(this->geometry, next->geometry, next->fieldMapName);
-
-	if (extendedFieldMap->prev_device_map == nullptr && 
-		extendedFieldMap->next_device_map == nullptr)
-			fieldMap = unique_ptr<DeviceFieldMap>(static_cast<DeviceFieldMap*>(fieldMap.get()));
 }

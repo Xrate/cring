@@ -13,5 +13,5 @@ DeviceFieldMap::DeviceFieldMap(const string& field_map)
 
 Point DeviceFieldMap::getField(const Point& point) const
 {
-
+	return device_map->getField(point);
 }

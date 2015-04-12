@@ -4,7 +4,6 @@
 namespace physics
 {
     struct Point;
-	typedef Point Field;
 
     struct FieldMapData
     {
@@ -18,10 +17,10 @@ namespace physics
         double stepY;
         double stepZ;
 
-        Field* rawMap;
+        Point* rawMap;
+
+		Point getFieldInPoint(const Point& p) const;
     };
 
     shared_ptr<const FieldMapData> getFieldMapData(const string& fileName);
-
-    Field getFieldInPoint(const FieldMapData& map, Point p);
 }

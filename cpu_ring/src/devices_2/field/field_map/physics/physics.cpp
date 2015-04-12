@@ -3,7 +3,12 @@
 
 using namespace physics;
 
-Point Point::NaN = { -1e15, -1e15, -1e15 };
+Point Point::Null = { 0., 0., 0. };
+
+bool Point::isNull()
+{
+	return abs(this->X) + abs(this->Y) + abs(this->Z) < DOUBLE_ERR;
+}
 
 inline const Point& operator+(const Point& lhs, const Point& rhs)
 {

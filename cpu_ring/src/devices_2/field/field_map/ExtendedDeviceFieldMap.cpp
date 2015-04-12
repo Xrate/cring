@@ -23,5 +23,7 @@ void ExtendedDeviceFieldMap::setNextMap(DeviceGeometry curr, DeviceGeometry next
 
 Point ExtendedDeviceFieldMap::getField(const Point& point) const
 {
-
+	return device_map->getField(point) + 
+	  prev_device_map->getField(point) + 
+	  next_device_map->getField(point);
 }
