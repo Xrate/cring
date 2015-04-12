@@ -86,7 +86,6 @@ Point FieldMapHandler::getField(Point p)
 	return field;
 }
 
-FieldMapHandler::FieldMapHandler(const string& map_name, 
-								 const CoordBooster* converter)
+FieldMapHandler::FieldMapHandler(const string& map_name, const CoordBooster* converter)
 : mapName(map_name), data(getFieldMapData(mapName)), converter(converter)
 {}

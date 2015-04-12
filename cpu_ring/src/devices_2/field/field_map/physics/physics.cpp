@@ -5,7 +5,7 @@ using namespace physics;
 
 Point Point::Null = { 0., 0., 0. };
 
-bool Point::isNull()
+bool Point::isNull() const
 {
 	return abs(this->X) + abs(this->Y) + abs(this->Z) < DOUBLE_ERR;
 }

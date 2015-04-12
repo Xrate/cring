@@ -9,8 +9,8 @@ namespace physics
         double X;
         double Y;
         double Z;
-		bool   isNull();
 		static Point Null;
+		bool   isNull() const;
 		friend const Point& operator+(const Point& lhs, const Point& rhs);
 		friend const Point& operator-(const Point& lhs, const Point& rhs);   
 		friend const Point& operator*(const Point& lhs, double alfa);
