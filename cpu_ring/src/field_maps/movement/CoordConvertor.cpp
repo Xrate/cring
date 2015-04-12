@@ -20,7 +20,7 @@ physics::Point CoordConverter::CurveToPlain(double X, double Y, const size_t iS)
     return physics::Point{ x, y, z };
 }
 
-const physics::Plane CoordConverter::getPlane(const size_t iS) const
+const physics::Plane CoordConverter::getNextPlane(const size_t iS) const
 {
     double angle = currentAngle(iS);
     double x = xCoordCorrection(angle);

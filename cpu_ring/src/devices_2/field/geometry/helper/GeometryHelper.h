@@ -2,7 +2,8 @@
 
 #include "global.h"
 
-namespace physics{
+namespace physics
+{
 	struct Point;
 	struct Vector;
 	struct Plane;

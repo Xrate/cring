@@ -1,9 +1,7 @@
 ﻿#include "GeometryHelper.h"
 #include <devices_2/field/field_map/physics/physics.h>
 
-using namespace physics;
-
-const Plane& getMovementPlane(const Vector& momentum, const Point& field)
+static const Plane& getMovementPlane(const Vector& momentum, const Point& field)
 {
 	Point force = momentum.vec * field;
 	double A = momentum.vec.Y * force.Z - momentum.vec.Z * force.Y;
@@ -14,7 +12,7 @@ const Plane& getMovementPlane(const Vector& momentum, const Point& field)
 	return Plane{ A, B, C, D };
 }
 
-const Point& getMovementCenter(const Vector& momentum, const Point& field)
+static const Point& getMovementCenter(const Vector& momentum, const Point& field)
 {
 	Point force = momentum.vec * field;
 	double radius = 3.3356 * sqr(abs(momentum.vec)) / abs(force);
@@ -24,7 +22,7 @@ const Point& getMovementCenter(const Vector& momentum, const Point& field)
 		momentum.M.Z - radius * force.Z / abs(force) };
 }
 
-const Vector& getDirectionVector(const Plane& p1, const Plane& p2)
+static const Vector& getDirectionVector(const Plane& p1, const Plane& p2)
 {
 	double x = (p2.D*p1.C - p1.D*p2.C) / (p1.A*p2.C - p2.A*p1.C);
 	double y = 0;
@@ -37,7 +35,7 @@ const Vector& getDirectionVector(const Plane& p1, const Plane& p2)
 	return Vector{ Point{ x, y, z }, m>0 ? Point{ m, n, p } : Point{ -m, -n, -p } };
 }
 
-const Vector& getNewMomentum(const Vector& momentum, const Vector& directionVector, const Point& center)
+static const Vector& getNewMomentum(const Vector& momentum, const Vector& directionVector, const Point& center)
 {
 	double radius = dist(momentum.M, center);
 	double mnp = sqr(directionVector.vec.X) + sqr(directionVector.vec.Y) + sqr(directionVector.vec.Z);

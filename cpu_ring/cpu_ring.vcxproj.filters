@@ -120,6 +120,9 @@
     <ClCompile Include="src\devices_2\field\geometry\GeometryHelper.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\devices_2\field\geometry\CurveConverter.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\beam\CBeam.h">
@@ -234,6 +237,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\devices_2\field\geometry\GeometryHelper.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\devices_2\field\geometry\CurveConverter.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

@@ -18,5 +18,5 @@ public:
 								 const FDevice*          next    )               ;
 protected:
     unique_ptr<DeviceFieldMap> fieldMap;
-	unique_ptr<CoordConverter> convertor;
+	unique_ptr<CoordConverter> converter;
 };

@@ -3,12 +3,13 @@
 #include "field_map/DeviceFieldMap.h"
 #include "beam/Particle.h"
 #include "geometry/CoordConverter.h"
-#include "geometry/GeometryHelper.h"
+#include "geometry/helper/GeometryHelper.h"
 
 FDevice::FDevice(const DeviceParameters& params)
 : Device(params)
 {
-	convertor = CoordConverter::getConverter(geometry);
+	converter = unique_ptr<CoordConverter>(CoordConverter::getConverter(geometry));
+	converter->trackDeviceStep(curr_step);
 }
 
 using physics::Plane;
@@ -18,10 +19,10 @@ using physics::Point;
 void FDevice::affectParticle(Particle& p) const
 {
 	const Point  field    = fieldMap->getField(p.X, p.Y, curr_step);
-	const Vector momentum = convertor.getMomentum(p, curr_step);
-	const Plane  newPlane = convertor.getPlane(curr_step + 1);
+	const Vector momentum = converter->getMomentum(p);
+	const Plane  newPlane = converter->getNextPlane();
 	
 	const Vector newMomentum = GeometryHelper::calculateNewMomentum(momentum, field, newPlane);
 
-	convertor.updateParticle(p, newMomentum, curr_step + 1);
+	converter->updateParticle(p, newMomentum);
 }

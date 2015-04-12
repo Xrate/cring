@@ -8,16 +8,24 @@ namespace physics
 	struct Vector;
 }
 
+using namespace physics;
+
 struct Particle;
 struct Geometry;
 
 class CoordConverter
 {
 public:
-	static               unique_ptr<CoordConverter> getConverter(      Geometry  geometry);
-	       virtual const physics::Plane             getPlane    (const size_t    iS      ) const = 0;
-	       virtual const physics::Vector            getMomentum (const Particle& p       , 
-			                                                     const size_t    iS      ) const = 0;
+	static        CoordConverter*  getConverter   (      Geometry  geometry)               ;
+	virtual const Plane&           getNextPlane   (                        ) const      = 0;
+	virtual const Vector&          getMomentum    (const Particle& p       ) const      = 0;
+	virtual       void             updateParticle (      Particle& p       ,
+		                                           const Vector&   m       ) const      = 0;
 
-		   virtual                                 ~CoordConverter() {}
+	              void             trackDeviceStep(const size_t&   iS      )               ;
+
+	virtual                       ~CoordConverter(){}
+
+protected:
+	const size_t*  dev_step;
 };
