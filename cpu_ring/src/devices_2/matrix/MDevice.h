@@ -9,8 +9,8 @@ struct Particle;
 class MDevice : public virtual Device
 {
 public:
+    virtual      ~MDevice            (                                )                = 0 {}
     explicit      MDevice            (const DeviceParameters& params  )                   ;
-    virtual      ~MDevice            (                                ){}
 protected:
     virtual  void initMatrices       (                                )                = 0;
              void initTwissMatrices  (                                )                   ;

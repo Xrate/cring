@@ -2,6 +2,7 @@
 #include "devices_2/common/DeviceParameters.h"
 #include "beam/Particle.h"
 #include <cmath>
+#include <devices_2/field_matrix/FMQuadrupole.h>
 
 MQuadrupole::MQuadrupole(const DeviceParameters& params)
 : MDevice(params), Device(params)

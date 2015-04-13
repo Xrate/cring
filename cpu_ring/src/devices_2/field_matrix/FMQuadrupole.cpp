@@ -3,7 +3,10 @@
 #include <beam/Particle.h>
 
 FMQuadrupole::FMQuadrupole(const DeviceParameters& params)
-: MQuadrupole(params), FDevice(params), Device(params)
+: 
+MQuadrupole(params), 
+FDevice(params),
+Device(params)
 {}
 
 void FMQuadrupole::affectParticle(Particle & p) const

@@ -9,5 +9,5 @@ class DeviceFactory
 {
     DeviceFactory() = delete;
 public:
-    static shared_ptr<Device> createDevice(const DeviceParameters& params);
+    static Device* createDevice(const DeviceParameters& params);
 };

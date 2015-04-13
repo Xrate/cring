@@ -6,15 +6,21 @@
 #include "calculation/FCalculator.h"
 #include "geometry/CoordConverter.h"
 #include <beam/Particle.h>
+#include "ExtendedDeviceFieldMap.h"
 
 DeviceFieldMap::DeviceFieldMap(const DeviceGeometry& geometry, const string& name, const size_t* step)
 {
     if (!name.empty())
-    {
-        device_map = shared_ptr<FieldMapHandler>(HandlerCreator::getCurrHandler(name));
-        converter = shared_ptr<CoordConverter>(ConverterFactory::getConverter(geometry, step));
-    }
+        device_map = shared_ptr<const FieldMapHandler>(HandlerCreator::getCurrHandler(name));
+
+    converter = shared_ptr<const CoordConverter>(ConverterFactory::getConverter(geometry, step));
 }
+
+DeviceFieldMap::DeviceFieldMap(const ExtendedDeviceFieldMap* map)
+:
+device_map(map->device_map), 
+converter(map->converter)
+{}
 
 void DeviceFieldMap::updateParticle(Particle& p) const
 {
@@ -28,7 +34,7 @@ Point DeviceFieldMap::getField(const Point& point) const
     auto field =  device_map->getField(point);
 
     if (field.isNull())
-        throw new NullFieldException();
+        throw NullFieldException();
 
     return field;
 }

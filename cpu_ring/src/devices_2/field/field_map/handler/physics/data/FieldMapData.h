@@ -18,6 +18,7 @@ namespace physics
 
         Point* rawMap;
 
+        ~FieldMapData();
         Point getFieldInPoint(const Point& p) const;
     };
 }

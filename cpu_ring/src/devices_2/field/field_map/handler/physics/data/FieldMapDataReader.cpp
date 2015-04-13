@@ -5,16 +5,7 @@
 
 using namespace physics;
 
-static map<string, shared_ptr<const FieldMapData>> fieldMaps;
-
-void FieldMapDataDeleter(FieldMapData* data)
-{
-    if (data->rawMap != nullptr)
-    {
-        delete[] data->rawMap;
-        data->rawMap = nullptr;
-    }
-}
+map<string, shared_ptr<const FieldMapData>> FieldMapDataReader::fieldMaps;
 
 static FieldMapData* createFieldMapData(const string& fileName)
 {
@@ -45,8 +36,8 @@ static FieldMapData* createFieldMapData(const string& fileName)
 shared_ptr<const FieldMapData> FieldMapDataReader::getFieldMapData(const string& fileName)
 {
     auto it = fieldMaps.find(fileName);
-    if (it != fieldMaps.end()) return it->second;
+    if (it == fieldMaps.end()) 
+        fieldMaps[fileName] = shared_ptr<FieldMapData>(createFieldMapData(fileName));
 
-    fieldMaps[fileName] = shared_ptr<const FieldMapData>(createFieldMapData(fileName), FieldMapDataDeleter);
     return fieldMaps.at(fileName);
 }

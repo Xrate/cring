@@ -3,8 +3,13 @@
 #include <beam/Particle.h>
 
 FMDipole::FMDipole(const DeviceParameters& params)
-: MDipole(params), FDevice(params), Device(params)
-{}
+: 
+MDipole(params), 
+FDevice(params),
+Device(params)
+{
+    geometry.angle = force;
+}
 
 void FMDipole::affectParticle(Particle& p) const
 {
@@ -12,7 +17,7 @@ void FMDipole::affectParticle(Particle& p) const
     {
         FDevice::affectParticle(p);
     }
-    catch (NullFieldException)
+    catch (NullFieldException&)
     {
         MDipole::affectParticle(p);
     }

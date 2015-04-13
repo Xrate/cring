@@ -4,11 +4,11 @@
 #include <devices_2/common/DeviceParameters.h>
 
 FDevice::FDevice(const DeviceParameters& params)
-: 
-Device(params),
-fieldMapName(params.mapFileName_),
-fieldMap(new ExtendedDeviceFieldMap(geometry, fieldMapName, &curr_step))
-{}
+: Device(params)
+{
+    fieldMapName = params.mapFileName_;
+    fieldMap = make_shared<ExtendedDeviceFieldMap>(geometry, fieldMapName, &curr_step);
+}
 
 bool FDevice::spotFieldDevice(const FDevice* prev, const FDevice* next)
 {
@@ -21,7 +21,7 @@ bool FDevice::spotFieldDevice(const FDevice* prev, const FDevice* next)
     if (extendedFieldMap->prev_device_map == nullptr &&
         extendedFieldMap->next_device_map == nullptr)
     {
-        auto newFieldMap = new DeviceFieldMap(*extendedFieldMap);
+        auto newFieldMap = new DeviceFieldMap(extendedFieldMap);
         fieldMap.reset();
         fieldMap = shared_ptr<DeviceFieldMap>(newFieldMap);
 

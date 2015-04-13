@@ -24,63 +24,91 @@ shared_ptr<const CRing> CRing::getInstance()
     throw exception("CRing: Try to access null CRing");
 }
 
+static shared_ptr<Device> ProcessNeighborsAffection(Device** curr, const FDevice* prev, const FDevice* next)
+{
+    FDevice* f_curr = dynamic_cast<FDevice*>(*curr);
+    if (typeid(*f_curr) == typeid(FMDipole))
+    {
+        if (f_curr->spotFieldDevice(prev, next))
+        {
+            auto fmPtr = dynamic_cast<FMDipole*>(f_curr);
+            return shared_ptr<FMDipole>(fmPtr);
+        }
+        else
+        {
+            auto mPtr = new MDipole(*dynamic_cast<FMDipole*>(f_curr));
+            delete *curr; *curr = nullptr;
+            return shared_ptr<MDipole>(mPtr);
+        }
+    }
+    if (typeid(*f_curr) == typeid(FMDrift))
+    {
+        if (f_curr->spotFieldDevice(prev, next))
+        {
+            auto fmPtr = dynamic_cast<FMDrift*>(f_curr);
+            return shared_ptr<FMDrift>(fmPtr);
+        }
+        else
+        {
+            auto mPtr = new MDrift(*dynamic_cast<FMDrift*>(f_curr));
+            delete *curr; *curr = nullptr;
+            return shared_ptr<MDrift>(mPtr);
+        }
+    }
+    if (typeid(*f_curr) == typeid(FMQuadrupole))
+    {
+        if (f_curr->spotFieldDevice(prev, next))
+        {
+            auto fmPtr = dynamic_cast<FMQuadrupole*>(f_curr);
+            return shared_ptr<FMQuadrupole>(fmPtr);
+        }
+        else
+        {
+            auto mPtr = new MQuadrupole(*dynamic_cast<FMQuadrupole*>(f_curr));
+            delete *curr; *curr = nullptr;
+            return shared_ptr<MQuadrupole>(mPtr);
+        }
+    }
+
+    throw exception("Unknown device type.");
+}
+
+static FDevice* getPrevDevice(vector<Device*> pre_devices, size_t i)
+{
+    if (i != 0)
+        return dynamic_cast<FDevice*>(pre_devices.at(i - 1));
+
+    return dynamic_cast<FDevice*>(pre_devices.at(pre_devices.size() - 1));
+}
+
+static FDevice* getNextDevice(vector<Device*> pre_devices, size_t i)
+{
+    if (i != pre_devices.size() - 1)
+        return dynamic_cast<FDevice*>(pre_devices.at(i + 1));
+
+    return dynamic_cast<FDevice*>(pre_devices.at(0));
+}
+
 CRing::CRing(shared_ptr<const RingConfig> config) :
 nSteps(0)
 {
+    vector<Device*> pre_devices;
     for (string name : config->structure)
     {
         auto deviceParams = config->devices.at(name);
         auto device = DeviceFactory::createDevice(deviceParams);
         nSteps += static_cast<size_t>(deviceParams.type_);
-        devices.push_back(device);
+        pre_devices.push_back(device);
     }
-    numDevices = devices.size();
 
-    for (size_t i = 0; i < numDevices; ++i)
+    for (size_t i = 0; i < pre_devices.size(); ++i)
     {
-        FDevice* curr = dynamic_cast<FDevice*>(devices.at(i).get());
-        const FDevice* prev;
-        const FDevice* next;
-        if (i == 0)
-        {
-            prev = dynamic_cast<const FDevice*>(devices.at(numDevices - 1).get());
-            next = dynamic_cast<const FDevice*>(devices.at(1).get());
-        }
-        else if (i == numDevices - 1)
-        {
-            prev = dynamic_cast<const FDevice*>(devices.at(numDevices - 2).get());
-            next = dynamic_cast<const FDevice*>(devices.at(0).get());
-        }
-        else
-        {
-            prev = dynamic_cast<const FDevice*>(devices.at(i-1).get());
-            next = dynamic_cast<const FDevice*>(devices.at(i+1).get());
-        }
-
-        if (!curr->spotFieldDevice(prev, next))
-        {
-            if (typeid(*curr) == typeid(FMDipole))
-            {
-                auto mPtr = new MDipole(*dynamic_cast<FMDipole*>(curr));
-                devices.at(i).reset();
-                devices[i] = shared_ptr<MDipole>(mPtr);
-            }
-            else if (typeid(*curr) == typeid(FMDrift))
-            {
-                auto mPtr = new MDrift(*dynamic_cast<FMDrift*>(curr));
-                devices.at(i).reset();
-                devices[i] = shared_ptr<MDrift>(mPtr);
-            }
-            else if (typeid(*curr) == typeid(FMQuadrupole))
-            {
-                auto mPtr = new MQuadrupole(*dynamic_cast<FMQuadrupole*>(curr));
-                devices.at(i).reset();
-                devices[i] = shared_ptr<MQuadrupole>(mPtr);
-            }
-            else
-                throw new exception("Unknow device type.");
-        }
+        const FDevice* prev = getPrevDevice(pre_devices, i);
+        const FDevice* next = getNextDevice(pre_devices, i);
+        devices.push_back(ProcessNeighborsAffection(&pre_devices[i], prev, next));
     }
+
+    numDevices = devices.size();
 }
 
 void CRing::affectBeam(shared_ptr<CBeam> beam) const

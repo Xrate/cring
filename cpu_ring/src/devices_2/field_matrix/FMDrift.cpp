@@ -3,7 +3,10 @@
 #include <beam/Particle.h>
 
 FMDrift::FMDrift(const DeviceParameters& params)
-: MDrift(params), FDevice(params), Device(params)
+: 
+MDrift(params), 
+FDevice(params),
+Device(params)
 {}
 
 void FMDrift::affectParticle(Particle& p) const

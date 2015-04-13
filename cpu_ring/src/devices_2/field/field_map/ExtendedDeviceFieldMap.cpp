@@ -13,23 +13,27 @@ ExtendedDeviceFieldMap::ExtendedDeviceFieldMap(const DeviceGeometry& geometry,
 void ExtendedDeviceFieldMap::setPrevMap(DeviceGeometry curr, DeviceGeometry prev, const string& mapName)
 {
     if (!mapName.empty())
-        prev_device_map = shared_ptr<FieldMapHandler>(HandlerCreator::getPrevHandler(curr, prev, mapName));
+        prev_device_map = shared_ptr<const FieldMapHandler>(HandlerCreator::getPrevHandler(curr, prev, mapName));
+    else
+        prev_device_map = nullptr;
 }
 
 void ExtendedDeviceFieldMap::setNextMap(DeviceGeometry curr, DeviceGeometry next, const string& mapName)
 {
     if (!mapName.empty())
-        next_device_map = shared_ptr<FieldMapHandler>(HandlerCreator::getNextHandler(curr, next, mapName));
+        next_device_map = shared_ptr<const FieldMapHandler>(HandlerCreator::getNextHandler(curr, next, mapName));
+    else
+        next_device_map = nullptr;
 }
 
 Point ExtendedDeviceFieldMap::getField(const Point& point) const
 {
-    auto field =  device_map->getField(point) + 
-             prev_device_map->getField(point) + 
-             next_device_map->getField(point);
+    Point field = Point::Null;
+    if (device_map      != nullptr) field = field +      device_map->getField(point);
+    if (prev_device_map != nullptr) field = field + prev_device_map->getField(point);
+    if (next_device_map != nullptr) field = field + next_device_map->getField(point);
 
-    if (field.isNull())
-        throw new NullFieldException();
+    if (field.isNull()) throw NullFieldException();
 
     return field;
 }

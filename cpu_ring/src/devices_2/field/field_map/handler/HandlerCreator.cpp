@@ -13,8 +13,10 @@ FieldMapHandler* HandlerCreator::getPrevHandler(DeviceGeometry curr, DeviceGeome
     auto handler = new FieldMapHandler(field_map, prevTransform);
 
     if (handler->getField(Point{ 0., 0., -curr.length / 2 }).isNull())
+    {
+        delete handler;
         return nullptr;
-
+    }
     return handler;
 }
 
@@ -24,8 +26,10 @@ FieldMapHandler* HandlerCreator::getCurrHandler(const string & field_map)
     auto handler = new FieldMapHandler(field_map, curr);
 
     if (handler->getField(Point{ 0., 0., 0. }).isNull())
+    {
+        delete handler;
         return nullptr;
-
+    }
     return handler;
 }
 
@@ -36,7 +40,9 @@ FieldMapHandler* HandlerCreator::getNextHandler(DeviceGeometry curr, DeviceGeome
     auto handler = new FieldMapHandler(field_map, nextTransform);
 
     if (handler->getField(Point{ 0., 0., curr.length / 2 }).isNull())
+    {
+        delete handler;
         return nullptr;
-
+    }
     return handler;
 }

@@ -11,8 +11,8 @@ struct DeviceParameters;
 class Device
 {
 public:
-    explicit      Device        (const DeviceParameters& params  )          ;
-    virtual      ~Device        (                                ){}
+    virtual      ~Device        (                                )       = 0 {}
+    explicit      Device        (const DeviceParameters& params  );
     virtual  void affectBeam    (const shared_ptr<CBeam> beam    ) const    ;
     virtual  void affectParticle(      Particle&         particle) const = 0;
     virtual  void affectEllipses(      BeamConfig*       params  ) const = 0;

@@ -2,6 +2,8 @@
 
 #include "MDevice.h"
 
+class FMDrift;
+
 class MDrift : public MDevice
 {
 public:

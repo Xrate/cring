@@ -2,6 +2,8 @@
 
 #include "MDevice.h"
 
+class FMQuadrupole;
+
 class MQuadrupole : public MDevice
 {
 public:

@@ -6,7 +6,7 @@
 
 Device::Device(const DeviceParameters& params)
 {
-    if (params.name_.empty()) 
+    if (params.name_.empty())
         throw exception("Trying to create empty Device object.");
 
     name = params.name_;

@@ -80,3 +80,12 @@ Field FieldMapData::getFieldInPoint(const Point& p) const
         return Field::Null;
     }
 }
+
+FieldMapData::~FieldMapData()
+{
+    if (rawMap != nullptr)
+    {
+        delete[] rawMap;
+        rawMap = nullptr;
+    }
+}

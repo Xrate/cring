@@ -15,6 +15,6 @@ public:
     Point getField(const Point& point) const override;
     
 protected:
-    shared_ptr<FieldMapHandler> prev_device_map;
-    shared_ptr<FieldMapHandler> next_device_map;
+    shared_ptr<const FieldMapHandler> prev_device_map;
+    shared_ptr<const FieldMapHandler> next_device_map;
 };

@@ -2,6 +2,8 @@
 
 #include "MDevice.h"
 
+class FMDipole;
+
 class MDipole : public MDevice
 {
 public:

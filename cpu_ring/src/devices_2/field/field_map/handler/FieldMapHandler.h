@@ -16,10 +16,10 @@ class FieldMapHandler
 {
     friend class HandlerCreator;
 public:
-    Point getField(Point p);
+    Point getField(Point p) const;
 private:
     FieldMapHandler(const string& map_name, const physics::CoordTransformation& transform);
-    const string mapName;
+    string mapName;
     shared_ptr<const physics::FieldMapData> data;
     shared_ptr<const physics::CoordBooster> booster;
 };

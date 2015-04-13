@@ -1,5 +1,6 @@
 #include "MDipole.h"
 #include "devices_2/common/DeviceParameters.h"
+#include <devices_2/field_matrix/FMDipole.h>
 
 MDipole::MDipole(const DeviceParameters& params)
 : MDevice(params), Device(params)
