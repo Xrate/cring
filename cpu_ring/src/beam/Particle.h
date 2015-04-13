@@ -12,4 +12,3 @@ struct Particle
     double dp;
     double p;
 };
-typedef vector<Particle> ParticleVec;

@@ -15,7 +15,7 @@ RingConfig::RingConfig(FileNames fileNames)
 
 shared_ptr<const RingConfig> RingConfig::readRingConfig(FileNames fileNames)
 {
-    return make_shared<RingConfig const>(fileNames);
+    return shared_ptr<RingConfig const>(new RingConfig(fileNames));
 }
 
 void RingConfig::readStructure(string fileName)

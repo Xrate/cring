@@ -2,6 +2,7 @@
 #include "DeviceParameters.h"
 #include <common/logger/Logger.h>
 #include <beam/CBeam.h>
+#include <beam/Particle.h>
 
 Device::Device(const DeviceParameters& params)
 {
@@ -16,24 +17,24 @@ Device::Device(const DeviceParameters& params)
     geometry.appertureY = params.appertureY_;
     geometry.step = geometry.length / geometry.nSteps;
 
-	curr_step = 0;
+    curr_step = 0;
 }
 
 void Device::affectBeam(const shared_ptr<CBeam> beam) const
 {
-	auto particles = beam->particles().data();
-	auto params = &beam->parameters();
-	for (size_t iS = 0; iS < geometry.nSteps; ++iS)
-	{
-		curr_step = iS;
-		#pragma omp parallel for
-		for (int iP = 0; iP < beam->size(); ++iP)
-			affectParticle(particles[iP]);
+    auto particles = beam->particles().data();
+    auto params = &beam->parameters();
+    for (size_t iS = 0; iS < geometry.nSteps; ++iS)
+    {
+        curr_step = iS;
+        #pragma omp parallel for
+        for (int iP = 0; iP < beam->size(); ++iP)
+            affectParticle(particles[iP]);
 
-		affectEllipses(params);
+        affectEllipses(params);
 
-		beam->addPath(geometry.step);
-		Logger::printParticles();
-		Logger::printEllipses(geometry.appertureX, geometry.appertureY);
-	}
+        beam->addPath(geometry.step);
+        Logger::printParticles();
+        Logger::printEllipses(geometry.appertureX, geometry.appertureY);
+    }
 }

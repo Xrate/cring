@@ -14,10 +14,10 @@ public:
     explicit      Device        (const DeviceParameters& params  )          ;
     virtual      ~Device        (                                ){}
     virtual  void affectBeam    (const shared_ptr<CBeam> beam    ) const    ;
-	virtual  void affectParticle(      Particle&         particle) const = 0;
-	virtual  void affectEllipses(      BeamConfig*       params  ) const = 0;
+    virtual  void affectParticle(      Particle&         particle) const = 0;
+    virtual  void affectEllipses(      BeamConfig*       params  ) const = 0;
 protected:
-	        DeviceGeometry geometry;
+            DeviceGeometry geometry;
             string         name;
-	mutable size_t         curr_step;
+    mutable size_t         curr_step;
 };

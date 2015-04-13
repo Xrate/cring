@@ -3,6 +3,7 @@
 #include <windows.h>
 #include "ftoa.h"
 #include <beam/CBeam.h>
+#include <beam/Particle.h>
 
 string Logger::dirName = "output\\Log_";
 shared_ptr<const CBeam> Logger::beam;
@@ -37,7 +38,8 @@ void Logger::GenerateDir()
 }
 
 void Logger::printParticles()
-{    // Bottleneck! Change only if you really know what you do!
+{    
+    // Bottleneck! Change only if you really know what you do!
     // All hard-coded digits present for maximum performance.
     // Optimize ftoa(), if you can =)
     #pragma omp parallel for
@@ -53,7 +55,8 @@ void Logger::printParticles()
 }
 
 void Logger::printEllipses(const double& aX, const double& aY)
-{    // Bottleneck! Change only if you really know what you do!
+{    
+    // Bottleneck! Change only if you really know what you do!
     // All hard-coded digits present for maximum performance.
     // Optimize ftoa(), if you can =)
     char res[137];

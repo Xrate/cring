@@ -32,50 +32,50 @@ void FreqAnalyzer::print()
 
 double findFrequency(fftw_plan& plan, double* in, fftw_complex* out, size_t nTurns_)
 {
-	fftw_execute_dft_r2c(plan, in, out);
-	size_t n = nTurns_ / 2 + 1;
-	double beta = 0., max = 0.;
-	for (unsigned iP = 1; iP < n; ++iP)
-	{
-		double x = out[iP][0];
-		double y = out[iP][1];
-		double temp = sqrt(sqr(x) + sqr(y));
-		if (temp > max)
-		{
-			max = temp;
-			beta = double(iP) / nTurns_;
-		}
-	}
-	return beta;
+    fftw_execute_dft_r2c(plan, in, out);
+    size_t n = nTurns_ / 2 + 1;
+    double beta = 0., max = 0.;
+    for (unsigned iP = 1; iP < n; ++iP)
+    {
+        double x = out[iP][0];
+        double y = out[iP][1];
+        double temp = sqrt(sqr(x) + sqr(y));
+        if (temp > max)
+        {
+            max = temp;
+            beta = double(iP) / nTurns_;
+        }
+    }
+    return beta;
 }
 
 void readParticleTraj(size_t iP, double* inX, double* inY)
 {
-	string fileName = FreqAnalyzer::dirName_ + "\\particles\\" + to_string(iP) + ".out";
-	ifstream pFile = ifstream(fileName, ifstream::in);
+    string fileName = FreqAnalyzer::dirName_ + "\\particles\\" + to_string(iP) + ".out";
+    ifstream pFile = ifstream(fileName, ifstream::in);
 
-	size_t lineNumber = static_cast<size_t>(static_cast <double>(rand()) / RAND_MAX * FreqAnalyzer::nSteps_);
-	string line;
-	size_t counter = 0;
+    size_t lineNumber = static_cast<size_t>(static_cast <double>(rand()) / RAND_MAX * FreqAnalyzer::nSteps_);
+    string line;
+    size_t counter = 0;
 
-	while (getline(pFile, line))
-	{
-		if (lineNumber == FreqAnalyzer::nSteps_)
-		{
-			istringstream iss(line);
-			vector<string> words{ istream_iterator<string>{iss},
-				istream_iterator<string>{} };
-			inX[counter] = atof(words.at(1).c_str());
-			inY[counter] = atof(words.at(2).c_str());
-			lineNumber = 0;
-			++counter;
-		}
-		lineNumber++;
-	}
+    while (getline(pFile, line))
+    {
+        if (lineNumber == FreqAnalyzer::nSteps_)
+        {
+            istringstream iss(line);
+            vector<string> words{ istream_iterator<string>{iss},
+                istream_iterator<string>{} };
+            inX[counter] = atof(words.at(1).c_str());
+            inY[counter] = atof(words.at(2).c_str());
+            lineNumber = 0;
+            ++counter;
+        }
+        lineNumber++;
+    }
 
-	pFile.close();
-	if (counter != FreqAnalyzer::nTurns_)
-		throw exception(("File" + to_string(iP) + ".out has wrong format").c_str());
+    pFile.close();
+    if (counter != FreqAnalyzer::nTurns_)
+        throw exception(("File" + to_string(iP) + ".out has wrong format").c_str());
 }
 
 void FreqAnalyzer::calculate()

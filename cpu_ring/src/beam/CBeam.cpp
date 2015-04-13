@@ -13,37 +13,37 @@ path_(0)
     creator->createParticles(parameters_, particles_);
 }
 
-inline ParticleVec& CBeam::particles()
+vector<Particle>& CBeam::particles()
 {
     return particles_;
 }
 
-inline BeamConfig& CBeam::parameters()
+BeamConfig& CBeam::parameters()
 {
     return parameters_;
 }
 
-inline const ParticleVec& CBeam::particles() const
+const vector<Particle>& CBeam::particles() const
 {
     return particles_;
 }
 
-inline const BeamConfig& CBeam::parameters() const
+const BeamConfig& CBeam::parameters() const
 {
     return parameters_;
 }
 
-inline size_t CBeam::size() const
+size_t CBeam::size() const
 {
     return numParticles_;
 }
 
-inline size_t CBeam::turns() const
+size_t CBeam::turns() const
 {
     return numTurns_;
 }
 
-inline double CBeam::path() const
+double CBeam::path() const
 {
     return path_;
 }

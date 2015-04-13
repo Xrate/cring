@@ -1,17 +1,34 @@
 #include "DeviceFieldMap.h"
-#include "physics/physics.h"
-#include "FieldMapHandler.h"
+#include "handler/HandlerCreator.h"
+#include "handler/FieldMapHandler.h"
+#include "common/primitives.h"
+#include "geometry/ConverterFactory.h"
+#include "calculation/FCalculator.h"
+#include "geometry/CoordConverter.h"
+#include <beam/Particle.h>
 
-using namespace physics;
-
-DeviceFieldMap::DeviceFieldMap(const string& field_map)
-: hasField(false)
+DeviceFieldMap::DeviceFieldMap(const DeviceGeometry& geometry, const string& name, const size_t* step)
 {
-	device_map = unique_ptr<FieldMapHandler>(FieldMapHandler::getCurrHandler(field_map));
-	if (device_map != nullptr) hasField = true;
+    if (!name.empty())
+    {
+        device_map = shared_ptr<FieldMapHandler>(HandlerCreator::getCurrHandler(name));
+        converter = shared_ptr<CoordConverter>(ConverterFactory::getConverter(geometry, step));
+    }
+}
+
+void DeviceFieldMap::updateParticle(Particle& p) const
+{
+    auto point = converter->toPlain(p.X, p.Y);
+    auto field = getField(point);
+    FCalculator::updateParticle(p, field, converter.get());
 }
 
 Point DeviceFieldMap::getField(const Point& point) const
 {
-	return device_map->getField(point);
+    auto field =  device_map->getField(point);
+
+    if (field.isNull())
+        throw new NullFieldException();
+
+    return field;
 }

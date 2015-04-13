@@ -18,7 +18,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v140</PlatformToolset>
+    <PlatformToolset>v120</PlatformToolset>
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
@@ -95,34 +95,28 @@
     <ClCompile Include="src\common\plotter\Plotter.cpp" />
     <ClCompile Include="src\devices_2\common\Device.cpp" />
     <ClCompile Include="src\devices_2\common\DeviceFactory.cpp" />
+    <ClCompile Include="src\devices_2\field\field_map\calculation\FCalculator.cpp" />
     <ClCompile Include="src\devices_2\field\FDevice.cpp" />
     <ClCompile Include="src\devices_2\field\field_map\DeviceFieldMap.cpp" />
     <ClCompile Include="src\devices_2\field\field_map\ExtendedDeviceFieldMap.cpp" />
-    <ClCompile Include="src\devices_2\field\field_map\physics\CoordBooster.cpp" />
-    <ClCompile Include="src\devices_2\field\field_map\physics\FieldMapData.cpp" />
-    <ClCompile Include="src\devices_2\field\field_map\FieldMapHandler.cpp" />
-    <ClCompile Include="src\devices_2\field\field_map\physics\physics.cpp" />
-    <ClCompile Include="src\devices_2\field\geometry\CoordConverter.cpp" />
-    <ClCompile Include="src\devices_2\field\geometry\CurveConverter.cpp" />
-    <ClCompile Include="src\devices_2\field\geometry\helper\GeometryHelper.cpp" />
-    <ClCompile Include="src\devices_2\field\geometry\PlainConverter.cpp" />
+    <ClCompile Include="src\devices_2\field\field_map\handler\FieldMapHandler.cpp" />
+    <ClCompile Include="src\devices_2\field\field_map\handler\HandlerCreator.cpp" />
+    <ClCompile Include="src\devices_2\field\field_map\handler\physics\coord\CoordBooster.cpp" />
+    <ClCompile Include="src\devices_2\field\field_map\handler\physics\coord\CoordTransformation.cpp" />
+    <ClCompile Include="src\devices_2\field\field_map\handler\physics\data\FieldMapData.cpp" />
+    <ClCompile Include="src\devices_2\field\field_map\common\primitives.cpp" />
+    <ClCompile Include="src\devices_2\field\field_map\geometry\ConverterFactory.cpp" />
+    <ClCompile Include="src\devices_2\field\field_map\geometry\CurveConverter.cpp" />
+    <ClCompile Include="src\devices_2\field\field_map\calculation\helper\GeometryHelper.cpp" />
+    <ClCompile Include="src\devices_2\field\field_map\geometry\PlainConverter.cpp" />
+    <ClCompile Include="src\devices_2\field\field_map\handler\physics\data\FieldMapDataReader.cpp" />
     <ClCompile Include="src\devices_2\field_matrix\FMDipole.cpp" />
     <ClCompile Include="src\devices_2\field_matrix\FMDrift.cpp" />
     <ClCompile Include="src\devices_2\field_matrix\FMQuadrupole.cpp" />
     <ClCompile Include="src\devices_2\matrix\MDevice.cpp" />
-    <ClCompile Include="src\devices_2\matrix\MDevice.h" />
     <ClCompile Include="src\devices_2\matrix\MDipole.cpp" />
     <ClCompile Include="src\devices_2\matrix\MDrift.cpp" />
     <ClCompile Include="src\devices_2\matrix\MQuadrupole.cpp" />
-    <ClCompile Include="src\device\CDevice.cpp" />
-    <ClCompile Include="src\device\devices\cdipole.cpp" />
-    <ClCompile Include="src\device\devices\cdrift.cpp" />
-    <ClCompile Include="src\device\devices\cquadrupole.cpp" />
-    <ClCompile Include="src\device\devices\csextupole.cpp" />
-    <ClCompile Include="src\field_maps\FieldMap.cpp" />
-    <ClCompile Include="src\field_maps\FieldMapData.cpp" />
-    <ClCompile Include="src\field_maps\movement\CoordConvertor.cpp" />
-    <ClCompile Include="src\field_maps\movement\geometry.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\ring\CRing.cpp" />
     <ClCompile Include="src\ring\RingConfig.cpp" />
@@ -141,35 +135,32 @@
     <ClInclude Include="src\devices_2\common\DeviceFactory.h" />
     <ClInclude Include="src\devices_2\common\DeviceGeometry.h" />
     <ClInclude Include="src\devices_2\common\DeviceParameters.h" />
+    <ClInclude Include="src\devices_2\field\field_map\calculation\FCalculator.h" />
     <ClInclude Include="src\devices_2\field\FDevice.h" />
     <ClInclude Include="src\devices_2\field\field_map\DeviceFieldMap.h" />
     <ClInclude Include="src\devices_2\field\field_map\ExtendedDeviceFieldMap.h" />
-    <ClInclude Include="src\devices_2\field\field_map\physics\CoordBooster.h" />
-    <ClInclude Include="src\devices_2\field\field_map\physics\FieldMapData.h" />
-    <ClInclude Include="src\devices_2\field\field_map\FieldMapHandler.h" />
-    <ClInclude Include="src\devices_2\field\field_map\physics\physics.h" />
-    <ClInclude Include="src\devices_2\field\geometry\CoordConverter.h" />
-    <ClInclude Include="src\devices_2\field\geometry\CurveConverter.h" />
-    <ClInclude Include="src\devices_2\field\geometry\helper\GeometryHelper.h" />
-    <ClInclude Include="src\devices_2\field\geometry\PlainConverter.h" />
+    <ClInclude Include="src\devices_2\field\field_map\geometry\geometry.h" />
+    <ClInclude Include="src\devices_2\field\field_map\handler\FieldMapHandler.h" />
+    <ClInclude Include="src\devices_2\field\field_map\handler\HandlerCreator.h" />
+    <ClInclude Include="src\devices_2\field\field_map\handler\physics\coord\CoordBooster.h" />
+    <ClInclude Include="src\devices_2\field\field_map\handler\physics\coord\CoordTransformation.h" />
+    <ClInclude Include="src\devices_2\field\field_map\handler\physics\data\FieldMapData.h" />
+    <ClInclude Include="src\devices_2\field\field_map\common\primitives.h" />
+    <ClInclude Include="src\devices_2\field\field_map\geometry\ConverterFactory.h" />
+    <ClInclude Include="src\devices_2\field\field_map\geometry\CoordConverter.h" />
+    <ClInclude Include="src\devices_2\field\field_map\geometry\CurveConverter.h" />
+    <ClInclude Include="src\devices_2\field\field_map\calculation\helper\GeometryHelper.h" />
+    <ClInclude Include="src\devices_2\field\field_map\geometry\PlainConverter.h" />
+    <ClInclude Include="src\devices_2\field\field_map\handler\physics\data\FieldMapDataReader.h" />
     <ClInclude Include="src\devices_2\field_matrix\FMDipole.h" />
     <ClInclude Include="src\devices_2\field_matrix\FMDrift.h" />
     <ClInclude Include="src\devices_2\field_matrix\FMQuadrupole.h" />
+    <ClInclude Include="src\devices_2\matrix\MDevice.h" />
     <ClInclude Include="src\devices_2\matrix\MDipole.h" />
     <ClInclude Include="src\devices_2\matrix\MDrift.h" />
     <ClInclude Include="src\devices_2\matrix\MQuadrupole.h" />
-    <ClInclude Include="src\device\CDevice.h" />
-    <ClInclude Include="src\device\DeviceParameters.h" />
-    <ClInclude Include="src\device\devices\cdipole.h" />
-    <ClInclude Include="src\device\devices\cdrift.h" />
-    <ClInclude Include="src\device\devices\cquadrupole.h" />
-    <ClInclude Include="src\device\devices\csextupole.h" />
-    <ClInclude Include="src\field_maps\FieldMapData.h" />
-    <ClInclude Include="src\field_maps\movement\CoordConvertor.h" />
-    <ClInclude Include="src\field_maps\physics.h" />
     <ClInclude Include="src\global.h" />
     <ClInclude Include="src\ring\CRing.h" />
-    <ClInclude Include="src\field_maps\FieldMap.h" />
     <ClInclude Include="src\ring\RingConfig.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

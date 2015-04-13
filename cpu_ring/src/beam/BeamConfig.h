@@ -23,6 +23,6 @@ struct BeamConfig
     double energy;
     double momentumSpread;
 
-	explicit BeamConfig(const double params[10]);
-    static const BeamConfig& readBeamConfig(string fileName);
+    explicit BeamConfig(const double params[10]);
+    static BeamConfig readBeamConfig(string fileName);
 };

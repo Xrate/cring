@@ -5,6 +5,7 @@ MDipole::MDipole(const DeviceParameters& params)
 : MDevice(params), Device(params)
 {
     force = params.force_;
+    geometry.angle = force;
     MDipole::initMatrices();
 }
 

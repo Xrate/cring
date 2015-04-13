@@ -10,7 +10,7 @@ shared_ptr<IParticleCreator> IParticleCreator::getParticleCreator(DistType distT
     }
 }
 
-void IParticleCreator::createParticles(const BeamConfig& params, ParticleVec& particles)
+void IParticleCreator::createParticles(const BeamConfig& params, vector<Particle>& particles)
 {
     for (unsigned iParticle = 0; iParticle < params.numParticles; ++iParticle)
         particles[iParticle] = createParticle(params);

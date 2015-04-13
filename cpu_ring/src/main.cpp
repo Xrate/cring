@@ -3,6 +3,7 @@
 #include "ring/RingConfig.h"
 
 #include "beam/BeamConfig.h"
+#include "beam/CBeam.h"
 
 #include "analysis/FreqAnalyzer.h"
 #include "common/logger/Logger.h"

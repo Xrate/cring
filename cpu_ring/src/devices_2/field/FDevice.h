@@ -11,14 +11,13 @@ struct DeviceParameters;
 class FDevice : public virtual Device
 {
 public:
-    explicit      FDevice       (const DeviceParameters& params  )               ;
-    virtual      ~FDevice       (                                ){}
-	virtual  void affectParticle(      Particle&         particle) const override;
-	         void updateFieldMap(const FDevice*          prev    ,
-								 const FDevice*          next    )               ;
+    explicit      FDevice        (const DeviceParameters& params  )               ;
+    virtual      ~FDevice        (                                )            = 0 {}
+    virtual  void affectParticle (      Particle&         particle) const override;
+             bool spotFieldDevice(const FDevice*          prev    ,
+                                  const FDevice*          next    )               ;
 
-	const string fieldMapName;
+    const string fieldMapName;
 protected:
-    unique_ptr<DeviceFieldMap> fieldMap;
-	unique_ptr<CoordConverter> converter;
+    shared_ptr<DeviceFieldMap> fieldMap;
 };

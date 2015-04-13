@@ -7,5 +7,6 @@ class FMDrift : public MDrift, public FDevice
 {
 public:
     explicit      FMDrift       (const DeviceParameters& params  )               ;
-	virtual  void affectParticle(      Particle&         particle) const override;
+    virtual  void affectParticle(      Particle&         particle) const override;
+    virtual  void affectEllipses(      BeamConfig*       params  ) const override;
 };

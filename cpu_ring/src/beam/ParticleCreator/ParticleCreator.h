@@ -6,12 +6,12 @@
 class IParticleCreator
 {
 public:
-	static shared_ptr<IParticleCreator> getParticleCreator(DistType distType);
-    void createParticles(const BeamConfig& params, ParticleVec& particles);
+    static shared_ptr<IParticleCreator> getParticleCreator(DistType distType);
+    void createParticles(const BeamConfig& params, vector<Particle>& particles);
 protected:
     IParticleCreator() = default;
     virtual Particle createParticle(const BeamConfig& params) = 0;
-	virtual ~IParticleCreator() {}
+    virtual ~IParticleCreator() {}
 };
 
 class UniformParticleCreator : public IParticleCreator

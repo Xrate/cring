@@ -2,7 +2,7 @@
 #include <fstream>
 #include <sstream>
 
-const BeamConfig& BeamConfig::readBeamConfig(string fileName)
+BeamConfig BeamConfig::readBeamConfig(string fileName)
 {
     ifstream file(fileName);
     if (!file) throw exception(("File " + fileName + " cannot be found").c_str());
@@ -23,7 +23,7 @@ const BeamConfig& BeamConfig::readBeamConfig(string fileName)
 
     if (params.size() != 10) throw exception(("File " + fileName + " has wrong format").c_str());
 
-    return BeamConfig(params.data);
+    return BeamConfig(params.data());
 }
 
 BeamConfig::BeamConfig(const double params[10])

@@ -1,25 +1,28 @@
 #pragma once
+
 #include "global.h"
 
-class FDevice;
 class FieldMapHandler;
-namespace physics
-{
-	struct Point;
-}
+class CoordConverter;
+struct Point;
+struct DeviceGeometry;
+struct Particle;
+class FDevice;
+
+class NullFieldException : exception{};
 
 class DeviceFieldMap
 {
-	friend   FDevice;
+    friend   FDevice;
 public:
-	virtual                ~DeviceFieldMap(                                ){}
-
-	virtual  physics::Point getField      (const physics::Point&  point    ) const;
-
+    virtual       ~DeviceFieldMap(                       ){}
+    virtual  void  updateParticle(Particle& p            ) const;
 protected:
-	explicit                DeviceFieldMap(const string&          field_map)      ;
+    explicit       DeviceFieldMap(const DeviceGeometry&  , 
+                                  const string& name     , 
+                                  const size_t* step     )      ;
+    virtual  Point getField      (const Point&  point    ) const;
 
-    unique_ptr<FieldMapHandler> device_map;
-public:
-	bool hasField;
+    shared_ptr<FieldMapHandler> device_map;
+    shared_ptr<CoordConverter> converter;
 };
