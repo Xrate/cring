@@ -2,7 +2,7 @@
 
 #include "global.h"
 
-struct OutDirConfig
+struct DataProps
 {
     string dirName;
     size_t turns;

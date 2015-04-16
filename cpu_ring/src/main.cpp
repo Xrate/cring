@@ -8,7 +8,7 @@
 #include "analysis/FreqAnalyzer.h"
 #include "common/logger/Logger.h"
 #include "common/plotter/Plotter.h"
-#include "common/OutDirConfig.h"
+#include "common/DataProps.h"
 
 #include <vld.h>
 
@@ -31,7 +31,7 @@ int main(int argc, char *argv[])
     ring->affectBeam(beam);
     Logger::close();
 
-    const OutDirConfig dirConfig = { Logger::logDir(), beam->turns(), beam->size(), ring->numSteps() };
+    const DataProps dirConfig = { Logger::logDir(), beam->turns(), beam->size(), ring->numSteps() };
 
     FreqAnalyzer::setUp(dirConfig);
     FreqAnalyzer::calculate();

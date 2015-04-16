@@ -16,12 +16,14 @@ BeamConfig BeamConfig::readBeamConfig(string fileName)
         stringstream lineStream(line);
         double param = -NAN;
         lineStream >> param;
-        if (param == -NAN) throw exception(("File " + fileName + " has wrong format").c_str());
+        if (param == -NAN) 
+			throw exception(("File " + fileName + " has wrong format").c_str());
 
         params.push_back(param);
     }
 
-    if (params.size() != 10) throw exception(("File " + fileName + " has wrong format").c_str());
+    if (params.size() != 10) 
+		throw exception(("File " + fileName + " has wrong format").c_str());
 
     return BeamConfig(params.data());
 }

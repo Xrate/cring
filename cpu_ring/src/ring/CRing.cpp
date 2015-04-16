@@ -1,14 +1,10 @@
 ﻿#include "CRing.h"
 #include <ctime>
-#include <typeinfo>
-#include "RingConfig.h"
+#include <ring/RingConfig.h>
+#include <devices_2/field/FDeviceResolver.h>
 #include <devices_2/common/Device.h>
 #include <devices_2/common/DeviceFactory.h>
 #include <beam/CBeam.h>
-#include <devices_2/field/FDevice.h>
-#include <devices_2/field_matrix/FMDipole.h>
-#include <devices_2/field_matrix/FMDrift.h>
-#include <devices_2/field_matrix/FMQuadrupole.h>
 
 shared_ptr<const CRing> CRing::instance;
 
@@ -24,71 +20,6 @@ shared_ptr<const CRing> CRing::getInstance()
     throw exception("CRing: Try to access null CRing");
 }
 
-static shared_ptr<Device> ProcessNeighborsAffection(Device** curr, const FDevice* prev, const FDevice* next)
-{
-    FDevice* f_curr = dynamic_cast<FDevice*>(*curr);
-    if (typeid(*f_curr) == typeid(FMDipole))
-    {
-        if (f_curr->spotFieldDevice(prev, next))
-        {
-            auto fmPtr = dynamic_cast<FMDipole*>(f_curr);
-            return shared_ptr<FMDipole>(fmPtr);
-        }
-        else
-        {
-            auto mPtr = new MDipole(*dynamic_cast<FMDipole*>(f_curr));
-            delete *curr; *curr = nullptr;
-            return shared_ptr<MDipole>(mPtr);
-        }
-    }
-    if (typeid(*f_curr) == typeid(FMDrift))
-    {
-        if (f_curr->spotFieldDevice(prev, next))
-        {
-            auto fmPtr = dynamic_cast<FMDrift*>(f_curr);
-            return shared_ptr<FMDrift>(fmPtr);
-        }
-        else
-        {
-            auto mPtr = new MDrift(*dynamic_cast<FMDrift*>(f_curr));
-            delete *curr; *curr = nullptr;
-            return shared_ptr<MDrift>(mPtr);
-        }
-    }
-    if (typeid(*f_curr) == typeid(FMQuadrupole))
-    {
-        if (f_curr->spotFieldDevice(prev, next))
-        {
-            auto fmPtr = dynamic_cast<FMQuadrupole*>(f_curr);
-            return shared_ptr<FMQuadrupole>(fmPtr);
-        }
-        else
-        {
-            auto mPtr = new MQuadrupole(*dynamic_cast<FMQuadrupole*>(f_curr));
-            delete *curr; *curr = nullptr;
-            return shared_ptr<MQuadrupole>(mPtr);
-        }
-    }
-
-    throw exception("Unknown device type.");
-}
-
-static FDevice* getPrevDevice(vector<Device*> pre_devices, size_t i)
-{
-    if (i != 0)
-        return dynamic_cast<FDevice*>(pre_devices.at(i - 1));
-
-    return dynamic_cast<FDevice*>(pre_devices.at(pre_devices.size() - 1));
-}
-
-static FDevice* getNextDevice(vector<Device*> pre_devices, size_t i)
-{
-    if (i != pre_devices.size() - 1)
-        return dynamic_cast<FDevice*>(pre_devices.at(i + 1));
-
-    return dynamic_cast<FDevice*>(pre_devices.at(0));
-}
-
 CRing::CRing(shared_ptr<const RingConfig> config) :
 nSteps(0)
 {
@@ -101,13 +32,7 @@ nSteps(0)
         pre_devices.push_back(device);
     }
 
-    for (size_t i = 0; i < pre_devices.size(); ++i)
-    {
-        const FDevice* prev = getPrevDevice(pre_devices, i);
-        const FDevice* next = getNextDevice(pre_devices, i);
-        devices.push_back(ProcessNeighborsAffection(&pre_devices[i], prev, next));
-    }
-
+	devices = FDeviceResolver::CastNonFieldDevices(pre_devices);
     numDevices = devices.size();
 }
 

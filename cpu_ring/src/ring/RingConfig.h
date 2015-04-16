@@ -1,7 +1,7 @@
 ﻿#pragma once
 
 #include "global.h"
-#include "devices_2/common/DeviceParameters.h"
+#include <devices_2/common/DeviceParameters.h>
 #include <map>
 
 struct FileNames
@@ -18,11 +18,11 @@ struct FileNames
 class RingConfig
 {
 public:
+	explicit RingConfig(FileNames fileNames);
     static shared_ptr<const RingConfig> readRingConfig(FileNames fileNames);
     map<string, DeviceParameters> devices;
     vector<string> structure;
 private:
-    explicit RingConfig(FileNames fileNames);
     void readParams(FileNames fileNames, DeviceType type);
     void readStructure(string fileName);
 };

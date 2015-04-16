@@ -114,6 +114,9 @@
     <ClCompile Include="src\devices_2\field\field_map\calculation\FCalculator.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\devices_2\field\FDeviceResolver.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\beam\CBeam.h">
@@ -141,9 +144,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\beam\ParticleCreator\ParticleCreator.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\common\OutDirConfig.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\beam\Particle.h">
@@ -234,6 +234,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\devices_2\field\field_map\geometry\geometry.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\devices_2\field\FDeviceResolver.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\common\DataProps.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

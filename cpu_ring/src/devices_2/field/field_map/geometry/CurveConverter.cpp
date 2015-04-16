@@ -1,4 +1,5 @@
 ﻿#include "CurveConverter.h"
+#include <global.h>
 #include <beam/Particle.h>
 #include <devices_2/common/DeviceGeometry.h>
 

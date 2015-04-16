@@ -1,17 +1,14 @@
 ﻿#include "Plotter.h"
 #include "fstream"
 
-string Plotter::dirName_;
-size_t Plotter::nTurns_;
-size_t Plotter::nParticles_;
-size_t Plotter::nSteps_;
+DataProps Plotter::config;
 
-void Plotter::setUp(OutDirConfig dirConfig)
+void Plotter::setUp(DataProps dirConfig)
 {
-    dirName_ = dirConfig.dirName;
-    nTurns_ = dirConfig.turns;
-    nParticles_ = dirConfig.particles;
-    nSteps_ = dirConfig.steps;
+	config.dirName = dirConfig.dirName;
+	config.turns = dirConfig.turns;
+	config.particles = dirConfig.particles;
+	config.steps = dirConfig.steps;
 }
 
 void Plotter::plot(string plotName, size_t turn)
@@ -27,7 +24,7 @@ void Plotter::plot(string plot_name, size_t start_turn, size_t last_turn)
 
 void Plotter::plotX(string plot_name, size_t start_turn, size_t last_turn)
 {
-    auto pFile = ofstream(dirName_ + "\\" + plot_name + "X.plt", ofstream::out);
+	auto pFile = ofstream(config.dirName + "\\" + plot_name + "X.plt", ofstream::out);
 
     pFile << "set terminal png medium size " << (last_turn - start_turn + 1) * 2000 << "," << 1000 << endl;
     pFile << "set output '" << plot_name << "X.png'" << endl << endl;
@@ -48,10 +45,10 @@ void Plotter::plotX(string plot_name, size_t start_turn, size_t last_turn)
 
     pFile << "filename(n) = sprintf(\"particles/%d.out\", n)" << endl << endl;
 
-    size_t startRow = (start_turn - 1) * nSteps_ + 1;
-    size_t finalRow = last_turn * nSteps_;
+	size_t startRow = (start_turn - 1) * config.steps + 1;
+	size_t finalRow = last_turn * config.steps;
 
-    pFile << "plot for [i=0:" << nParticles_ - 1 << "] filename(i) every ::" << startRow
+	pFile << "plot for [i=0:" << config.particles - 1 << "] filename(i) every ::" << startRow
         << "::" << finalRow << " using 1:2 ls 1 title '', \\" << endl;
     pFile << "     'ellipses.out' every ::" << startRow << "::" << finalRow
         << " using 1:2     title '' ls 2 with lines, \\" << endl;
@@ -67,9 +64,9 @@ void Plotter::plotX(string plot_name, size_t start_turn, size_t last_turn)
 
 void Plotter::plotY(string plot_name, size_t start_turn, size_t last_turn)
 {
-    auto pFile = ofstream(dirName_ + "\\" + plot_name + "Y.plt", ofstream::out);
+	auto pFile = ofstream(config.dirName + "\\" + plot_name + "Y.plt", ofstream::out);
 
-    pFile << "set terminal png medium size " << (last_turn - start_turn + 1) * 10000 << "," << 1000 << endl;
+    pFile << "set terminal png medium size " << (last_turn - start_turn + 1) * 2000 << "," << 1000 << endl;
     pFile << "set output '" << plot_name << "Y.png'" << endl << endl;
 
     pFile << "set autoscale fix" << endl << endl;
@@ -88,10 +85,10 @@ void Plotter::plotY(string plot_name, size_t start_turn, size_t last_turn)
 
     pFile << "filename(n) = sprintf(\"particles/%d.out\", n)" << endl << endl;
 
-    size_t startRow = (start_turn - 1) * nSteps_ + 1;
-    size_t finalRow = last_turn * nSteps_;
+	size_t startRow = (start_turn - 1) * config.steps + 1;
+	size_t finalRow = last_turn * config.steps;
 
-    pFile << "plot for [i=0:" << nParticles_ - 1 << "] filename(i) every ::" << startRow
+	pFile << "plot for [i=0:" << config.particles - 1 << "] filename(i) every ::" << startRow
         << "::" << finalRow << " using 1:3 ls 1 title '', \\" << endl;
     pFile << "     'ellipses.out' every ::" << startRow << "::" << finalRow 
         << " using 1:4     title '' ls 2 with lines, \\" << endl;
@@ -107,7 +104,7 @@ void Plotter::plotY(string plot_name, size_t start_turn, size_t last_turn)
 
 void Plotter::plotFreqMap()
 {
-    auto pFile = ofstream(dirName_ + "\\" + "freqMap" + ".plt", ofstream::out);
+	auto pFile = ofstream(config.dirName + "\\" + "freqMap" + ".plt", ofstream::out);
 
     pFile << "set terminal png medium size " << 2000 << "," << 2000 << endl;
     pFile << "set output '" << "freqMap.png'" << endl << endl;

@@ -1,7 +1,5 @@
 #pragma once
 
-#include "global.h"
-
 struct DeviceParameters;
 class Device;
 

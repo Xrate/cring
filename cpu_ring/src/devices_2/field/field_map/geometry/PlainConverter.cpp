@@ -1,4 +1,5 @@
 ﻿#include "PlainConverter.h"
+#include <global.h>
 #include <devices_2/common/DeviceGeometry.h>
 #include <beam/Particle.h>
 

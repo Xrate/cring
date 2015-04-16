@@ -1,7 +1,7 @@
 ﻿#pragma once
 
 #include "global.h"
-#include "BeamConfig.h"
+#include <beam/BeamConfig.h>
 #include <beam/Particle.h>
 
 struct BeamConfig;

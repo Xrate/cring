@@ -2,7 +2,6 @@
 #include "devices_2/common/DeviceParameters.h"
 #include "beam/Particle.h"
 #include <cmath>
-#include <devices_2/field_matrix/FMQuadrupole.h>
 
 MQuadrupole::MQuadrupole(const DeviceParameters& params)
 : MDevice(params), Device(params)
@@ -34,6 +33,7 @@ void MQuadrupole::affectParticle(Particle& particle) const
 
     double mX[6], mY[6];
     generateMatrices(this, p, mX, mY);
+	if (force < 0) swap(mX, mY);
 
     particle.X =  mX[0] * p.X + mX[1] * p.aX + mX[2] * p.dp;
     particle.aX = mX[3] * p.X + mX[4] * p.aX + mX[5] * p.dp;
@@ -54,6 +54,4 @@ void generateMatrices(const MQuadrupole* quadrupole, const Particle& particle,
 
         MyP[0] = cosh(fi);      MyP[1] = sinh(fi) / sq_k; MyP[2] = 0.;
         MyP[3] = sinh(fi)*sq_k; MyP[4] = cosh(fi);        MyP[5] = 0.;
-
-        if (quadrupole->force < 0) swap(MxP, MyP);
 }

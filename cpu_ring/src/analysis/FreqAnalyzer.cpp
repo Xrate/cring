@@ -5,27 +5,24 @@
 #include <iterator>
 #include <fftw3.h>
 
-string FreqAnalyzer::dirName_;
-size_t FreqAnalyzer::nTurns_;
-size_t FreqAnalyzer::nParticles_;
-size_t FreqAnalyzer::nSteps_;
+DataProps FreqAnalyzer::config;
 vector<double> FreqAnalyzer::Qx;
 vector<double> FreqAnalyzer::Qy;
 
-void FreqAnalyzer::setUp(OutDirConfig dirConfig)
+void FreqAnalyzer::setUp(DataProps dirConfig)
 {
-    dirName_ = dirConfig.dirName;
-    nTurns_ = dirConfig.turns;
-    nParticles_ = dirConfig.particles;
-    nSteps_ = dirConfig.steps;
-    Qx = vector<double>(nParticles_);
-    Qy = vector<double>(nParticles_);
+	config.dirName = dirConfig.dirName;
+	config.turns = dirConfig.turns;
+	config.particles = dirConfig.particles;
+	config.steps = dirConfig.steps;
+	Qx = vector<double>(config.particles);
+	Qy = vector<double>(config.particles);
 }
 
 void FreqAnalyzer::print()
 {
-    ofstream pFile = ofstream(dirName_ + "\\freqMap.out", ifstream::out);
-    for (size_t iP = 0; iP < nParticles_; ++iP)
+	ofstream pFile = ofstream(config.dirName + "\\freqMap.out", ifstream::out);
+	for (size_t iP = 0; iP < config.particles; ++iP)
         pFile << Qx[iP] << ' ' << Qy[iP] << endl;
     pFile.close();
 }
@@ -51,16 +48,17 @@ double findFrequency(fftw_plan& plan, double* in, fftw_complex* out, size_t nTur
 
 void readParticleTraj(size_t iP, double* inX, double* inY)
 {
-    string fileName = FreqAnalyzer::dirName_ + "\\particles\\" + to_string(iP) + ".out";
+    string fileName = FreqAnalyzer::config.dirName + "\\particles\\" + to_string(iP) + ".out";
     ifstream pFile = ifstream(fileName, ifstream::in);
 
-    size_t lineNumber = static_cast<size_t>(static_cast <double>(rand()) / RAND_MAX * FreqAnalyzer::nSteps_);
+    size_t lineNumber = static_cast<size_t>(
+		static_cast <double>(rand()) / RAND_MAX * FreqAnalyzer::config.steps);
     string line;
     size_t counter = 0;
 
     while (getline(pFile, line))
     {
-        if (lineNumber == FreqAnalyzer::nSteps_)
+        if (lineNumber == FreqAnalyzer::config.steps)
         {
             istringstream iss(line);
             vector<string> words{ istream_iterator<string>{iss},
@@ -74,7 +72,7 @@ void readParticleTraj(size_t iP, double* inX, double* inY)
     }
 
     pFile.close();
-    if (counter != FreqAnalyzer::nTurns_)
+    if (counter != FreqAnalyzer::config.turns)
         throw exception(("File" + to_string(iP) + ".out has wrong format").c_str());
 }
 
@@ -82,20 +80,22 @@ void FreqAnalyzer::calculate()
 {
     clock_t begin = clock();
 
-    double* inXAll = static_cast<double*>(fftw_malloc(sizeof(double)* nTurns_));
-    double* inYAll = static_cast<double*>(fftw_malloc(sizeof(double)* nTurns_));
-    fftw_complex* outAll = static_cast<fftw_complex*>(fftw_malloc(sizeof(fftw_complex) * (nTurns_/2 + 1)));
-    fftw_plan plan = fftw_plan_dft_r2c_1d(static_cast<int>(nTurns_), inXAll, outAll, FFTW_MEASURE);
+	auto nTurns = config.turns;
+
+	double* inXAll = static_cast<double*>(fftw_malloc(sizeof(double)* nTurns));
+	double* inYAll = static_cast<double*>(fftw_malloc(sizeof(double)* nTurns));
+	fftw_complex* outAll = static_cast<fftw_complex*>(fftw_malloc(sizeof(fftw_complex) * (nTurns / 2 + 1)));
+	fftw_plan plan = fftw_plan_dft_r2c_1d(static_cast<int>(nTurns), inXAll, outAll, FFTW_MEASURE);
 
     #pragma omp parallel for
-    for (int iP = 0; iP < nParticles_; ++iP)
+	for (int iP = 0; iP < config.particles; ++iP)
     {
-        double* inX = static_cast<double*>(fftw_malloc(sizeof(double)* nTurns_));
-        double* inY = static_cast<double*>(fftw_malloc(sizeof(double)* nTurns_));
-        fftw_complex* out = static_cast<fftw_complex*>(fftw_malloc(sizeof(fftw_complex)* (nTurns_ / 2 + 1)));
+		double* inX = static_cast<double*>(fftw_malloc(sizeof(double)* nTurns));
+		double* inY = static_cast<double*>(fftw_malloc(sizeof(double)* nTurns));
+		fftw_complex* out = static_cast<fftw_complex*>(fftw_malloc(sizeof(fftw_complex)* (nTurns / 2 + 1)));
         readParticleTraj(iP, inX, inY);
-        Qx[iP] = findFrequency(plan, inX, out, nTurns_);
-        Qy[iP] = findFrequency(plan, inY, out, nTurns_);
+		Qx[iP] = findFrequency(plan, inX, out, nTurns);
+		Qy[iP] = findFrequency(plan, inY, out, nTurns);
         fftw_free(inX);
         fftw_free(inY);
         fftw_free(out);

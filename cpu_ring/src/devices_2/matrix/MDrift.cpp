@@ -1,5 +1,4 @@
 #include "MDrift.h"
-#include <devices_2/field_matrix/FMDrift.h>
 
 MDrift::MDrift(const DeviceParameters& params)
 : MDevice(params), Device(params)
