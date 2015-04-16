@@ -7,5 +7,5 @@ class CoordConverter;
 class FCalculator
 {
 public:
-    static void updateParticle(Particle& p, const Point& field, const CoordConverter* converter);
+    static void updateParticle(Particle&, const Point& field, const CoordConverter*, size_t iS);
 };

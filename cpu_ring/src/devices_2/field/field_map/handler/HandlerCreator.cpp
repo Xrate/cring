@@ -35,7 +35,7 @@ FieldMapHandler* HandlerCreator::getCurrHandler(const string & field_map)
 
 FieldMapHandler* HandlerCreator::getNextHandler(DeviceGeometry curr, DeviceGeometry next, const string & field_map)
 {
-    CoordTransformation global = calculateTransformation(curr, next);
+    CoordTransformation global = calculateTransformation(next, curr);
     CoordTransformation nextTransform = { global.Z, -global.X, -global.angle };
     auto handler = new FieldMapHandler(field_map, nextTransform);
 

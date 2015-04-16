@@ -5,9 +5,8 @@
 #include "common/primitives.h"
 
 ExtendedDeviceFieldMap::ExtendedDeviceFieldMap(const DeviceGeometry& geometry,
-                                               const string& name            ,
-                                               const size_t* step            )
-: DeviceFieldMap(geometry, name, step)
+                                               const string& name            )
+: DeviceFieldMap(geometry, name)
 {}
 
 void ExtendedDeviceFieldMap::setPrevMap(DeviceGeometry curr, DeviceGeometry prev, const string& mapName)

@@ -6,17 +6,19 @@ struct DeviceGeometry;
 class PlainConverter : public CoordConverter
 {
 public:
-    explicit               PlainConverter(const DeviceGeometry&   )               ;
-    virtual        Point   toPlain       (      double    X       ,
-                                                double    Y       ) const override;
-    virtual        Plane   getNextPlane  (                        ) const override;
-    virtual        Vector  getMomentum   (const Particle& p       ) const override;
+    explicit               PlainConverter  (const DeviceGeometry&   )               ;
+    virtual        Point   toPlain         (      double    X       ,
+                                                  double    Y       ,
+										          size_t    iS      ) const override;
+    virtual        Plane   getPlane        (	  size_t    iS      ) const override;
+    virtual        Vector  getMomentum     (const Particle& p       ,
+		                                          size_t    iS      ) const override;
     virtual        void    applyNewMomentum(      Particle& p       ,
-                                          const Vector&   m       ) const override;
+                                            const Vector&   m       ,
+											      size_t    iS      ) const override;
 
 private:
-                   double  getCurrentZ   (                        ) const         ;
-                   double  getNextZ      (                        ) const         ;
+                   double  getZ            (      size_t    iS      ) const         ;
 
     const double length;
     const size_t nSteps;

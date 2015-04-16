@@ -9,15 +9,15 @@ CurveConverter::CurveConverter(const DeviceGeometry& geometry)
   nSteps(geometry.nSteps)
 {}
 
-Point CurveConverter::toPlain(double X, double Y) const
+Point CurveConverter::toPlain(double X, double Y, size_t iS) const
 {
-    double angle = getCurrentAngle();
-    return convertToPlain(X,Y, angle);
+    double angle = getAngle(iS);
+    return convertToPlain(X, Y, angle);
 }
 
-Plane CurveConverter::getNextPlane() const
+Plane CurveConverter::getPlane(size_t iS) const
 {
-    double angle = getNextAngle();
+    double angle = getAngle(iS);
     double x = getXCorrection(angle);
     double xA = 0.5*rho * (1 - cos(0.5*theta));
     double z = rho * sin(angle);
@@ -32,9 +32,9 @@ Plane CurveConverter::getNextPlane() const
     return Plane{ A, B, C, D };
 }
 
-Vector CurveConverter::getMomentum(const Particle & p) const
+Vector CurveConverter::getMomentum(const Particle & p, size_t iS) const
 {
-    double angle = getCurrentAngle();
+    double angle = getAngle(iS);
     Point M = convertToPlain(p.X, p.Y, angle);
 
     double alf_X = atan(p.aX) - angle;
@@ -44,9 +44,9 @@ Vector CurveConverter::getMomentum(const Particle & p) const
     return Vector{ M, F };
 }
 
-void CurveConverter::applyNewMomentum(Particle& p, const Vector& m) const
+void CurveConverter::applyNewMomentum(Particle& p, const Vector& m, size_t iS) const
 {
-    double angle = getNextAngle();
+    double angle = getAngle(iS);
     p.X = (m.M.X - getXCorrection(angle)) / cos(angle);
     p.Y =  m.M.Y;
 
@@ -54,14 +54,9 @@ void CurveConverter::applyNewMomentum(Particle& p, const Vector& m) const
     p.aY = tan(asin(m.vec.Y / abs(m.vec)));
 }
 
-double CurveConverter::getCurrentAngle() const
+double CurveConverter::getAngle(size_t iS) const
 {
-    return 0.5 * theta * (2.* (*dev_step) / nSteps - 1.);
-}
-
-double CurveConverter::getNextAngle() const
-{
-    return 0.5 * theta * (2.* (*dev_step + 1) / nSteps - 1.);
+	return 0.5 * theta * (2.* iS / nSteps - 1.);
 }
 
 double CurveConverter::getXCorrection(double angle) const

@@ -8,12 +8,12 @@
 #include <beam/Particle.h>
 #include "ExtendedDeviceFieldMap.h"
 
-DeviceFieldMap::DeviceFieldMap(const DeviceGeometry& geometry, const string& name, const size_t* step)
+DeviceFieldMap::DeviceFieldMap(const DeviceGeometry& geometry, const string& name)
 {
     if (!name.empty())
         device_map = shared_ptr<const FieldMapHandler>(HandlerCreator::getCurrHandler(name));
 
-    converter = shared_ptr<const CoordConverter>(ConverterFactory::getConverter(geometry, step));
+    converter = shared_ptr<const CoordConverter>(ConverterFactory::getConverter(geometry));
 }
 
 DeviceFieldMap::DeviceFieldMap(const ExtendedDeviceFieldMap* map)
@@ -22,11 +22,11 @@ device_map(map->device_map),
 converter(map->converter)
 {}
 
-void DeviceFieldMap::updateParticle(Particle& p) const
+void DeviceFieldMap::updateParticle(Particle& p, size_t iS) const
 {
-    auto point = converter->toPlain(p.X, p.Y);
+    auto point = converter->toPlain(p.X, p.Y, iS);
     auto field = getField(point);
-    FCalculator::updateParticle(p, field, converter.get());
+    FCalculator::updateParticle(p, field, converter.get(), iS);
 }
 
 Point DeviceFieldMap::getField(const Point& point) const

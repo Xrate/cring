@@ -5,12 +5,15 @@
 
 bool HasPoint(Plane plane, Point p);
 
-void FCalculator::updateParticle(Particle& p, const Point& field, const CoordConverter* converter)
+void FCalculator::updateParticle(Particle& p,
+                                 const Point& field,
+                                 const CoordConverter* converter,
+                                 size_t iS)
 {
-    const Vector momentum = converter->getMomentum(p);
-    const Plane  newPlane = converter->getNextPlane();
+	const Vector momentum = converter->getMomentum(p, iS);
+	const Plane newPlane = converter->getPlane(iS);
 
-    const Vector newMomentum = GeometryHelper::calculateNewMomentum(momentum, field, newPlane);
+	const Vector newMomentum = GeometryHelper::calculateNewMomentum(momentum, field, newPlane);
 
-    converter->applyNewMomentum(p, newMomentum);
+	converter->applyNewMomentum(p, newMomentum, iS);
 }

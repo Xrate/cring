@@ -7,7 +7,7 @@ FDevice::FDevice(const DeviceParameters& params)
 : Device(params)
 {
     fieldMapName = params.mapFileName_;
-    fieldMap = make_shared<ExtendedDeviceFieldMap>(geometry, fieldMapName, &curr_step);
+    fieldMap = make_shared<ExtendedDeviceFieldMap>(geometry, fieldMapName);
 }
 
 bool FDevice::spotFieldDevice(const FDevice* prev, const FDevice* next)
@@ -33,5 +33,5 @@ bool FDevice::spotFieldDevice(const FDevice* prev, const FDevice* next)
 
 void FDevice::affectParticle(Particle& p) const
 {
-    fieldMap->updateParticle(p);
+    fieldMap->updateParticle(p, curr_step);
 }

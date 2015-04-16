@@ -8,31 +8,26 @@ PlainConverter::PlainConverter(const DeviceGeometry& geometry)
   nSteps(geometry.nSteps)
 {}
 
-Point PlainConverter::toPlain(double X, double Y) const
+Point PlainConverter::toPlain(double X, double Y, size_t iS) const
 {
-    double z = getCurrentZ();
+    double z = getZ(iS);
     return Point{ X ,Y, z };
 }
 
-double PlainConverter::getCurrentZ() const
+double PlainConverter::getZ(size_t iS) const
 {
-    return 0.5 * length * (2.* (*dev_step) / nSteps - 1.);
+    return 0.5 * length * (2.* iS / nSteps - 1.);
 }
 
-double PlainConverter::getNextZ() const
+Plane PlainConverter::getPlane(size_t iS) const
 {
-    return 0.5 * length * (2.* (*dev_step + 1) / nSteps - 1.);
-}
-
-Plane PlainConverter::getNextPlane() const
-{
-    double z = getNextZ();
+    double z = getZ(iS);
     return Plane{ 0., 0., 1., z };
 }
 
-Vector PlainConverter::getMomentum(const Particle & p) const
+Vector PlainConverter::getMomentum(const Particle & p, size_t iS) const
 {
-    double z = getCurrentZ();
+    double z = getZ(iS);
     Point M = Point{ p.X, p.Y, z };
 
     double alf_X = atan(p.aX);
@@ -42,7 +37,7 @@ Vector PlainConverter::getMomentum(const Particle & p) const
     return Vector{ M, F };
 }
 
-void PlainConverter::applyNewMomentum(Particle & p, const Vector & m) const
+void PlainConverter::applyNewMomentum(Particle & p, const Vector & m, size_t) const
 {
     p.X = m.M.X;
     p.Y = m.M.Y;

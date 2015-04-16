@@ -18,11 +18,11 @@ class DeviceFieldMap
 public:
     explicit       DeviceFieldMap(const ExtendedDeviceFieldMap* map);
     virtual       ~DeviceFieldMap(                       ){}
-    virtual  void  updateParticle(Particle& p            ) const;
+    virtual  void  updateParticle(      Particle& p      ,
+		                                size_t    iS     ) const;
 protected:
     explicit       DeviceFieldMap(const DeviceGeometry&  , 
-                                  const string& name     , 
-                                  const size_t* step     )      ;
+                                  const string& name     )      ;
     virtual  Point getField      (const Point&  point    ) const;
 
     shared_ptr<const FieldMapHandler> device_map;

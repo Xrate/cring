@@ -9,14 +9,16 @@ class CurveConverter : public CoordConverter
 public:
     explicit               CurveConverter  (const DeviceGeometry&   )               ;
     virtual        Point   toPlain         (      double    X       ,
-                                                  double    Y       ) const override;
-    virtual        Plane   getNextPlane    (                        ) const override;
-    virtual        Vector  getMomentum     (const Particle& p       ) const override;
+                                                  double    Y       ,
+												  size_t    iS      ) const override;
+    virtual        Plane   getPlane        (	  size_t    iS      ) const override;
+    virtual        Vector  getMomentum     (const Particle& p       ,
+		                                          size_t    iS      ) const override;
     virtual        void    applyNewMomentum(      Particle& p       ,
-                                            const Vector&   m       ) const override;
+                                            const Vector&   m       ,
+											      size_t    iS      ) const override;
 private:
-                   double  getCurrentAngle (                        ) const         ;
-                   double  getNextAngle    (                        ) const         ;
+                   double  getAngle        (	  size_t    iS      ) const         ;
                    double  getXCorrection  (      double    angle   ) const         ;
                    Point   convertToPlain  (      double    X       , 
                                                   double    Y       ,

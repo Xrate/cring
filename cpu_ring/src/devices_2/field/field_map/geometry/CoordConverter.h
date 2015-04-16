@@ -8,13 +8,15 @@ class CoordConverter
 {
 public:
     virtual Point  toPlain         (      double    X ,
-                                          double    Y ) const      = 0;
-    virtual Plane  getNextPlane    (                  ) const      = 0;
-    virtual Vector getMomentum     (const Particle& p ) const      = 0;
+                                          double    Y ,
+										  size_t    iS) const      = 0;
+    virtual Plane  getPlane        (	  size_t    iS) const      = 0;
+    virtual Vector getMomentum     (const Particle& p ,
+		                                  size_t    iS) const      = 0;
     virtual void   applyNewMomentum(      Particle& p ,
-                                    const Vector&   m ) const      = 0;
+                                    const Vector&   m ,
+									      size_t    iS) const      = 0;
 
-            void   trackDeviceStep (const size_t*   iS){ dev_step = iS; }
     virtual       ~CoordConverter  (                  ){}
 
 protected:
