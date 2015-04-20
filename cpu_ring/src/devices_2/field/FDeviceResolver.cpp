@@ -56,9 +56,13 @@ vector<shared_ptr<Device>> FDeviceResolver::CastNonFieldDevices(vector<Device*> 
 		const FDevice* prev = getPrevDevice(pre_devices, i);
 		const FDevice* next = getNextDevice(pre_devices, i);
 		result.push_back(ProcessNeighborsAffection(pre_devices[i], prev, next));
+	}
 
+	for (size_t i = 0; i < pre_devices.size(); ++i)
+	{
 		delete pre_devices[i];
 		pre_devices[i] = nullptr;
 	}
+
 	return result;
 }

@@ -45,19 +45,31 @@ static Vector getNewMomentum(const Vector& momentum, const Vector& directionVect
     double c1 = directionVector.M.X - center.X;
     double c2 = directionVector.M.Y - center.Y;
     double c3 = directionVector.M.Z - center.Z;
-    double mc1 = (directionVector.vec.X * c1);
-    double nc2 = (directionVector.vec.Y * c2);
-    double pc3 = (directionVector.vec.Z * c3);
-    double d1 = (sqr(c1) + sqr(c2) + sqr(c3) - sqr(radius));
+    double mc1 = directionVector.vec.X * c1;
+    double nc2 = directionVector.vec.Y * c2;
+    double pc3 = directionVector.vec.Z * c3;
+    double d1 = sqr(c1) + sqr(c2) + sqr(c3) - sqr(radius);
 
-    double a = (0.5 * sqrt(sqr(2 * mc1 + 2 * nc2 + 2 * pc3) - 4 * mnp * d1) 
+    double a1 = ( 0.5 * sqrt(sqr(2 * mc1 + 2 * nc2 + 2 * pc3) - 4 * mnp * d1) 
                     - mc1 - nc2 - pc3) / mnp;
+	double a2 = (-0.5 * sqrt(sqr(2 * mc1 + 2 * nc2 + 2 * pc3) - 4 * mnp * d1)
+		            - mc1 - nc2 - pc3) / mnp;
 
-    Point newPoint{ directionVector.M.X + a * directionVector.vec.X,
-        directionVector.M.Y + a * directionVector.vec.Y,
-        directionVector.M.Z + a * directionVector.vec.Z };
+    Point newPoint1
+	  { directionVector.M.X + a1 * directionVector.vec.X,
+        directionVector.M.Y + a1 * directionVector.vec.Y,
+        directionVector.M.Z + a1 * directionVector.vec.Z };
 
-    Point newDirection = ((newPoint - center) * momentum.vec) * (newPoint - center);
+	Point newPoint2
+	  { directionVector.M.X + a2 * directionVector.vec.X,
+	    directionVector.M.Y + a2 * directionVector.vec.Y,
+	    directionVector.M.Z + a2 * directionVector.vec.Z };
+
+	Point newPoint = abs(newPoint1 - momentum.M) < abs(newPoint2 - momentum.M)
+		? newPoint1
+		: newPoint2;
+
+    Point newDirection = (newPoint - center) * momentum.vec * (newPoint - center);
 
     return Vector{ newPoint, newDirection * (abs(momentum.vec) / abs(newDirection)) };
 }

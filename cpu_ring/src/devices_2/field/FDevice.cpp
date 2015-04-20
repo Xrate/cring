@@ -2,6 +2,7 @@
 #include "field_map/DeviceFieldMap.h"
 #include "field_map/ExtendedDeviceFieldMap.h"
 #include <devices_2/common/DeviceParameters.h>
+#include <beam/Particle.h>
 
 FDevice::FDevice(const DeviceParameters& params)
 : Device(params)
@@ -33,5 +34,9 @@ bool FDevice::spotFieldDevice(const FDevice* prev, const FDevice* next)
 
 void FDevice::affectParticle(Particle& p) const
 {
+	if (!p.isAlive) return;
+
     fieldMap->updateParticle(p, curr_step);
+
+	p.isAlive = sqr(p.X / geometry.appertureX) + sqr(p.Y / geometry.appertureY) <= 1.;
 }

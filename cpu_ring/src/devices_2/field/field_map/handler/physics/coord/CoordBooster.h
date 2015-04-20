@@ -11,6 +11,7 @@ namespace physics
     public:
         explicit CoordBooster(const CoordTransformation& transform);
         Point convertPoint(Point p) const;
+	    Point rotateField(Point raw_field) const;
     private:
         const double Z;
         const double X;

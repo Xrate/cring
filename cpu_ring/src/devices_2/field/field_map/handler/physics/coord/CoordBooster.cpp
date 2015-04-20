@@ -11,9 +11,18 @@ CoordBooster::CoordBooster(const CoordTransformation& t)
 
 Point CoordBooster::convertPoint(Point p) const
 {
-    double ownX = p.Z*sin(angle) + p.X*cos(angle) - X;
+    double ownX = p.X*cos(angle) - p.Z*sin(angle) + X;
     double ownY = p.Y;
-    double ownZ = p.X*sin(angle) + p.Z*cos(angle) - Z;
+    double ownZ = p.X*sin(angle) + p.Z*cos(angle) + Z;
 
     return Point{ ownX , ownY, ownZ };
+}
+
+Point CoordBooster::rotateField(Point field) const
+{
+	double ownX = field.X*cos(-angle) - field.Z*sin(-angle);
+	double ownY = field.Y;
+	double ownZ = field.X*sin(-angle) + field.Z*cos(-angle);
+
+	return Point{ ownX, ownY, ownZ };
 }

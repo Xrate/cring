@@ -35,7 +35,8 @@ void MDevice::affectParticle(Particle& particle) const
     particle.aX = mX_P[3] * p.X + mX_P[4] * p.aX + mX_P[5] * p.dp;
     particle.Y  = mY_P[0] * p.Y + mY_P[1] * p.aY + mY_P[2] * p.dp;
     particle.aY = mY_P[3] * p.Y + mY_P[4] * p.aY + mY_P[5] * p.dp;
-    particle.isAlive = sqr(particle.X / geometry.appertureX) + sqr(particle.Y / geometry.appertureY) <= 1.;
+    particle.isAlive = sqr(particle.X / geometry.appertureX) 
+		             + sqr(particle.Y / geometry.appertureY) <= 1.;
 }
 
 void MDevice::affectEllipses(BeamConfig *params) const

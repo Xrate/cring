@@ -19,8 +19,8 @@ CoordTransformation physics::calculateTransformation(DeviceGeometry curr, Device
         auto angle = prev.angle / 2;
         auto dR = rho / 2 * (1 - cos(angle));
 
-        t.Z = curr.length / 2 + rho*cos(angle) - dR*sin(angle);
-        t.X = rho*(1 - cos(angle)) + dR*sin(angle);
+        t.Z = curr.length / 2 + rho*sin(angle) - dR*sin(angle);
+        t.X = rho*(1 - cos(angle)) + dR*cos(angle);
         t.angle = angle;
     }
     else if (prev.angle == 0. && curr.angle != 0)

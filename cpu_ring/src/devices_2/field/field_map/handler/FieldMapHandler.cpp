@@ -7,7 +7,8 @@
 Point FieldMapHandler::getField(Point p) const
 {
     Point own = booster->convertPoint(p);
-    Point field = data->getFieldInPoint(own);
+    Point rawField = data->getFieldInPoint(own);
+	Point field = booster->rotateField(rawField);
     return field;
 }
 

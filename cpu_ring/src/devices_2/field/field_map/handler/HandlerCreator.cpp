@@ -9,7 +9,7 @@ using namespace physics;
 FieldMapHandler* HandlerCreator::getPrevHandler(DeviceGeometry curr, DeviceGeometry prev, const string & field_map)
 {
     CoordTransformation global = calculateTransformation(curr, prev);
-    CoordTransformation prevTransform = { -global.Z, -global.X, global.angle };
+    CoordTransformation prevTransform = { global.Z, -global.X, global.angle };
     auto handler = new FieldMapHandler(field_map, prevTransform);
 
     if (handler->getField(Point{ 0., 0., -curr.length / 2 }).isNull())
@@ -36,7 +36,7 @@ FieldMapHandler* HandlerCreator::getCurrHandler(const string & field_map)
 FieldMapHandler* HandlerCreator::getNextHandler(DeviceGeometry curr, DeviceGeometry next, const string & field_map)
 {
     CoordTransformation global = calculateTransformation(next, curr);
-    CoordTransformation nextTransform = { global.Z, -global.X, -global.angle };
+    CoordTransformation nextTransform = { -global.Z, -global.X, -global.angle };
     auto handler = new FieldMapHandler(field_map, nextTransform);
 
     if (handler->getField(Point{ 0., 0., curr.length / 2 }).isNull())
