@@ -10,9 +10,8 @@ struct Vector
 
 struct Plane
 {
-    double A;
-    double B;
-    double C;
+	double A;
+	double B;
+	double C;
     double D;
-    friend bool HasPoint(Plane plane, Point p);
 };

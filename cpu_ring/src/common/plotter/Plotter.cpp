@@ -26,7 +26,7 @@ void Plotter::plotX(string plot_name, size_t start_turn, size_t last_turn)
 {
 	auto pFile = ofstream(config.dirName + "\\" + plot_name + "X.plt", ofstream::out);
 
-    pFile << "set terminal png medium size " << (last_turn - start_turn + 1) * 2000 << "," << 1000 << endl;
+    pFile << "set terminal png medium size " << (last_turn - start_turn + 1) * 10000 << "," << 5000 << endl;
     pFile << "set output '" << plot_name << "X.png'" << endl << endl;
 
     pFile << "set autoscale fix" << endl << endl;

@@ -20,9 +20,6 @@ public:
 private:
                    double  getAngle        (	  size_t    iS      ) const         ;
                    double  getXCorrection  (      double    angle   ) const         ;
-                   Point   convertToPlain  (      double    X       , 
-                                                  double    Y       ,
-                                                  double    angle   ) const         ;
 
     const double rho;
     const double theta;

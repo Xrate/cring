@@ -22,19 +22,15 @@ double PlainConverter::getZ(size_t iS) const
 Plane PlainConverter::getPlane(size_t iS) const
 {
     double z = getZ(iS);
-    return Plane{ 0., 0., 1., z };
+    return Plane{ 0., 0., -1., z };
 }
 
 Vector PlainConverter::getMomentum(const Particle & p, size_t iS) const
 {
-    double z = getZ(iS);
-    Point M = Point{ p.X, p.Y, z };
+	Point M = Point{ p.X, p.Y, getZ(iS) };
+	Point F = { p.p * p.aX, p.p * p.aY, p.p };
 
-    double alf_X = atan(p.aX);
-    double alf_Y = atan(p.aY);
-
-    Point F = { p.p * cos(alf_Y) * sin(alf_X), p.p * sin(alf_Y), p.p * cos(alf_Y) * cos(alf_X) };
-    return Vector{ M, F };
+	return Vector{ M, F * (1 / (1 + sqr(p.aX) + sqr(p.aY))) };
 }
 
 void PlainConverter::applyNewMomentum(Particle & p, const Vector & m, size_t) const
@@ -42,6 +38,6 @@ void PlainConverter::applyNewMomentum(Particle & p, const Vector & m, size_t) co
     p.X = m.M.X;
     p.Y = m.M.Y;
 
-    p.aX = tan(atan(m.vec.X / m.vec.Z));
-    p.aY = tan(asin(m.vec.Y / abs(m.vec)));
+	p.aX = m.vec.X / m.vec.Z;
+    p.aY = m.vec.Y / m.vec.Z;
 }

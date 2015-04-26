@@ -12,36 +12,43 @@ CurveConverter::CurveConverter(const DeviceGeometry& geometry)
 Point CurveConverter::toPlain(double X, double Y, size_t iS) const
 {
     double angle = getAngle(iS);
-    return convertToPlain(X, Y, angle);
+	double x = getXCorrection(angle) + X * cos(angle);
+	double y = Y;
+	double z = rho * sin(angle) + X * sin(angle);
+
+	return Point{ x, y, z };
 }
 
 Plane CurveConverter::getPlane(size_t iS) const
 {
     double angle = getAngle(iS);
-    double x = getXCorrection(angle);
-    double xA = 0.5*rho * (1 - cos(0.5*theta));
-    double z = rho * sin(angle);
 
-    if (z == 0) return Plane{ 0, 0, 1, 0 };
+	double x0 = getXCorrection(0.) - rho;
+	double zA = rho * sin(angle);
+	double xA = getXCorrection(angle);
 
-    double A = -z / (x - xA + rho);
-    double B = 0.;
-    double C = 1.;
-    double D = -z * (rho - xA) / (x - xA + rho);
+	double A = -zA / (xA - x0);
+	double B = 0.;
+	double C = 1.;
+	double D = zA * x0 / (xA - x0);
 
     return Plane{ A, B, C, D };
 }
 
 Vector CurveConverter::getMomentum(const Particle & p, size_t iS) const
 {
-    double angle = getAngle(iS);
-    Point M = convertToPlain(p.X, p.Y, angle);
+	Point M = toPlain(p.X, p.Y, iS);
 
-    double alf_X = atan(p.aX) - angle;
-    double alf_Y = atan(p.aY);
+	double norm = 1 + sqr(p.aX) + sqr(p.aY);
 
-    Point F = { p.p * cos(alf_Y) * sin(alf_X), p.p * sin(alf_Y), p.p * cos(alf_Y) * cos(alf_X) };
-    return Vector{ M, F };
+	double X = p.p * p.aX / norm;
+	double Y = p.p * p.aY / norm;
+	double Z = p.p / norm;
+
+	double angle = getAngle(iS);
+	Point F = { X*cos(angle) - Z*sin(angle), Y, X*sin(angle) + Z*cos(angle) };
+
+	return Vector{ M, F };
 }
 
 void CurveConverter::applyNewMomentum(Particle& p, const Vector& m, size_t iS) const
@@ -50,8 +57,12 @@ void CurveConverter::applyNewMomentum(Particle& p, const Vector& m, size_t iS) c
     p.X = (m.M.X - getXCorrection(angle)) / cos(angle);
     p.Y =  m.M.Y;
 
-    p.aX = tan(atan(m.vec.X / m.vec.Z) + angle);
-    p.aY = tan(asin(m.vec.Y / abs(m.vec)));
+	double X = m.vec.X*cos(-angle) - m.vec.Z*sin(-angle);
+	double Y = m.vec.Y;
+	double Z = m.vec.X*sin(-angle) + m.vec.Z*cos(-angle);
+
+	p.aX = X / Z;
+    p.aY = Y / Z;
 }
 
 double CurveConverter::getAngle(size_t iS) const
@@ -62,13 +73,4 @@ double CurveConverter::getAngle(size_t iS) const
 double CurveConverter::getXCorrection(double angle) const
 {
     return rho * (cos(angle) - 0.5*(1. + cos(0.5*theta)));
-}
-
-Point CurveConverter::convertToPlain(double X, double Y, double angle) const
-{
-    double x = getXCorrection(angle) + X * cos(angle);
-    double y = Y;
-    double z = rho * sin(angle) + X * sin(angle);
-
-    return Point{ x, y, z };
 }

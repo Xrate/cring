@@ -18,7 +18,7 @@ class DeviceFieldMap
 public:
     explicit       DeviceFieldMap(const ExtendedDeviceFieldMap* map);
     virtual       ~DeviceFieldMap(                       ){}
-    virtual  void  updateParticle(      Particle& p      ,
+             void  updateParticle(      Particle& p      ,
 		                                size_t    iS     ) const;
 protected:
     explicit       DeviceFieldMap(const DeviceGeometry&  , 

@@ -5,7 +5,7 @@ Point Point::Null = { 0., 0., 0. };
 
 bool Point::isNull() const
 {
-    return fabs(X) + fabs(Y) + fabs(Z) < DOUBLE_ERR;
+    return fabs(X) + fabs(Y) + fabs(Z) < 0.01;
 }
 
 Point operator+ (const Point& lhs, const Point& rhs)
@@ -26,8 +26,8 @@ Point operator*(const Point& lhs, double alfa)
 Point operator*(const Point& lhs, const Point& rhs)
 {
     return Point{ lhs.Y * rhs.Z - lhs.Z * rhs.Y,
-        lhs.Z * rhs.X - lhs.X * rhs.Z,
-        lhs.X * rhs.Y - lhs.Y * rhs.X };
+                  lhs.Z * rhs.X - lhs.X * rhs.Z,
+                  lhs.X * rhs.Y - lhs.Y * rhs.X };
 }
 
 double dist(const Point& lhs, const Point& rhs)

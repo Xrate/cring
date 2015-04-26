@@ -8,7 +8,7 @@ class FieldMapHandler;
 class HandlerCreator
 {
 public:
-    static FieldMapHandler* getPrevHandler(DeviceGeometry curr, DeviceGeometry prev, const string& field_map);
+    static FieldMapHandler* getPrevHandler(const DeviceGeometry& curr, const DeviceGeometry& prev, const string& field_map);
     static FieldMapHandler* getCurrHandler(const string& field_map);
-    static FieldMapHandler* getNextHandler(DeviceGeometry curr, DeviceGeometry next, const string& field_map);
+    static FieldMapHandler* getNextHandler(const DeviceGeometry& curr, const DeviceGeometry& next, const string& field_map);
 };

@@ -9,8 +9,8 @@ class ExtendedDeviceFieldMap : public DeviceFieldMap
 public:
     ExtendedDeviceFieldMap(const DeviceGeometry&  , 
                            const string& name     );
-    void setPrevMap(DeviceGeometry curr, DeviceGeometry prev, const string& mapName);
-    void setNextMap(DeviceGeometry curr, DeviceGeometry next, const string& mapName);
+	void setPrevMap(const DeviceGeometry& curr, const DeviceGeometry& prev, const string& mapName);
+	void setNextMap(const DeviceGeometry& curr, const DeviceGeometry& next, const string& mapName);
     Point getField(const Point& point) const override;
     
 protected:
