@@ -1,6 +1,5 @@
 #pragma once
 
-#include "global.h"
 #include "devices_2/common/Device.h"
 
 struct BeamConfig;

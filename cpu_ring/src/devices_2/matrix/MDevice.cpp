@@ -11,14 +11,14 @@ MDevice::MDevice(const DeviceParameters& params)
 
 void MDevice::initTwissMatrices()
 {
-    double C = mX_P[0], S = mX_P[1];
+    double C  = mX_P[0], S  = mX_P[1];
     double C_ = mX_P[3], S_ = mX_P[4];
 
     mX_T[0] = +1 * C *C;   mX_T[1] = -2 * C *S;    mX_T[2] = +1 * S *S;
     mX_T[3] = -1 * C *C_;  mX_T[4] = C*S_ + C_*S;  mX_T[5] = -1 * S *S_;
     mX_T[6] = +1 * C_*C_;  mX_T[7] = -2 * C_*S_;   mX_T[8] = +1 * S_*S_;
 
-    C = mY_P[0], S = mY_P[1];
+    C  = mY_P[0], S  = mY_P[1];
     C_ = mY_P[3], S_ = mY_P[4];
 
     mY_T[0] = +1 * C *C;   mY_T[1] = -2 * C *S;    mY_T[2] = +1 * S *S;

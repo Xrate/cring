@@ -2,10 +2,10 @@
 
 struct Particle;
 struct Point;
-class CoordConverter;
+class ICoordConverter;
 
 class FCalculator
 {
 public:
-    static void updateParticle(Particle&, const Point& field, const CoordConverter*, size_t iS);
+    static void updateParticle(Particle&, const Point& field, const ICoordConverter*, size_t iS);
 };

@@ -1,11 +1,11 @@
 ﻿#include "FCalculator.h"
 #include <beam/Particle.h>
 #include "helper/GeometryHelper.h"
-#include <devices_2/field/field_map/geometry/CoordConverter.h>
+#include <devices_2/field/field_map/geometry/ICoordConverter.h>
 
 void FCalculator::updateParticle(Particle& p,
                                  const Point& field,
-                                 const CoordConverter* converter,
+                                 const ICoordConverter* converter,
                                  size_t iS)
 {
 	const Vector momentum = converter->getMomentum(p, iS);

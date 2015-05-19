@@ -4,7 +4,7 @@
 
 class ExtendedDeviceFieldMap;
 class FieldMapHandler;
-class CoordConverter;
+class ICoordConverter;
 struct Point;
 struct DeviceGeometry;
 struct Particle;
@@ -26,5 +26,5 @@ protected:
     virtual  Point getField      (const Point&  point    ) const;
 
     shared_ptr<const FieldMapHandler> device_map;
-    shared_ptr<const CoordConverter> converter;
+    shared_ptr<const ICoordConverter> converter;
 };

@@ -3,6 +3,21 @@
 #include <common/logger/Logger.h>
 #include <beam/CBeam.h>
 #include <beam/Particle.h>
+#include <devices_2/field_matrix/FMDipole.h>
+#include <devices_2/field_matrix/FMDrift.h>
+#include <devices_2/field_matrix/FMQuadrupole.h>
+
+shared_ptr<Device> createDevice(const DeviceParameters& params)
+{
+	switch (params.type_)
+	{
+	case DIPOLE:     return make_shared<FMDipole>(params);
+	case DRIFT:      return make_shared<FMDrift>(params);
+	case QUADRUPOLE: return make_shared<FMQuadrupole>(params);
+	case SEXTUPOLE:  return make_shared<FMDrift>(params);
+	}
+	throw exception("DeviceFactory: enum FileNames error.");
+}
 
 Device::Device(const DeviceParameters& params)
 {

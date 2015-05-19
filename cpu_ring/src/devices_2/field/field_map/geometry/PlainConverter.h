@@ -1,9 +1,9 @@
 ﻿#pragma once
-#include "CoordConverter.h"
+#include "ICoordConverter.h"
 
 struct DeviceGeometry;
 
-class PlainConverter : public CoordConverter
+class PlainConverter : public ICoordConverter
 {
 public:
     explicit               PlainConverter  (const DeviceGeometry&   )               ;

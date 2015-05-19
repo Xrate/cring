@@ -23,90 +23,82 @@ void FreqAnalyzer::print()
 {
 	ofstream pFile = ofstream(config.dirName + "\\freqMap.out", ifstream::out);
 	for (size_t iP = 0; iP < config.particles; ++iP)
-        pFile << Qx[iP] << ' ' << Qy[iP] << endl;
-    pFile.close();
+		pFile << Qx[iP] << ' ' << Qy[iP] << endl;
+	pFile.close();
 }
 
-double findFrequency(fftw_plan& plan, double* in, fftw_complex* out, size_t nTurns_)
-{
-    fftw_execute_dft_r2c(plan, in, out);
-    size_t n = nTurns_ / 2 + 1;
-    double beta = 0., max = 0.;
-    for (unsigned iP = 1; iP < n; ++iP)
-    {
-        double x = out[iP][0];
-        double y = out[iP][1];
-        double temp = sqrt(sqr(x) + sqr(y));
-        if (temp > max)
-        {
-            max = temp;
-            beta = double(iP) / nTurns_;
-        }
-    }
-    return beta;
-}
-
-void readParticleTraj(size_t iP, double* inX, double* inY)
-{
-    string fileName = FreqAnalyzer::config.dirName + "\\particles\\" + to_string(iP) + ".out";
-    ifstream pFile = ifstream(fileName, ifstream::in);
-
-    size_t lineNumber = static_cast<size_t>(
-		static_cast <double>(rand()) / RAND_MAX * FreqAnalyzer::config.steps);
-    string line;
-    size_t counter = 0;
-
-    while (getline(pFile, line))
-    {
-        if (lineNumber == FreqAnalyzer::config.steps)
-        {
-            istringstream iss(line);
-            vector<string> words{ istream_iterator<string>{iss},
-                istream_iterator<string>{} };
-            inX[counter] = atof(words.at(1).c_str());
-            inY[counter] = atof(words.at(2).c_str());
-            lineNumber = 0;
-            ++counter;
-        }
-        lineNumber++;
-    }
-
-    pFile.close();
-    if (counter != FreqAnalyzer::config.turns)
-        throw exception(("File" + to_string(iP) + ".out has wrong format").c_str());
-}
+static double findFrequency(fftw_plan& plan, double* in, fftw_complex* out, size_t nTurns_);
+static void readParticleTraj(const DataProps& config, size_t iP, double* inX, double* inY);
 
 void FreqAnalyzer::calculate()
 {
-    clock_t begin = clock();
+	clock_t begin = clock();
 
-	auto nTurns = config.turns;
+	size_t nTurns = config.turns;
 
 	double* inXAll = static_cast<double*>(fftw_malloc(sizeof(double)* nTurns));
 	double* inYAll = static_cast<double*>(fftw_malloc(sizeof(double)* nTurns));
 	fftw_complex* outAll = static_cast<fftw_complex*>(fftw_malloc(sizeof(fftw_complex) * (nTurns / 2 + 1)));
 	fftw_plan plan = fftw_plan_dft_r2c_1d(static_cast<int>(nTurns), inXAll, outAll, FFTW_MEASURE);
 
-    #pragma omp parallel for
+	#pragma omp parallel for
 	for (int iP = 0; iP < config.particles; ++iP)
-    {
+	{
 		double* inX = static_cast<double*>(fftw_malloc(sizeof(double)* nTurns));
 		double* inY = static_cast<double*>(fftw_malloc(sizeof(double)* nTurns));
 		fftw_complex* out = static_cast<fftw_complex*>(fftw_malloc(sizeof(fftw_complex)* (nTurns / 2 + 1)));
-        readParticleTraj(iP, inX, inY);
+		readParticleTraj(config, iP, inX, inY);
 		Qx[iP] = findFrequency(plan, inX, out, nTurns);
 		Qy[iP] = findFrequency(plan, inY, out, nTurns);
-        fftw_free(inX);
-        fftw_free(inY);
-        fftw_free(out);
+		fftw_free(inX);
+		fftw_free(inY);
+		fftw_free(out);
+	}
+	fftw_free(inXAll);
+	fftw_free(inYAll);
+	fftw_free(outAll);
+	fftw_destroy_plan(plan);
+
+	cout << "Time of FFT: " << double(clock() - begin) / CLOCKS_PER_SEC << "s. " << endl;
+}
+
+double findFrequency(fftw_plan& plan, double* in, fftw_complex* out, size_t nTurns_)
+{
+    fftw_execute_dft_r2c(plan, in, out);
+
+    double max = 0.;
+	unsigned iP = 1;
+	for (; iP < nTurns_ / 2 + 1; ++iP)
+    {
+		double magnitude = sqr(out[iP][0]) + sqr(out[iP][1]);
+        if (magnitude > max)
+	        max = magnitude;
     }
-    fftw_free(inXAll);
-    fftw_free(inYAll);
-    fftw_free(outAll);
-    fftw_destroy_plan(plan);
+	return double(iP) / nTurns_;
+}
 
-    clock_t end = clock();
-    double elapsed_secs = double(end - begin) / CLOCKS_PER_SEC;
+static void readParticleTraj(const DataProps& config, size_t iP, double* inX, double* inY)
+{
+    string fileName = config.dirName + "\\particles\\" + to_string(iP) + ".out";
+    ifstream pFile = ifstream(fileName, ifstream::in);
 
-    cout << "Time of FFT: " << elapsed_secs << "s. " << endl;
+    size_t lineNumber = static_cast<size_t>(
+		static_cast <double>(rand()) / RAND_MAX * config.steps);
+    string line;
+    size_t counter = 0;
+
+    while (getline(pFile, line))
+	    if (lineNumber++ == config.steps)
+	    {
+		    istringstream iss(line);
+		    vector<string> words{ istream_iterator<string>{iss}, istream_iterator<string>{} };
+		    inX[counter] = atof(words.at(1).c_str());
+		    inY[counter] = atof(words.at(2).c_str());
+		    lineNumber = 0;
+		    ++counter;
+	    }
+
+	pFile.close();
+    if (counter != config.turns)
+        throw exception(("File" + to_string(iP) + ".out has wrong format").c_str());
 }

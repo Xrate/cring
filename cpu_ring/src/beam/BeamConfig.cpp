@@ -5,7 +5,8 @@
 BeamConfig BeamConfig::readBeamConfig(string fileName)
 {
     ifstream file(fileName);
-    if (!file) throw exception(("File " + fileName + " cannot be found").c_str());
+    if (!file) 
+		throw exception(("File " + fileName + " cannot be found").c_str());
 
     string line;
     vector<double> params;

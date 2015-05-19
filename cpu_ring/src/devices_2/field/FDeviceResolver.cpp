@@ -17,9 +17,9 @@ static shared_ptr<Device> ResolveType(FDevice* curr, const FDevice* prev, const 
 	return shared_ptr<T>(mPtr);
 }
 
-static shared_ptr<Device> ProcessNeighborsAffection(Device* curr, const FDevice* prev, const FDevice* next)
+static shared_ptr<Device> ProcessNeighborsAffection(shared_ptr<Device> curr, const FDevice* prev, const FDevice* next)
 {
-	FDevice* f_curr = dynamic_cast<FDevice*>(curr);
+	FDevice* f_curr = dynamic_cast<FDevice*>(curr.get());
 	if (typeid(*f_curr) == typeid(FMDipole))
 		return ResolveType<FMDipole, MDipole>(f_curr, prev, next);
 
@@ -32,21 +32,21 @@ static shared_ptr<Device> ProcessNeighborsAffection(Device* curr, const FDevice*
 	throw exception("Unknown device type.");
 }
 
-static FDevice* getPrevDevice(vector<Device*> pre_devices, size_t i)
+static FDevice* getPrevDevice(vector<shared_ptr<Device>> pre_devices, size_t i)
 {
 	return dynamic_cast<FDevice*>(i != 0
-		                              ? pre_devices.at(i - 1)
-		                              : pre_devices.at(pre_devices.size() - 1));
+		                              ? pre_devices.at(i - 1).get()
+		                              : pre_devices.at(pre_devices.size() - 1).get());
 }
 
-static FDevice* getNextDevice(vector<Device*> pre_devices, size_t i)
+static FDevice* getNextDevice(vector<shared_ptr<Device>> pre_devices, size_t i)
 {
 	return dynamic_cast<FDevice*>(i != pre_devices.size() - 1
-		                              ? pre_devices.at(i + 1)
-		                              : pre_devices.at(0));
+		                              ? pre_devices.at(i + 1).get()
+		                              : pre_devices.at(0).get());
 }
 
-vector<shared_ptr<Device>> FDeviceResolver::CastNonFieldDevices(vector<Device*> pre_devices)
+vector<shared_ptr<Device>> FDeviceResolver::CastNonFieldDevices(vector<shared_ptr<Device>> pre_devices)
 {
 	auto result = vector<shared_ptr<Device>>();
 	result.reserve(pre_devices.size());
@@ -57,12 +57,5 @@ vector<shared_ptr<Device>> FDeviceResolver::CastNonFieldDevices(vector<Device*> 
 		const FDevice* next = getNextDevice(pre_devices, i);
 		result.push_back(ProcessNeighborsAffection(pre_devices[i], prev, next));
 	}
-
-	for (size_t i = 0; i < pre_devices.size(); ++i)
-	{
-		delete pre_devices[i];
-		pre_devices[i] = nullptr;
-	}
-
 	return result;
 }

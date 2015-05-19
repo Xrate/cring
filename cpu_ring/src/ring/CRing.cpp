@@ -3,7 +3,6 @@
 #include <ring/RingConfig.h>
 #include <devices_2/field/FDeviceResolver.h>
 #include <devices_2/common/Device.h>
-#include <devices_2/common/DeviceFactory.h>
 #include <beam/CBeam.h>
 
 shared_ptr<const CRing> CRing::instance;
@@ -23,11 +22,11 @@ shared_ptr<const CRing> CRing::getInstance()
 CRing::CRing(shared_ptr<const RingConfig> config) :
 nSteps(0)
 {
-    vector<Device*> pre_devices;
+	vector<shared_ptr<Device>> pre_devices;
     for (string name : config->structure)
     {
         auto deviceParams = config->devices.at(name);
-        auto device = DeviceFactory::createDevice(deviceParams);
+        auto device = createDevice(deviceParams);
         nSteps += static_cast<size_t>(deviceParams.type_);
         pre_devices.push_back(device);
     }

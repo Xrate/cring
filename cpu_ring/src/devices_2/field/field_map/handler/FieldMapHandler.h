@@ -8,8 +8,6 @@ namespace physics
     struct FieldMapData;
 }
 
-class FDevice;
-struct DeviceGeometry;
 struct Point;
 
 class FieldMapHandler

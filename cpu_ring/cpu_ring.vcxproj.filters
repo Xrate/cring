@@ -42,9 +42,6 @@
     <ClCompile Include="src\devices_2\common\Device.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\devices_2\common\DeviceFactory.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="src\devices_2\matrix\MDevice.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -87,9 +84,6 @@
     <ClCompile Include="src\devices_2\field\field_map\common\primitives.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\devices_2\field\field_map\geometry\ConverterFactory.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="src\devices_2\field\field_map\geometry\CurveConverter.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -115,6 +109,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\devices_2\field\FDeviceResolver.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\devices_2\field\field_map\geometry\ICoordConverter.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -150,9 +147,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\devices_2\common\Device.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\devices_2\common\DeviceFactory.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\devices_2\common\DeviceParameters.h">
@@ -200,12 +194,6 @@
     <ClInclude Include="src\devices_2\field\field_map\common\primitives.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\devices_2\field\field_map\geometry\ConverterFactory.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\devices_2\field\field_map\geometry\CoordConverter.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="src\devices_2\field\field_map\geometry\CurveConverter.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -240,6 +228,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\common\DataProps.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\devices_2\field\field_map\geometry\ICoordConverter.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

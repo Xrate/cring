@@ -10,5 +10,5 @@ class Device;
 class FDeviceResolver
 {
 public:
-	static vector<shared_ptr<Device>> CastNonFieldDevices(vector<Device*> pre_devices);
+	static vector<shared_ptr<Device>> CastNonFieldDevices(vector<shared_ptr<Device>> pre_devices);
 };

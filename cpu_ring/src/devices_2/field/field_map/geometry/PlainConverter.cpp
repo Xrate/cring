@@ -1,7 +1,8 @@
 ﻿#include "PlainConverter.h"
+
 #include <global.h>
-#include <devices_2/common/DeviceGeometry.h>
 #include <beam/Particle.h>
+#include <devices_2/common/DeviceGeometry.h>
 
 PlainConverter::PlainConverter(const DeviceGeometry& geometry)
 : length(geometry.length),
@@ -10,8 +11,7 @@ PlainConverter::PlainConverter(const DeviceGeometry& geometry)
 
 Point PlainConverter::toPlain(double X, double Y, size_t iS) const
 {
-    double z = getZ(iS);
-    return Point{ X ,Y, z };
+	return Point{ X, Y, getZ(iS) };
 }
 
 double PlainConverter::getZ(size_t iS) const
@@ -27,7 +27,7 @@ Plane PlainConverter::getPlane(size_t iS) const
 
 Vector PlainConverter::getMomentum(const Particle & p, size_t iS) const
 {
-	Point M = Point{ p.X, p.Y, getZ(iS) };
+	Point M = toPlain(p.X, p.Y, iS);
 	Point F = { p.p * p.aX, p.p * p.aY, p.p };
 
 	return Vector{ M, F * (1 / (1 + sqr(p.aX) + sqr(p.aY))) };

@@ -2,9 +2,8 @@
 #include "handler/HandlerCreator.h"
 #include "handler/FieldMapHandler.h"
 #include "common/primitives.h"
-#include "geometry/ConverterFactory.h"
 #include "calculation/FCalculator.h"
-#include "geometry/CoordConverter.h"
+#include "geometry/ICoordConverter.h"
 #include <beam/Particle.h>
 #include "ExtendedDeviceFieldMap.h"
 
@@ -13,7 +12,7 @@ DeviceFieldMap::DeviceFieldMap(const DeviceGeometry& geometry, const string& nam
     if (!name.empty())
         device_map = shared_ptr<const FieldMapHandler>(HandlerCreator::getCurrHandler(name));
 
-    converter = shared_ptr<const CoordConverter>(ConverterFactory::getConverter(geometry));
+    converter = shared_ptr<const ICoordConverter>(getConverter(geometry));
 }
 
 DeviceFieldMap::DeviceFieldMap(const ExtendedDeviceFieldMap* map)

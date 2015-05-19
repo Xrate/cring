@@ -1,10 +1,10 @@
 ﻿#pragma once
 
-#include "CoordConverter.h"
+#include "ICoordConverter.h"
 
 struct DeviceGeometry;
 
-class CurveConverter : public CoordConverter
+class CurveConverter : public ICoordConverter
 {
 public:
     explicit               CurveConverter  (const DeviceGeometry&   )               ;

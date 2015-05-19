@@ -4,7 +4,7 @@
 #include <devices_2/common/Device.h>
 
 class DeviceFieldMap;
-class CoordConverter;
+class ICoordConverter;
 class CBeam;
 struct DeviceParameters;
 

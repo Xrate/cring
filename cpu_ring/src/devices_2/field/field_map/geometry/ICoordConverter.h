@@ -1,10 +1,12 @@
 ﻿#pragma once
 
+#include <global.h>
 #include "geometry.h"
 
+struct DeviceGeometry;
 struct Particle;
 
-class CoordConverter
+class ICoordConverter
 {
 public:
     virtual Point  toPlain         (      double    X ,
@@ -17,8 +19,7 @@ public:
                                     const Vector&   m ,
 									      size_t    iS) const      = 0;
 
-    virtual       ~CoordConverter  (                  ){}
-
-protected:
-    const size_t*  dev_step;
+    virtual       ~ICoordConverter  (                  ){}
 };
+
+shared_ptr<ICoordConverter> getConverter(const DeviceGeometry& geometry);
