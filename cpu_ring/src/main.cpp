@@ -5,10 +5,10 @@
 #include "beam/BeamConfig.h"
 #include "beam/CBeam.h"
 
-#include "analysis/FreqAnalyzer.h"
-#include "common/logger/Logger.h"
-#include "common/plotter/Plotter.h"
-#include "common/DataProps.h"
+#include "utils/beta_freq/FreqAnalyzer.h"
+#include "utils/logger/Logger.h"
+#include "utils/plotter/Plotter.h"
+#include "utils/DataProps.h"
 
 #include <vld.h>
 

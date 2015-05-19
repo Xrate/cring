@@ -1,7 +1,7 @@
 ﻿#pragma once
 
 #include "global.h"
-#include <devices_2/common/DeviceParameters.h>
+#include <device/common/DeviceParameters.h>
 #include <map>
 
 struct FileNames

@@ -1,15 +1,16 @@
 ﻿#include "CRing.h"
 #include <ctime>
 #include <ring/RingConfig.h>
-#include <devices_2/field/FDeviceResolver.h>
-#include <devices_2/common/Device.h>
+#include <device/field/FDeviceResolver.h>
+#include <device/common/Device.h>
 #include <beam/CBeam.h>
 
 shared_ptr<const CRing> CRing::instance;
 
 shared_ptr<const CRing> CRing::createInstance(const shared_ptr<const RingConfig> config)
 {
-    if (!instance) instance = shared_ptr<CRing const>(new CRing(config));
+    if (!instance) 
+		instance = shared_ptr<CRing const>(new CRing(config));
     return instance;
 }
 

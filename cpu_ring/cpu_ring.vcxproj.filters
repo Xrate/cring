@@ -27,91 +27,91 @@
     <ClCompile Include="src\ring\RingConfig.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\common\logger\Logger.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\common\plotter\Plotter.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\analysis\FreqAnalyzer.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="src\beam\ParticleCreator\ParticleCreator.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\devices_2\common\Device.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\devices_2\matrix\MDevice.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\devices_2\matrix\MDipole.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\devices_2\matrix\MQuadrupole.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\devices_2\matrix\MDrift.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\devices_2\field\field_map\DeviceFieldMap.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\devices_2\field\FDevice.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\devices_2\field_matrix\FMDipole.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\devices_2\field_matrix\FMDrift.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\devices_2\field_matrix\FMQuadrupole.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\beam\BeamConfig.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\devices_2\field\field_map\ExtendedDeviceFieldMap.cpp">
+    <ClCompile Include="src\utils\logger\Logger.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\devices_2\field\field_map\handler\FieldMapHandler.cpp">
+    <ClCompile Include="src\utils\plotter\Plotter.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\devices_2\field\field_map\handler\HandlerCreator.cpp">
+    <ClCompile Include="src\utils\beta_freq\FreqAnalyzer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\devices_2\field\field_map\common\primitives.cpp">
+    <ClCompile Include="src\device\common\Device.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\devices_2\field\field_map\geometry\CurveConverter.cpp">
+    <ClCompile Include="src\device\field\field_map\calculation\helper\GeometryHelper.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\devices_2\field\field_map\geometry\PlainConverter.cpp">
+    <ClCompile Include="src\device\field\field_map\calculation\FCalculator.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\devices_2\field\field_map\handler\physics\coord\CoordBooster.cpp">
+    <ClCompile Include="src\device\field\field_map\common\primitives.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\devices_2\field\field_map\handler\physics\coord\CoordTransformation.cpp">
+    <ClCompile Include="src\device\field\field_map\geometry\CurveConverter.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\devices_2\field\field_map\handler\physics\data\FieldMapData.cpp">
+    <ClCompile Include="src\device\field\field_map\geometry\ICoordConverter.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\devices_2\field\field_map\handler\physics\data\FieldMapDataReader.cpp">
+    <ClCompile Include="src\device\field\field_map\geometry\PlainConverter.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\devices_2\field\field_map\calculation\helper\GeometryHelper.cpp">
+    <ClCompile Include="src\device\field\field_map\handler\physics\coord\CoordBooster.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\devices_2\field\field_map\calculation\FCalculator.cpp">
+    <ClCompile Include="src\device\field\field_map\handler\physics\coord\CoordTransformation.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\devices_2\field\FDeviceResolver.cpp">
+    <ClCompile Include="src\device\field\field_map\handler\physics\data\FieldMapData.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\devices_2\field\field_map\geometry\ICoordConverter.cpp">
+    <ClCompile Include="src\device\field\field_map\handler\physics\data\FieldMapDataReader.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\device\field\field_map\handler\FieldMapHandler.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\device\field\field_map\handler\HandlerCreator.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\device\field\field_map\DeviceFieldMap.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\device\field\field_map\ExtendedDeviceFieldMap.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\device\field\FDevice.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\device\field\FDeviceResolver.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\device\field_matrix\FMDipole.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\device\field_matrix\FMDrift.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\device\field_matrix\FMQuadrupole.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\device\matrix\MDevice.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\device\matrix\MDipole.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\device\matrix\MDrift.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\device\matrix\MQuadrupole.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -128,109 +128,109 @@
     <ClInclude Include="src\ring\RingConfig.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\common\logger\Logger.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\common\plotter\Plotter.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\analysis\FreqAnalyzer.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\common\logger\ftoa.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="src\beam\ParticleCreator\ParticleCreator.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\beam\Particle.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\devices_2\common\Device.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\devices_2\common\DeviceParameters.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\devices_2\field\FDevice.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\devices_2\matrix\MDipole.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\devices_2\matrix\MQuadrupole.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\devices_2\matrix\MDrift.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\devices_2\field_matrix\FMDipole.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\devices_2\field_matrix\FMDrift.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\devices_2\field_matrix\FMQuadrupole.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\devices_2\field\field_map\DeviceFieldMap.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="src\beam\BeamConfig.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\devices_2\field\field_map\ExtendedDeviceFieldMap.h">
+    <ClInclude Include="src\utils\logger\ftoa.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\devices_2\common\DeviceGeometry.h">
+    <ClInclude Include="src\utils\logger\Logger.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\devices_2\field\field_map\handler\FieldMapHandler.h">
+    <ClInclude Include="src\utils\plotter\Plotter.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\devices_2\field\field_map\handler\HandlerCreator.h">
+    <ClInclude Include="src\utils\DataProps.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\devices_2\field\field_map\common\primitives.h">
+    <ClInclude Include="src\utils\beta_freq\FreqAnalyzer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\devices_2\field\field_map\geometry\CurveConverter.h">
+    <ClInclude Include="src\device\common\Device.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\devices_2\field\field_map\geometry\PlainConverter.h">
+    <ClInclude Include="src\device\common\DeviceGeometry.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\devices_2\matrix\MDevice.h">
+    <ClInclude Include="src\device\common\DeviceParameters.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\devices_2\field\field_map\handler\physics\coord\CoordBooster.h">
+    <ClInclude Include="src\device\field\field_map\calculation\helper\GeometryHelper.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\devices_2\field\field_map\handler\physics\coord\CoordTransformation.h">
+    <ClInclude Include="src\device\field\field_map\calculation\FCalculator.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\devices_2\field\field_map\handler\physics\data\FieldMapData.h">
+    <ClInclude Include="src\device\field\field_map\common\primitives.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\devices_2\field\field_map\handler\physics\data\FieldMapDataReader.h">
+    <ClInclude Include="src\device\field\field_map\geometry\CurveConverter.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\devices_2\field\field_map\calculation\helper\GeometryHelper.h">
+    <ClInclude Include="src\device\field\field_map\geometry\geometry.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\devices_2\field\field_map\calculation\FCalculator.h">
+    <ClInclude Include="src\device\field\field_map\geometry\ICoordConverter.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\devices_2\field\field_map\geometry\geometry.h">
+    <ClInclude Include="src\device\field\field_map\geometry\PlainConverter.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\devices_2\field\FDeviceResolver.h">
+    <ClInclude Include="src\device\field\field_map\handler\physics\coord\CoordBooster.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\common\DataProps.h">
+    <ClInclude Include="src\device\field\field_map\handler\physics\coord\CoordTransformation.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\devices_2\field\field_map\geometry\ICoordConverter.h">
+    <ClInclude Include="src\device\field\field_map\handler\physics\data\FieldMapData.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\device\field\field_map\handler\physics\data\FieldMapDataReader.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\device\field\field_map\handler\FieldMapHandler.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\device\field\field_map\handler\HandlerCreator.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\device\field\field_map\DeviceFieldMap.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\device\field\field_map\ExtendedDeviceFieldMap.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\device\field\FDevice.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\device\field\FDeviceResolver.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\device\field_matrix\FMDipole.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\device\field_matrix\FMDrift.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\device\field_matrix\FMQuadrupole.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\device\matrix\MDevice.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\device\matrix\MDipole.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\device\matrix\MDrift.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\device\matrix\MQuadrupole.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
