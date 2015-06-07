@@ -39,7 +39,7 @@ Vector CurveConverter::getMomentum(const Particle & p, size_t iS) const
 {
 	Point M = toPlain(p.X, p.Y, iS);
 
-	double norm = 1 + sqr(p.aX) + sqr(p.aY);
+	double norm = sqrt(1 + sqr(p.aX) + sqr(p.aY));
 
 	double X = p.p * p.aX / norm;
 	double Y = p.p * p.aY / norm;

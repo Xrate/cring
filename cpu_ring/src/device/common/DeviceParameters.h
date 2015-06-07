@@ -4,8 +4,8 @@
 
 enum DeviceType // Number is nSteps for device (cannot be the same!)
 {
-    DIPOLE = 25,
-    DRIFT = 100,
+    DIPOLE = 200,
+    DRIFT = 500,
     QUADRUPOLE = 20,
     SEXTUPOLE = 15
 };

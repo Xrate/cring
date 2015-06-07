@@ -30,7 +30,7 @@ Vector PlainConverter::getMomentum(const Particle & p, size_t iS) const
 	Point M = toPlain(p.X, p.Y, iS);
 	Point F = { p.p * p.aX, p.p * p.aY, p.p };
 
-	return Vector{ M, F * (1 / (1 + sqr(p.aX) + sqr(p.aY))) };
+	return Vector{ M, F * (1 / sqrt(1 + sqr(p.aX) + sqr(p.aY))) };
 }
 
 void PlainConverter::applyNewMomentum(Particle & p, const Vector & m, size_t) const
