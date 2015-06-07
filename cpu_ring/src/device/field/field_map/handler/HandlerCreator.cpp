@@ -11,13 +11,12 @@ FieldMapHandler* HandlerCreator::getPrevHandler(const DeviceGeometry& curr,
                                                 const string& field_map)
 {
     CoordTransformation global = calculateTransformation(curr, prev);
-    CoordTransformation prevTransform = { global.Z, -global.X, -global.angle };
+    CoordTransformation prevTransform = { global.Z, -global.X, global.angle };
     auto handler = new FieldMapHandler(field_map, prevTransform);
 
     if (handler->getField(Point{ 0., 0., -curr.length / 2 }).isNull())
     {
-        delete handler;
-        return nullptr;
+		delete handler; handler = nullptr;
     }
     return handler;
 }
@@ -40,13 +39,12 @@ FieldMapHandler* HandlerCreator::getNextHandler(const DeviceGeometry& curr,
                                                 const string& field_map)
 {
     CoordTransformation global = calculateTransformation(next, curr);
-    CoordTransformation nextTransform = { -global.Z, -global.X, global.angle };
+    CoordTransformation nextTransform = { -global.Z, -global.X, -global.angle };
     auto handler = new FieldMapHandler(field_map, nextTransform);
 
     if (handler->getField(Point{ 0., 0., curr.length / 2 }).isNull())
     {
-        delete handler;
-        return nullptr;
+		delete handler; handler = nullptr;
     }
     return handler;
 }

@@ -15,23 +15,23 @@ CoordTransformation physics::calculateTransformation(DeviceGeometry curr, Device
         t.X = 0.;
         t.angle = 0.;
     }
-    else if (prev.angle != 0. && curr.angle == 0.)
+    else if (prev.angle == 0. && curr.angle != 0.)
     {
-        auto rho = prev.length / prev.angle;
-        auto angle = prev.angle / 2;
+		auto rho = curr.length / curr.angle;
+		auto angle = curr.angle / 2;
         auto dR = rho / 2. * (1 - cos(angle));
 
-        t.Z = curr.length / 2 + rho*sin(angle) - dR*sin(angle);
+		t.Z = prev.length / 2 + rho*sin(angle) - dR*sin(angle);
         t.X = rho*(1 - cos(angle)) + dR*cos(angle);
         t.angle = angle;
     }
-    else if (prev.angle == 0. && curr.angle != 0)
+    else if (prev.angle != 0. && curr.angle == 0)
     {
-        auto rho = curr.length / curr.angle;
-        auto angle = curr.angle / 2;
+		auto rho = prev.length / prev.angle;
+		auto angle = prev.angle / 2;
         auto dR = rho / 2. * (1 - cos(angle));
-        t.Z = prev.length * cos(angle) / 2 + rho*sin(angle);
-        t.X = prev.length * sin(angle) / 2 + dR;
+		t.Z = curr.length * cos(angle) / 2 + rho*sin(angle);
+		t.X = curr.length * sin(angle) / 2 + dR;
         t.angle = angle;
     }
     else

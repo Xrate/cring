@@ -77,7 +77,7 @@ Field FieldMapData::getFieldInPoint(const Point& p) const
 {
     try
     {
-		return fitField(getNearestPoints(this, p)) * 0.963;
+		return fitField(getNearestPoints(this, p)) * 0.959;
     }
 	catch (OutOfRangeException)
     {

@@ -28,9 +28,10 @@ Plane PlainConverter::getPlane(size_t iS) const
 Vector PlainConverter::getMomentum(const Particle & p, size_t iS) const
 {
 	Point M = toPlain(p.X, p.Y, iS);
-	Point F = { p.p * p.aX, p.p * p.aY, p.p };
+	double norm = sqrt(1 + sqr(p.aX) + sqr(p.aY));
+	Point F = { p.p * p.aX / norm, p.p * p.aY / norm, p.p / norm};
 
-	return Vector{ M, F * (1 / sqrt(1 + sqr(p.aX) + sqr(p.aY))) };
+	return Vector{ M, F };
 }
 
 void PlainConverter::applyNewMomentum(Particle & p, const Vector & m, size_t) const
