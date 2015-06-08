@@ -45,13 +45,11 @@ void Logger::printParticles()
     #pragma omp parallel for
     for (int iP = 0; iP < beam->size(); ++iP)
     {
-        char res[53];
+        char res[33];
         ftoa(beam->path(), res, 6, 3);
         ftoa(beamPointers.particles[iP].X, res + 12, 1, 6);
         ftoa(beamPointers.particles[iP].Y, res + 22, 1, 6);
-        ftoa(beamPointers.particles[iP].aX, res + 32, 1, 6);
-        ftoa(beamPointers.particles[iP].aY, res + 42, 1, 6);
-        res[51] = '\n';
+        res[31] = '\n';
         *pFile[iP] << res;
     }
 }

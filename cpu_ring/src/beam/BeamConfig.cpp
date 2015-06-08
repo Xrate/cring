@@ -40,5 +40,5 @@ BeamConfig::BeamConfig(const double params[10])
     numTurns = static_cast<size_t>(params[9]);
     distType = UNIFORM;
     energy = params[6];
-    momentumSpread = params[7]*0.;
+    momentumSpread = params[7];
 }
