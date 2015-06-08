@@ -6,6 +6,6 @@
 120    # Emittance X (pi*1e-6 m*rad)
 120    # Emittance Y (pi*1e-6 m*rad)
 3      # Momentum (GeV)
-0.003  # Momentum Spread (1)
-1      # Number of Particles
+0.000  # Momentum Spread (1)
+8      # Number of Particles
 1      # Turns count

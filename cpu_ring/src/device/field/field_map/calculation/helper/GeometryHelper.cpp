@@ -22,13 +22,13 @@ static Point getMovementCenter(const Vector& momentum, const Point& field)
 
 static Vector getDirectionVector(const Plane& p1, const Plane& p2)
 {
-	double x = (p2.D*p1.C - p1.D*p2.C) / (p1.A*p2.C - p2.A*p1.C);
-	double y = 0;
-	double z = -(p1.A*x + p1.D) / p1.C;
-
 	double m = p1.B * p2.C - p1.C * p2.B;
 	double n = p1.C * p2.A - p1.A * p2.C;
 	double p = p1.A * p2.B - p1.B * p2.A;
+
+	double x = 0;
+	double y = (p2.D*p1.C - p1.D*p2.C) / (p1.B*p2.C - p2.B*p1.C);
+	double z = -(p1.B*x + p1.D) / p1.C;
 
 	return Vector{ Point{ x, y, z }, Point{ m, n, p } };
 }
